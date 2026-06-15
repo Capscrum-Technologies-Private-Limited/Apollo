@@ -1,0 +1,3 @@
+# Set MIME types for .dc.html files
+/*.dc.html
+  Content-Type: text/html
