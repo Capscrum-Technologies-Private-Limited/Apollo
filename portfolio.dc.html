@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#fffaf0;}
+  ::selection{background:#ffb084;color:#0a0a0a;}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="page-transition.js"></script>
+</helmet>
+
+<div data-screen-label="Portfolio" style="background:#fffaf0;color:#3a3a3a;font-family:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;">
+
+  <div style="background:#0a0a0a;color:#f5f0e0;font-size:12.5px;">
+    <div style="max-width:1280px;margin:0 auto;padding:8px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <span style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;"><a href="tel:0421602524" style="color:#f5f0e0;text-decoration:none;">Call 0421 602 524</a><a href="mailto:Apollo.au@outlook.com" style="color:#f5f0e0;text-decoration:none;">Apollo.au@outlook.com</a></span>
+      <span style="color:#cdbf9e;">Mon–Sat 6am–10:30pm · Sun 7:30am–7pm · Albury NSW</span>
+    </div>
+  </div>
+
+  <nav style="position:sticky;top:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:rgba(255,250,240,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #ece6d6;">
+    <a href="index.dc.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#0a0a0a;">
+      <span style="width:26px;height:26px;border-radius:9px;background:#0a0a0a;display:flex;align-items:center;justify-content:center;"><span style="width:11px;height:11px;border-radius:50%;background:#ffb084;display:block;"></span></span>
+      <span style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:21px;letter-spacing:-0.5px;color:#0a0a0a;">Apollo Services</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:28px;">
+      <a href="index.dc.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">Home</a>
+      <a href="about.dc.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">About</a>
+      <a href="services.dc.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">Services</a>
+      <a href="portfolio.dc.html" style="text-decoration:none;color:#0a0a0a;font-size:14px;font-weight:600;">Portfolio</a>
+      <a href="career.dc.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">Career</a>
+      <a href="contact.dc.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">Contact</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <a href="contact.dc.html" style="text-decoration:none;color:#0a0a0a;font-size:14px;font-weight:600;white-space:nowrap;">Request quote</a>
+      <a href="contact.dc.html" style="text-decoration:none;display:inline-flex;align-items:center;height:42px;padding:0 18px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:14px;font-weight:600;white-space:nowrap;" style-hover="background:#262626;">Book service</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header style="position:relative;overflow:hidden;background:#faf5e8;border-bottom:1px solid #ece6d6;">
+    <div data-float="0.4" style="position:absolute;top:30px;right:60px;width:90px;height:90px;border-radius:50%;background:#ff4d8b;opacity:0.7;"></div>
+    <div data-float="0.7" style="position:absolute;bottom:-40px;left:12%;width:130px;height:110px;border-radius:50% 50% 0 0;background:#a4d4c5;opacity:0.7;"></div>
+    <div style="max-width:1280px;margin:0 auto;padding:64px 28px 70px;position:relative;z-index:1;">
+      <div style="font-size:13px;color:#6a6a6a;margin-bottom:16px;"><a href="index.dc.html" style="color:#6a6a6a;text-decoration:none;">Home</a> &nbsp;/&nbsp; <span style="color:#0a0a0a;font-weight:600;">Portfolio</span></div>
+      <h1 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:54px;line-height:1.02;letter-spacing:-2px;color:#0a0a0a;margin:0 0 16px;max-width:760px;">Our recent work across the Albury region.</h1>
+      <p style="font-size:19px;line-height:1.55;color:#3a3a3a;max-width:580px;margin:0;">A selection of projects — from multi-tenant buildings and CBD offices to bond cleans, exterior restorations and ongoing facility care.</p>
+    </div>
+  </header>
+
+  <!-- FILTER + GALLERY -->
+  <section style="max-width:1280px;margin:0 auto;padding:56px 28px 80px;">
+    <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:34px;">
+      <sc-for list="{{ filters }}" as="f" hint-placeholder-count="5"><button onClick="{{ f.onSelect }}" style="{{ f.style }}">{{ f.label }}</button></sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+      <sc-for list="{{ shown }}" as="p" hint-placeholder-count="9">
+        <div data-card style="border-radius:16px;background:#fffaf0;border:1px solid #ece6d6;overflow:hidden;cursor:pointer;will-change:transform;">
+          <div style="height:200px;overflow:hidden;"><div data-card-img style="{{ p.imgStyle }}"></div></div>
+          <div style="padding:22px 24px;">
+            <span style="{{ p.tagStyle }}">{{ p.tag }}</span>
+            <h3 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:21px;letter-spacing:-0.5px;color:#0a0a0a;margin:12px 0 8px;">{{ p.title }}</h3>
+            <p style="font-size:14px;line-height:1.5;color:#6a6a6a;margin:0 0 14px;">{{ p.line }}</p>
+            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#6a6a6a;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:block;"></span>{{ p.location }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <section style="background:#1a3a3a;color:#fff;">
+    <div style="max-width:1280px;margin:0 auto;padding:64px 28px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center;">
+      <div data-reveal><div style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:46px;letter-spacing:-2px;color:#ff4d8b;line-height:1;">1,200+</div><div style="font-size:14px;color:rgba(255,255,255,0.78);margin-top:10px;">Projects completed</div></div>
+      <div data-reveal><div style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:46px;letter-spacing:-2px;color:#a4d4c5;line-height:1;">3,000+</div><div style="font-size:14px;color:rgba(255,255,255,0.78);margin-top:10px;">Happy clients</div></div>
+      <div data-reveal><div style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:46px;letter-spacing:-2px;color:#e8b94a;line-height:1;">4.9★</div><div style="font-size:14px;color:rgba(255,255,255,0.78);margin-top:10px;">Average rating</div></div>
+      <div data-reveal><div style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:46px;letter-spacing:-2px;color:#ffb084;line-height:1;">100%</div><div style="font-size:14px;color:rgba(255,255,255,0.78);margin-top:10px;">Satisfaction guarantee</div></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="max-width:1280px;margin:0 auto;padding:80px 28px;">
+    <div data-reveal style="position:relative;border-radius:24px;background:#faf5e8;border:1px solid #ece6d6;overflow:hidden;padding:64px 48px;text-align:center;">
+      <div data-float="0.3" style="position:absolute;left:-30px;bottom:-60px;width:200px;height:160px;border-radius:50% 50% 0 0;background:#ffb084;opacity:0.85;"></div>
+      <div data-float="0.5" style="position:absolute;right:-20px;bottom:-70px;width:190px;height:150px;border-radius:50% 50% 0 0;background:#b8a4ed;opacity:0.85;"></div>
+      <div style="position:relative;">
+        <h2 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:42px;line-height:1.05;letter-spacing:-1.5px;color:#0a0a0a;margin:0 0 14px;">Your project could be next.</h2>
+        <p style="font-size:18px;color:#3a3a3a;max-width:460px;margin:0 auto 30px;line-height:1.5;">Tell us about your space and we'll show you exactly how we'd approach it.</p>
+        <a href="contact.dc.html" style="text-decoration:none;display:inline-flex;align-items:center;height:50px;padding:0 26px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:15px;font-weight:600;" style-hover="background:#262626;">Start a project →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#faf5e8;position:relative;overflow:hidden;border-top:1px solid #ece6d6;">
+    <div style="max-width:1280px;margin:0 auto;padding:64px 28px 40px;position:relative;z-index:1;">
+      <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:56px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><span style="width:24px;height:24px;border-radius:9px;background:#0a0a0a;display:flex;align-items:center;justify-content:center;"><span style="width:10px;height:10px;border-radius:50%;background:#ffb084;display:block;"></span></span><span style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;letter-spacing:-0.5px;color:#0a0a0a;">Apollo Services</span></div>
+          <p style="font-size:14px;line-height:1.55;color:#6a6a6a;max-width:300px;margin:0;">A locally owned cleaning & support company transforming homes and businesses across the Albury region — 35+ trained professionals, 3,000+ satisfied clients, eco-friendly methods.</p>
+        </div>
+        <div><div style="font-size:13px;font-weight:600;color:#0a0a0a;margin-bottom:14px;">Explore</div><div style="display:flex;flex-direction:column;gap:10px;font-size:14px;"><a href="index.dc.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Home</a><a href="about.dc.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">About</a><a href="services.dc.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Services</a><a href="contact.dc.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Get a quote</a></div></div>
+        <div><div style="font-size:13px;font-weight:600;color:#0a0a0a;margin-bottom:14px;">Company</div><div style="display:flex;flex-direction:column;gap:10px;font-size:14px;"><a href="portfolio.dc.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Portfolio</a><a href="career.dc.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Career</a><a href="contact.dc.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Contact</a></div></div>
+        <div><div style="font-size:13px;font-weight:600;color:#0a0a0a;margin-bottom:14px;">Contact</div><div style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:#6a6a6a;"><span>0421 602 524</span><span>Apollo.au@outlook.com</span><span>Dean St, Albury NSW 2640</span><span>Mon–Sat 6am–10:30pm</span></div></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-top:24px;border-top:1px solid #ece6d6;"><span style="font-size:13px;color:#9a9a9a;">© 2026 Apollo Services · Albury NSW</span><span style="font-size:13px;color:#9a9a9a;display:flex;align-items:center;gap:7px;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:block;"></span>Now taking bookings</span></div>
+    </div>
+    <div data-float="0.3" style="position:absolute;left:-60px;bottom:-90px;width:380px;height:240px;border-radius:50% 50% 0 0;background:#b8a4ed;opacity:0.5;"></div>
+    <div data-float="0.45" style="position:absolute;right:-40px;bottom:-110px;width:420px;height:260px;border-radius:50% 50% 0 0;background:#ffb084;opacity:0.5;"></div>
+    <div data-float="0.2" style="position:absolute;left:42%;bottom:-130px;width:340px;height:240px;border-radius:50% 50% 0 0;background:#e8b94a;opacity:0.45;"></div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { filter: 'all' };
+  colors = { pink: '#ff4d8b', teal: '#1a3a3a', lavender: '#b8a4ed', peach: '#ffb084', ochre: '#e8b94a', mint: '#a4d4c5', coral: '#ff6b5a' };
+  filterDefs = [
+    { id: 'all', label: 'All work' }, { id: 'commercial', label: 'Commercial' }, { id: 'residential', label: 'Residential' }, { id: 'endlease', label: 'End of lease' }, { id: 'exterior', label: 'Exterior' }, { id: 'support', label: 'Support' }
+  ];
+  workData = [
+    { cat: 'commercial', tag: 'Commercial Cleaning', title: 'Multi-tenant building', line: 'Nightly resets across common areas and amenities — zero complaints in 12 months.', location: 'Albury CBD', c: 'pink', kw: 'office,building' },
+    { cat: 'commercial', tag: 'Office Cleaning', title: 'CBD professional office', line: 'After-hours program built around business hours; spotless every single morning.', location: 'Albury NSW', c: 'teal', kw: 'office' },
+    { cat: 'endlease', tag: 'End of Lease', title: '3-bedroom unit bond clean', line: 'Bond-back guaranteed clean — full deposit returned, property manager impressed.', location: 'Lavington', c: 'lavender', kw: 'apartment' },
+    { cat: 'residential', tag: 'Residential', title: 'Family home deep clean', line: 'Full 125-point reset with pet-friendly products for a busy household.', location: 'Wodonga', c: 'ochre', kw: 'house,interior' },
+    { cat: 'exterior', tag: 'Pressure Cleaning', title: 'Driveway & facade restore', line: 'High-pressure restoration of driveways, paths and a tired building facade.', location: 'East Albury', c: 'mint', kw: 'driveway' },
+    { cat: 'commercial', tag: 'Facility Management', title: 'Ongoing site care', line: 'End-to-end facility upkeep keeping the property safe, clean and compliant.', location: 'Thurgoona', c: 'coral', kw: 'building,maintenance' },
+    { cat: 'residential', tag: 'Carpet Cleaning', title: 'Whole-home carpets', line: 'Truck-mounted steam clean lifting years of stains, odours and allergens.', location: 'Albury NSW', c: 'peach', kw: 'carpet' },
+    { cat: 'support', tag: 'Personal Care', title: 'In-home support program', line: 'Compassionate daily-living support helping a client live independently.', location: 'Wodonga', c: 'teal', kw: 'care,elderly' },
+    { cat: 'exterior', tag: 'Window Cleaning', title: 'Two-storey window detail', line: 'Streak-free interior & exterior glass, frames and tracks across the home.', location: 'Albury NSW', c: 'lavender', kw: 'window' }
+  ];
+
+  componentDidMount() { this._mounted = true; this._waitGsap(0); }
+  componentWillUnmount() { this._mounted = false; }
+  _waitGsap(t) { if (window.gsap && window.ScrollTrigger) { this.initFX(); return; } if (t > 40) return; setTimeout(() => this._waitGsap(t + 1), 100); }
+  initFX() {
+    const g = window.gsap, ST = window.ScrollTrigger; g.registerPlugin(ST);
+    document.querySelectorAll('[data-reveal]').forEach(el => g.fromTo(el, { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } }));
+    document.querySelectorAll('[data-float]').forEach(el => { const sp = parseFloat(el.getAttribute('data-float')) || 0.4; g.to(el, { y: -60 * sp, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 0.7 } }); });
+    this.cardFX();
+  }
+  cardFX() {
+    const g = window.gsap;
+    const hexA = (h, a) => { const n = parseInt(h.slice(1), 16); return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; };
+    document.querySelectorAll('[data-card]').forEach(card => {
+      if (card._fx) return; card._fx = true;
+      const img = card.querySelector('[data-card-img]');
+      card.addEventListener('mouseenter', () => { g.to(card, { y: -8, boxShadow: '0 24px 50px rgba(26,58,58,0.18)', borderColor: '#d8cfb8', duration: 0.4, ease: 'power3.out' }); if (img) g.to(img, { scale: 1.08, duration: 0.6, ease: 'power3.out' }); });
+      card.addEventListener('mouseleave', () => { g.to(card, { y: 0, boxShadow: '0 0px 0px rgba(0,0,0,0)', borderColor: '#ece6d6', duration: 0.4, ease: 'power3.out' }); if (img) g.to(img, { scale: 1, duration: 0.6, ease: 'power3.out' }); });
+    });
+  }
+  componentDidUpdate() {
+    const g = window.gsap;
+    if (!g) return;
+    g.fromTo('[data-card]', { y: 30, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.05, ease: 'power3.out' });
+    this.cardFX();
+    window.ScrollTrigger && window.ScrollTrigger.refresh();
+  }
+
+  renderVals() {
+    const s = this.state, C = this.colors;
+    const chipBase = "font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;font-weight:600;padding:10px 16px;border-radius:9999px;cursor:pointer;transition:all 0.18s;";
+    const filters = this.filterDefs.map(f => ({ ...f, onSelect: () => this.setState({ filter: f.id }), style: chipBase + (s.filter === f.id ? 'background:#0a0a0a;color:#fff;border:1px solid #0a0a0a;' : 'background:#fffaf0;color:#3a3a3a;border:1px solid #e0d9c6;') }));
+    let seed = 30;
+    const shown = this.workData.filter(w => s.filter === 'all' || w.cat === s.filter).map(w => {
+      seed += 1;
+      const ac = C[w.c], dark = (w.c === 'pink' || w.c === 'teal' || w.c === 'coral');
+      return { ...w,
+        imgStyle: "width:100%;height:100%;background-image:url('https://loremflickr.com/640/420/" + w.kw + "?lock=" + seed + "');background-size:cover;background-position:center;background-color:" + ac + ";will-change:transform;",
+        tagStyle: 'display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:9999px;font-size:12px;font-weight:700;background:' + ac + ';color:' + (dark ? '#fff' : '#0a0a0a') + ';'
+      };
+    });
+    return { filters, shown };
+  }
+}
+</script>
+</body>
+</html>
