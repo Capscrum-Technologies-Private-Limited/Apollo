@@ -1,14 +1,674 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="./support.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
-    <script>
-        // Redirect to index.dc.html
-        window.location.href = 'index.dc.html';
-    </script>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#fffaf0;}
+  ::selection{background:#ffb084;color:#0a0a0a;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+  @keyframes marq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="page-transition.js"></script>
+</helmet>
+
+<div data-screen-label="APOLLO Warm Home" style="background:#fffaf0;color:#3a3a3a;font-family:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;">
+
+  <!-- INTRO ANIMATION (multicolor line draws the word) -->
+  <div id="apollo-intro" style="position:fixed;inset:0;z-index:2000;background:#fffaf0;display:flex;align-items:center;justify-content:center;">
+    <svg id="apollo-intro-svg" width="460" height="140" viewBox="0 0 460 140" fill="none" style="max-width:78vw;">
+      <defs>
+        <linearGradient id="apolloGrad" x1="30" y1="0" x2="430" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#ff4d8b"></stop>
+          <stop offset="0.22" stop-color="#ff6b5a"></stop>
+          <stop offset="0.44" stop-color="#e8b94a"></stop>
+          <stop offset="0.64" stop-color="#a4d4c5"></stop>
+          <stop offset="0.82" stop-color="#1a3a3a"></stop>
+          <stop offset="1" stop-color="#b8a4ed"></stop>
+        </linearGradient>
+      </defs>
+      <text id="apollo-intro-text" x="230" y="74" text-anchor="middle" dominant-baseline="central" font-family="'Fredoka',sans-serif" font-weight="500" font-size="88" letter-spacing="2" fill="url(#apolloGrad)" fill-opacity="0" stroke="url(#apolloGrad)" stroke-width="1.4" stroke-dasharray="1700" stroke-dashoffset="1700">Apollo</text>
+    </svg>
+  </div>
+
+  <!-- CURTAIN REVEAL (Upside-style panel sweep) -->
+  <div id="apollo-curtain" style="position:fixed;inset:0;z-index:1950;display:flex;pointer-events:none;">
+    <div data-curtain style="flex:1;height:100%;background:#1a3a3a;"></div>
+    <div data-curtain style="flex:1;height:100%;background:#ff4d8b;"></div>
+    <div data-curtain style="flex:1;height:100%;background:#b8a4ed;"></div>
+    <div data-curtain style="flex:1;height:100%;background:#ffb084;"></div>
+    <div data-curtain style="flex:1;height:100%;background:#e8b94a;"></div>
+  </div>
+
+  <!-- TOP CONTACT STRIP -->
+  <div style="background:#0a0a0a;color:#f5f0e0;font-size:12.5px;">
+    <div style="max-width:1280px;margin:0 auto;padding:8px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <span style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;"><a href="tel:0421602524" style="color:#f5f0e0;text-decoration:none;">Call 0421 602 524</a><a href="mailto:Apollo.au@outlook.com" style="color:#f5f0e0;text-decoration:none;">Apollo.au@outlook.com</a></span>
+      <span style="color:#cdbf9e;">Mon–Sat 6am–10:30pm · Sun 7:30am–7pm · Albury NSW</span>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav style="position:sticky;top:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:rgba(255,250,240,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #ece6d6;">
+    <a href="#top" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#0a0a0a;">
+      <span style="width:26px;height:26px;border-radius:9px;background:#0a0a0a;display:flex;align-items:center;justify-content:center;"><span style="width:11px;height:11px;border-radius:50%;background:#ffb084;display:block;"></span></span>
+      <span style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:21px;letter-spacing:-0.5px;color:#0a0a0a;">Apollo Services</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:28px;">
+      <a href="index.html" style="text-decoration:none;color:#0a0a0a;font-size:14px;font-weight:600;" style-hover="color:#0a0a0a;">Home</a>
+      <a href="about.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">About</a>
+      <a href="services.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">Services</a>
+      <a href="portfolio.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">Portfolio</a>
+      <a href="career.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">Career</a>
+      <a href="contact.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">Contact</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <a href="contact.html" style="text-decoration:none;color:#0a0a0a;font-size:14px;font-weight:600;white-space:nowrap;">Request quote</a>
+      <a href="contact.html" style="text-decoration:none;display:inline-flex;align-items:center;height:42px;padding:0 18px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:14px;font-weight:600;white-space:nowrap;" style-hover="background:#262626;">Book service</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="top" style="max-width:1280px;margin:0 auto;padding:64px 28px 88px;display:grid;grid-template-columns:1.05fr 0.95fr;gap:48px;align-items:center;">
+    <div>
+      <div data-hero style="display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 14px;border-radius:9999px;background:#f5f0e0;font-size:13px;font-weight:500;color:#3a3a3a;margin-bottom:24px;white-space:nowrap;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#22c55e;display:block;"></span>
+        Albury's trusted cleaning & support team
+      </div>
+      <h1 data-hero style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:60px;line-height:1.02;letter-spacing:-2px;color:#0a0a0a;margin:0 0 20px;">Professional support services that keep your business running smoothly.</h1>
+      <p data-hero style="font-size:19px;line-height:1.55;color:#3a3a3a;max-width:500px;margin:0 0 30px;">Reliable support, fast response times, and scalable service solutions tailored to your needs — from spotless workspaces to compassionate in-home care.</p>
+      <div data-hero style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px;">
+        <a href="#contact" style="text-decoration:none;display:inline-flex;align-items:center;height:48px;padding:0 24px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:15px;font-weight:600;" style-hover="background:#262626;">Book service</a>
+        <a href="#calculator" style="text-decoration:none;display:inline-flex;align-items:center;height:48px;padding:0 24px;border-radius:12px;background:#fffaf0;color:#0a0a0a;font-size:15px;font-weight:600;border:1px solid #e0d9c6;" style-hover="background:#faf5e8;">Request quote</a>
+      </div>
+      <div data-hero style="display:flex;align-items:center;gap:18px;font-size:13.5px;color:#6a6a6a;flex-wrap:wrap;">
+        <span style="display:flex;align-items:center;gap:6px;"><span style="color:#e8b94a;font-size:15px;">★★★★★</span> 4.9/5 · 3,000+ clients</span>
+        <span>· Eco-friendly products</span>
+      </div>
+    </div>
+
+    <div data-hero style="position:relative;height:480px;border-radius:24px;background:#faf5e8;overflow:hidden;">
+      <div data-float="0.5" style="position:absolute;top:42px;right:54px;width:120px;height:120px;border-radius:50%;background:#e8b94a;"></div>
+      <div style="position:absolute;left:-40px;bottom:-70px;width:340px;height:300px;border-radius:50% 50% 0 0;background:#b8a4ed;"></div>
+      <div style="position:absolute;right:-50px;bottom:-90px;width:320px;height:260px;border-radius:50% 50% 0 0;background:#ffb084;"></div>
+      <div style="position:absolute;left:90px;bottom:-50px;width:230px;height:200px;border-radius:50% 50% 0 0;background:#1a3a3a;"></div>
+      <div data-float="0.9" style="position:absolute;left:46px;top:64px;width:64px;height:64px;border-radius:50% 50% 50% 14px;background:#a4d4c5;"></div>
+      <div data-float="0.35" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:300px;border-radius:16px;background:#fffaf0;border:1px solid #ece6d6;padding:18px;box-shadow:0 18px 40px rgba(26,58,58,0.14);">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+          <span style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#6a6a6a;">Today's booking</span>
+          <span style="height:22px;padding:0 9px;border-radius:9999px;background:#a4d4c5;color:#11302a;font-size:11px;font-weight:700;display:inline-flex;align-items:center;">Confirmed</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <span style="width:34px;height:34px;border-radius:50%;background:#ff4d8b;flex-shrink:0;"></span>
+          <div><div style="font-size:14px;font-weight:600;color:#0a0a0a;">Office Cleaning · Albury CBD</div><div style="font-size:12.5px;color:#6a6a6a;">Crew of 3 · After hours, 7:00 PM</div></div>
+        </div>
+        <div style="height:8px;border-radius:9999px;background:#f0eada;overflow:hidden;"><div style="width:72%;height:100%;background:#1a3a3a;border-radius:9999px;"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#6a6a6a;margin-top:8px;"><span>Eco-friendly products</span><span>On time</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- TRUST BAR -->
+  <section style="border-top:1px solid #ece6d6;border-bottom:1px solid #ece6d6;background:#faf5e8;padding:26px 28px;">
+    <div style="max-width:1280px;margin:0 auto;">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:22px;">
+        <span style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px;border-radius:9999px;background:#fffaf0;border:1px solid #e0d9c6;font-size:13px;font-weight:600;color:#0a0a0a;"><span style="color:#e8b94a;">★</span> 4.9 average rating</span>
+        <span style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px;border-radius:9999px;background:#fffaf0;border:1px solid #e0d9c6;font-size:13px;font-weight:600;color:#0a0a0a;">3,000+ happy clients</span>
+        <span style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px;border-radius:9999px;background:#fffaf0;border:1px solid #e0d9c6;font-size:13px;font-weight:600;color:#0a0a0a;">35+ trained professionals</span>
+        <span style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px;border-radius:9999px;background:#fffaf0;border:1px solid #e0d9c6;font-size:13px;font-weight:600;color:#0a0a0a;">Eco-friendly certified</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:24px;">
+        <span style="font-size:13px;font-weight:600;color:#6a6a6a;white-space:nowrap;flex-shrink:0;">Clients we've worked with</span>
+        <div style="flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);">
+          <div style="display:flex;width:max-content;animation:marq 28s linear infinite;">
+            <div style="display:flex;align-items:center;gap:42px;padding-right:42px;opacity:0.72;">
+              <span style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:19px;color:#1a1a1a;">Adairs</span><span style="font-weight:700;font-size:17px;color:#1a1a1a;">ADECCO</span><span style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;color:#1a1a1a;">Aristocrat</span><span style="font-weight:800;font-size:16px;color:#1a1a1a;letter-spacing:0.5px;">BUSINESS NSW</span><span style="font-weight:600;font-size:18px;color:#1a1a1a;font-style:italic;">O Health</span><span style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;color:#1a1a1a;">Hansen</span><span style="font-weight:700;font-size:17px;color:#1a1a1a;">Monarch</span><span style="font-weight:600;font-size:18px;color:#1a1a1a;">EasyShed</span><span style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;color:#1a1a1a;">Kell-Moore</span><span style="font-weight:700;font-size:17px;color:#1a1a1a;">OSG</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:42px;padding-right:42px;opacity:0.72;" aria-hidden="true">
+              <span style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:19px;color:#1a1a1a;">Adairs</span><span style="font-weight:700;font-size:17px;color:#1a1a1a;">ADECCO</span><span style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;color:#1a1a1a;">Aristocrat</span><span style="font-weight:800;font-size:16px;color:#1a1a1a;letter-spacing:0.5px;">BUSINESS NSW</span><span style="font-weight:600;font-size:18px;color:#1a1a1a;font-style:italic;">O Health</span><span style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;color:#1a1a1a;">Hansen</span><span style="font-weight:700;font-size:17px;color:#1a1a1a;">Monarch</span><span style="font-weight:600;font-size:18px;color:#1a1a1a;">EasyShed</span><span style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;color:#1a1a1a;">Kell-Moore</span><span style="font-weight:700;font-size:17px;color:#1a1a1a;">OSG</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CORE SERVICES -->
+  <section id="services" style="max-width:1280px;margin:0 auto;padding:90px 28px;">
+    <div data-reveal style="max-width:680px;margin-bottom:44px;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#6a6a6a;margin-bottom:14px;">Core services</div>
+      <h2 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:46px;line-height:1.05;letter-spacing:-1.5px;color:#0a0a0a;margin:0 0 14px;">Everything your space and home needs.</h2>
+      <p style="font-size:18px;line-height:1.55;color:#3a3a3a;margin:0;">From commercial sites to end-of-lease bonds and in-home support — one trusted local team, eco-friendly products, spotless results.</p>
+    </div>
+    <div data-svc-grid style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="8">
+        <div data-svc-card data-accent="{{ s.accentHex }}" style="border-radius:14px;background:#fffaf0;border:1px solid #ece6d6;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;will-change:transform;" onClick="{{ s.onOpen }}">
+          <div style="height:4px;background:{{ s.accentHex }};flex-shrink:0;"></div>
+          <div style="height:130px;overflow:hidden;flex-shrink:0;">
+            <div data-svc-img style="{{ s.imgStyle }}"></div>
+          </div>
+          <div style="padding:18px;display:flex;flex-direction:column;flex:1;">
+            <h3 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:17px;letter-spacing:-0.3px;color:#0a0a0a;margin:0 0 6px;line-height:1.15;">{{ s.label }}</h3>
+            <p style="font-size:13px;line-height:1.45;color:#6a6a6a;margin:0 0 14px;">{{ s.descShort }}</p>
+            <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;">
+              <sc-for list="{{ s.bullets }}" as="b" hint-placeholder-count="3"><span style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#3a3a3a;"><span style="{{ s.checkStyle }}">✓</span>{{ b }}</span></sc-for>
+            </div>
+            <button onClick="{{ s.onOpen }}" style="{{ s.learnStyle }}"><span>Learn more</span><span data-svc-arrow style="display:inline-block;margin-left:6px;">→</span></button>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div data-reveal style="display:flex;justify-content:center;margin-top:34px;">
+      <a href="services.html" style="text-decoration:none;display:inline-flex;align-items:center;height:48px;padding:0 26px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:15px;font-weight:600;" style-hover="background:#262626;">View all services →</a>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE APOLLO -->
+  <section id="why" style="background:#ebe6d6;">
+    <div style="max-width:1280px;margin:0 auto;padding:80px 28px;">
+      <div data-reveal style="margin-bottom:40px;max-width:560px;">
+        <div style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#6a6a6a;margin-bottom:12px;">Why choose Apollo</div>
+        <h2 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:40px;line-height:1.08;letter-spacing:-1px;color:#0a0a0a;margin:0;">A cleaner space, a happier you.</h2>
+      </div>
+      <div data-stagger style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px;">
+        <sc-for list="{{ why }}" as="w" hint-placeholder-count="3">
+          <div style="border-radius:16px;background:#fffaf0;border:1px solid #e0d9c6;padding:28px;">
+            <div style="{{ w.dotStyle }}"></div>
+            <h3 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:22px;letter-spacing:-0.5px;color:#0a0a0a;margin:0 0 10px;">{{ w.t }}</h3>
+            <p style="font-size:14.5px;line-height:1.55;color:#6a6a6a;margin:0;">{{ w.d }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <div data-stagger style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;">
+        <sc-for list="{{ stats }}" as="st" hint-placeholder-count="4">
+          <div><div style="{{ st.numStyle }}"><span data-count="{{ st.v }}" data-decimals="{{ st.dec }}" data-suffix="{{ st.suf }}">{{ st.display }}</span></div><div style="font-size:14px;color:#3a3a3a;margin-top:10px;">{{ st.label }}</div></div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE PROCESS -->
+  <section id="process" style="max-width:1280px;margin:0 auto;padding:90px 28px;">
+    <div data-reveal style="margin-bottom:44px;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#6a6a6a;margin-bottom:12px;">Service process</div>
+      <h2 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:40px;line-height:1.08;letter-spacing:-1px;color:#0a0a0a;margin:0;max-width:520px;">Four simple steps to a spotless result.</h2>
+    </div>
+    <div data-stagger style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+      <sc-for list="{{ steps }}" as="p" hint-placeholder-count="4">
+        <div style="border-radius:16px;background:#fffaf0;border:1px solid #ece6d6;padding:24px;">
+          <div style="{{ p.numStyle }}">{{ p.n }}</div>
+          <h3 style="font-size:18px;font-weight:600;color:#0a0a0a;margin:0 0 8px;">{{ p.title }}</h3>
+          <p style="font-size:14.5px;line-height:1.5;color:#6a6a6a;margin:0;">{{ p.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- CALCULATOR -->
+  <section id="calculator" style="background:#faf5e8;border-top:1px solid #ece6d6;border-bottom:1px solid #ece6d6;">
+    <div style="max-width:1280px;margin:0 auto;padding:90px 28px;">
+      <div data-reveal style="text-align:center;max-width:620px;margin:0 auto 44px;">
+        <div style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#6a6a6a;margin-bottom:12px;">Instant estimate</div>
+        <h2 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:44px;line-height:1.05;letter-spacing:-1.5px;color:#0a0a0a;margin:0 0 12px;">Get a ballpark in seconds.</h2>
+        <p style="font-size:18px;line-height:1.5;color:#3a3a3a;margin:0;">Configure your job and see an estimate update live. Final quote confirmed free on a quick site walk.</p>
+      </div>
+      <div data-reveal style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start;">
+        <div style="border-radius:16px;background:#fffaf0;border:1px solid #ece6d6;padding:30px;">
+          <div style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#9a9a9a;margin-bottom:12px;">01 — Service</div>
+          <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:28px;"><sc-for list="{{ calcChips }}" as="s" hint-placeholder-count="6"><button onClick="{{ s.onSelect }}" style="{{ s.chipStyle }}">{{ s.label }}</button></sc-for></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;"><span style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#9a9a9a;">02 — Area</span><span style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;color:#0a0a0a;">{{ areaLabel }}</span></div>
+          <input type="range" min="50" max="6000" step="10" value="{{ sqft }}" onInput="{{ onSqft }}" style="width:100%;accent-color:#ff4d8b;height:6px;cursor:pointer;margin-bottom:6px;">
+          <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#9a9a9a;margin-bottom:28px;"><span>50 m²</span><span>6,000 m²</span></div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#9a9a9a;margin-bottom:12px;">03 — Frequency</div>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:28px;"><sc-for list="{{ freqOptions }}" as="f" hint-placeholder-count="5"><button onClick="{{ f.onSelect }}" style="{{ f.style }}">{{ f.label }}</button></sc-for></div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#9a9a9a;margin-bottom:12px;">04 — Add-ons</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:24px;"><sc-for list="{{ addonItems }}" as="a" hint-placeholder-count="5"><button onClick="{{ a.onToggle }}" style="{{ a.style }}"><span style="display:flex;align-items:center;gap:10px;"><span style="{{ a.boxStyle }}">{{ a.mark }}</span>{{ a.label }}</span><span style="font-size:12px;color:#9a9a9a;">{{ a.priceLabel }}</span></button></sc-for></div>
+          <button onClick="{{ toggleEmergency }}" style="{{ emergencyStyle }}"><span style="display:flex;align-items:center;gap:10px;"><span style="width:8px;height:8px;border-radius:50%;background:#ff6b5a;display:block;"></span><span style="font-weight:600;font-size:14.5px;">Same-day / priority booking</span></span><span style="font-size:13px;font-weight:600;color:#ff6b5a;">+25%</span></button>
+        </div>
+        <div style="position:sticky;top:84px;border-radius:16px;background:#1a3a3a;padding:30px;color:#fff;">
+          <div style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#a4d4c5;margin-bottom:6px;">Estimated job</div>
+          <div style="font-size:14px;color:rgba(255,255,255,0.78);margin-bottom:24px;">{{ summaryLabel }}</div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;">Per visit</div>
+          <div style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:32px;letter-spacing:-1px;margin-bottom:22px;">{{ visitPrice }}</div>
+          <div style="height:1px;background:rgba(255,255,255,0.16);margin-bottom:22px;"></div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;">Estimated monthly</div>
+          <div style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:50px;letter-spacing:-2px;line-height:1;color:#fff;margin-bottom:6px;">{{ monthlyPrice }}</div>
+          <div style="font-size:13px;color:#a4d4c5;margin-bottom:26px;">{{ visitsLabel }}</div>
+          <a href="#contact" style="text-decoration:none;display:flex;align-items:center;justify-content:center;height:48px;border-radius:12px;background:#fffaf0;color:#0a0a0a;font-weight:600;font-size:15px;" style-hover="background:#fff;">Book this service →</a>
+          <div style="text-align:center;font-size:11.5px;color:rgba(255,255,255,0.5);margin-top:14px;">Estimate only · free quote confirmed on site</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES / OUR WORK -->
+  <section id="work" style="max-width:1280px;margin:0 auto;padding:90px 28px;">
+    <div data-reveal style="margin-bottom:44px;max-width:620px;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#6a6a6a;margin-bottom:12px;">Case studies</div>
+      <h2 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:44px;line-height:1.05;letter-spacing:-1.5px;color:#0a0a0a;margin:0;">Recent work across the Albury region.</h2>
+    </div>
+    <div data-stagger style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+      <sc-for list="{{ cases }}" as="cs" hint-placeholder-count="6">
+        <div style="border-radius:16px;background:#fffaf0;border:1px solid #ece6d6;overflow:hidden;" style-hover="transform:translateY(-6px);transition:transform 0.28s ease;">
+          <div style="height:160px;overflow:hidden;"><div style="{{ cs.phStyle }}"></div></div>
+          <div style="padding:22px 24px;">
+            <span style="display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:9999px;background:#f5f0e0;font-size:12px;font-weight:600;color:#3a3a3a;margin-bottom:14px;">{{ cs.tag }}</span>
+            <h3 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:20px;letter-spacing:-0.5px;color:#0a0a0a;margin:0 0 8px;">{{ cs.title }}</h3>
+            <p style="font-size:14px;line-height:1.5;color:#6a6a6a;margin:0;">{{ cs.line }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="reviews" style="max-width:1280px;margin:0 auto;padding:90px 28px;">
+    <div data-reveal style="position:relative;border-radius:24px;background:#f5f0e0;padding:48px;">
+      <div style="overflow:hidden;">
+        <div style="display:flex;transition:transform 0.55s cubic-bezier(0.16,1,0.3,1);transform:{{ trackTransform }};">
+          <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="3">
+            <div style="min-width:100%;padding-right:8px;">
+              <div style="color:#e8b94a;font-size:16px;margin-bottom:18px;">★★★★★</div>
+              <p style="font-family:'Fredoka',sans-serif;font-weight:400;font-size:25px;line-height:1.38;letter-spacing:-0.5px;color:#0a0a0a;margin:0 0 26px;text-wrap:pretty;">"{{ t.quote }}"</p>
+              <div style="display:flex;align-items:center;gap:13px;"><span style="width:46px;height:46px;border-radius:50%;background:#ffb084;display:flex;align-items:center;justify-content:center;font-weight:700;color:#0a0a0a;">{{ t.initials }}</span><div><div style="font-weight:600;font-size:15px;color:#0a0a0a;">{{ t.name }}</div><div style="font-size:13px;color:#6a6a6a;">{{ t.role }}</div></div></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:30px;">
+        <div style="display:flex;gap:8px;"><sc-for list="{{ dots }}" as="d" hint-placeholder-count="3"><button onClick="{{ d.onClick }}" style="{{ d.style }}"></button></sc-for></div>
+        <div style="display:flex;gap:10px;"><button onClick="{{ prevT }}" style="width:42px;height:42px;border-radius:9999px;border:1px solid #ddd5c2;background:#fffaf0;color:#0a0a0a;cursor:pointer;" style-hover="background:#fff;">←</button><button onClick="{{ nextT }}" style="width:42px;height:42px;border-radius:9999px;border:1px solid #ddd5c2;background:#fffaf0;color:#0a0a0a;cursor:pointer;" style-hover="background:#fff;">→</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="max-width:860px;margin:0 auto;padding:40px 28px 90px;">
+    <div data-reveal style="text-align:center;margin-bottom:44px;"><div style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#6a6a6a;margin-bottom:12px;">FAQ</div><h2 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:40px;line-height:1.05;letter-spacing:-1px;color:#0a0a0a;margin:0;">Everything, before you ask.</h2></div>
+    <div data-reveal style="display:flex;flex-direction:column;gap:12px;">
+      <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="5">
+        <div style="border-radius:16px;background:#fffaf0;border:1px solid #ece6d6;overflow:hidden;">
+          <button onClick="{{ q.onToggle }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;background:transparent;border:none;cursor:pointer;text-align:left;color:#0a0a0a;font-family:'Hanken Grotesk',sans-serif;font-size:17px;font-weight:600;">{{ q.q }}<span style="{{ q.iconStyle }}">+</span></button>
+          <sc-if value="{{ q.open }}" hint-placeholder-val="{{ false }}"><div style="padding:0 24px 24px;font-size:15px;line-height:1.6;color:#3a3a3a;">{{ q.a }}</div></sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA + BOOKING -->
+  <section id="contact" style="max-width:1280px;margin:0 auto;padding:0 28px 90px;">
+    <div data-reveal style="position:relative;border-radius:24px;background:#faf5e8;border:1px solid #ece6d6;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;">
+      <div style="padding:56px 48px;position:relative;z-index:1;">
+        <h2 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:42px;line-height:1.05;letter-spacing:-1.5px;color:#0a0a0a;margin:0 0 14px;">Book a service or request a free quote.</h2>
+        <p style="font-size:17px;color:#3a3a3a;line-height:1.5;margin:0 0 28px;max-width:420px;">Tell us what you need — we'll get back fast with a no-obligation quote. For emergencies, call us anytime.</p>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;align-items:center;gap:13px;"><span style="width:40px;height:40px;border-radius:11px;background:#ff4d8b;flex-shrink:0;"></span><div><div style="font-size:12px;color:#6a6a6a;">Call us</div><a href="tel:0421602524" style="font-size:16px;font-weight:600;color:#0a0a0a;text-decoration:none;">0421 602 524</a></div></div>
+          <div style="display:flex;align-items:center;gap:13px;"><span style="width:40px;height:40px;border-radius:11px;background:#b8a4ed;flex-shrink:0;"></span><div><div style="font-size:12px;color:#6a6a6a;">Email us</div><a href="mailto:Apollo.au@outlook.com" style="font-size:16px;font-weight:600;color:#0a0a0a;text-decoration:none;">Apollo.au@outlook.com</a></div></div>
+          <div style="display:flex;align-items:center;gap:13px;"><span style="width:40px;height:40px;border-radius:11px;background:#e8b94a;flex-shrink:0;"></span><div><div style="font-size:12px;color:#6a6a6a;">Visit us</div><div style="font-size:16px;font-weight:600;color:#0a0a0a;">Dean St, Albury NSW 2640</div></div></div>
+          <div style="display:flex;align-items:center;gap:13px;"><span style="width:40px;height:40px;border-radius:11px;background:#a4d4c5;flex-shrink:0;"></span><div><div style="font-size:12px;color:#6a6a6a;">Hours</div><div style="font-size:15px;font-weight:600;color:#0a0a0a;">Mon–Sat 6am–10:30pm · Sun 7:30am–7pm</div></div></div>
+        </div>
+      </div>
+      <div style="background:#fffaf0;border-left:1px solid #ece6d6;padding:48px;display:flex;flex-direction:column;gap:14px;">
+        <div style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:22px;letter-spacing:-0.5px;color:#0a0a0a;margin-bottom:4px;">Quick booking</div>
+        <input type="text" placeholder="Your name" style="height:46px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#0a0a0a;" />
+        <input type="tel" placeholder="Phone number" style="height:46px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#0a0a0a;" />
+        <select style="height:46px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 12px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#3a3a3a;">
+          <option>Select a service</option>
+          <sc-for list="{{ catalog }}" as="c" hint-placeholder-count="16"><option>{{ c }}</option></sc-for>
+        </select>
+        <input type="date" style="height:46px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#3a3a3a;" />
+        <a href="tel:0421602524" style="text-decoration:none;display:flex;align-items:center;justify-content:center;height:48px;border-radius:12px;background:#0a0a0a;color:#fff;font-weight:600;font-size:15px;margin-top:4px;" style-hover="background:#262626;">Request my booking</a>
+        <div style="text-align:center;font-size:12px;color:#9a9a9a;">Or call <strong style="color:#0a0a0a;">0421 602 524</strong> · we reply fast</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#faf5e8;position:relative;overflow:hidden;border-top:1px solid #ece6d6;">
+    <div style="max-width:1280px;margin:0 auto;padding:64px 28px 40px;position:relative;z-index:1;">
+      <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:56px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><span style="width:24px;height:24px;border-radius:9px;background:#0a0a0a;display:flex;align-items:center;justify-content:center;"><span style="width:10px;height:10px;border-radius:50%;background:#ffb084;display:block;"></span></span><span style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;letter-spacing:-0.5px;color:#0a0a0a;">Apollo Services</span></div>
+          <p style="font-size:14px;line-height:1.55;color:#6a6a6a;max-width:300px;margin:0;">A locally owned cleaning & support company transforming homes and businesses across the Albury region — 35+ trained professionals, 3,000+ satisfied clients, eco-friendly methods.</p>
+        </div>
+        <div><div style="font-size:13px;font-weight:600;color:#0a0a0a;margin-bottom:14px;">Explore</div><div style="display:flex;flex-direction:column;gap:10px;font-size:14px;"><a href="index.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Home</a><a href="about.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">About</a><a href="services.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Services</a><a href="contact.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Get a quote</a></div></div>
+        <div><div style="font-size:13px;font-weight:600;color:#0a0a0a;margin-bottom:14px;">Company</div><div style="display:flex;flex-direction:column;gap:10px;font-size:14px;"><a href="portfolio.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Portfolio</a><a href="career.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Career</a><a href="contact.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Contact</a><a href="#faq" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">FAQ</a></div></div>
+        <div><div style="font-size:13px;font-weight:600;color:#0a0a0a;margin-bottom:14px;">Contact</div><div style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:#6a6a6a;"><span>0421 602 524</span><span>Apollo.au@outlook.com</span><span>Dean St, Albury NSW 2640</span><span>Mon–Sat 6am–10:30pm</span></div></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-top:24px;border-top:1px solid #ece6d6;"><span style="font-size:13px;color:#9a9a9a;">© 2026 Apollo Services · Albury NSW</span><span style="font-size:13px;color:#9a9a9a;display:flex;align-items:center;gap:7px;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:block;"></span>Now taking bookings</span></div>
+    </div>
+    <div data-float="0.3" style="position:absolute;left:-60px;bottom:-90px;width:380px;height:240px;border-radius:50% 50% 0 0;background:#b8a4ed;opacity:0.5;"></div>
+    <div data-float="0.45" style="position:absolute;right:-40px;bottom:-110px;width:420px;height:260px;border-radius:50% 50% 0 0;background:#ffb084;opacity:0.5;"></div>
+    <div data-float="0.2" style="position:absolute;left:42%;bottom:-130px;width:340px;height:240px;border-radius:50% 50% 0 0;background:#e8b94a;opacity:0.45;"></div>
+  </footer>
+
+  <!-- SERVICE DETAIL MODAL -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:1500;background:rgba(10,10,10,0.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;">
+      <div onClick="{{ stop }}" style="max-width:720px;width:100%;background:#fffaf0;border-radius:20px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,0.35);">
+        <div style="{{ modalBannerStyle }}">
+          <h3 style="{{ modalTitleStyle }}">{{ modalTitle }}</h3>
+          <button onClick="{{ closeModal }}" style="{{ modalCloseStyle }}">✕</button>
+        </div>
+        <div style="padding:30px 32px;">
+          <p style="font-size:16px;line-height:1.6;color:#3a3a3a;margin:0 0 24px;">{{ modalLong }}</p>
+          <div style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#9a9a9a;margin-bottom:14px;">Key features</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:28px;">
+            <sc-for list="{{ modalFeatures }}" as="f" hint-placeholder-count="6"><span style="display:flex;align-items:center;gap:9px;font-size:14px;color:#3a3a3a;"><span style="{{ modalCheckStyle }}">✓</span>{{ f }}</span></sc-for>
+          </div>
+          <sc-for list="{{ modalSections }}" as="sec" hint-placeholder-count="1">
+            <div style="margin-bottom:22px;">
+              <h4 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;letter-spacing:-0.3px;color:#0a0a0a;margin:0 0 12px;">{{ sec.h }}</h4>
+              <div style="display:flex;flex-direction:column;gap:9px;">
+                <sc-for list="{{ sec.items }}" as="it" hint-placeholder-count="4"><span style="display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.45;color:#3a3a3a;"><span style="color:#1a3a3a;font-weight:800;flex-shrink:0;line-height:1.45;">•</span>{{ it }}</span></sc-for>
+              </div>
+            </div>
+          </sc-for>
+          <a href="#contact" onClick="{{ closeModal }}" style="display:inline-flex;align-items:center;justify-content:center;height:46px;padding:0 22px;border-radius:12px;background:#0a0a0a;color:#fff;font-weight:600;font-size:15px;text-decoration:none;margin-top:4px;">Book this service →</a>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    svc: 'office', sqft: 400, freq: 'weekly',
+    addons: { carpet: false, window: true, pressure: false, sanitise: true, garden: false },
+    emergency: false, faqOpen: 0, tIndex: 0, openService: null,
+    chat: [{ role: 'ai', text: "Hi! I'm Apollo. Tell me about your space or the support you need and I'll point you to the right service and a quick estimate. We cover the Albury–Wodonga region." }],
+    thinking: false
+  };
+
+  colors = { pink: '#ff4d8b', teal: '#1a3a3a', lavender: '#b8a4ed', peach: '#ffb084', ochre: '#e8b94a', cream: '#f5f0e0', mint: '#a4d4c5', coral: '#ff6b5a' };
+
+  featuredServices = [
+    { id: 'office', label: 'Office Cleaning', accent: 'pink', desc: 'Professional cleaning that creates hygienic, productive workspaces with minimal business disruption.', bullets: ['Daily / weekly plans', 'Eco-friendly products', 'After-hours service'], long: 'Our comprehensive office cleaning keeps your workspace spotless and hygienic — impressing clients and lifting employee morale. Every plan is customisable to your business.', features: ['Daily / weekly / monthly plans', 'Eco-friendly, non-toxic products', 'After-hours service available', '100% satisfaction guarantee', 'Fully insured & bonded', 'Background-checked staff'], sections: [{ h: 'Our 150-point process covers', items: ['Dusting of desks, shelves & electronics', 'Disinfection of high-touch areas', 'Vacuuming & mopping all floors', 'Restroom sanitation & restocking', 'Kitchen / break-room cleaning', 'Window & glass surfaces', 'Waste removal & recycling'] }] },
+    { id: 'residential', label: 'Residential Cleaning', accent: 'teal', desc: 'Thorough home cleaning that gives you back your free time, with pet-friendly products your family can trust.', bullets: ['125-point checklist', 'Supplies provided', 'Flexible scheduling'], long: 'Our residential cleaning gives you back your time while keeping your home spotless and hygienic. We use only pet-friendly, child-safe products that are tough on dirt and gentle on your family.', features: ['125-point comprehensive checklist', 'All cleaning supplies provided', 'Flexible scheduling options', 'Pet-friendly products', 'Customisable service plans', 'Background-checked cleaners'], sections: [{ h: 'Every session includes', items: ['Complete kitchen (appliances, counters, cabinets)', 'Bathroom sanitisation (tiles, fixtures, mirrors)', 'Bedroom organisation & dusting', 'Living-area vacuuming & polishing', 'Baseboard & window cleaning', 'Custom requests accommodated'] }] },
+    { id: 'carpet', label: 'Carpet Cleaning', accent: 'lavender', desc: 'Deep cleaning that removes 98% of dirt and allergens from carpets and upholstery, with quick drying.', bullets: ['Truck-mounted system', 'Odour elimination', '5-year stain warranty'], long: 'Our professional carpet cleaning removes deep-seated dirt, allergens and stains while protecting carpet fibres. Advanced truck-mounted systems deliver superior results with faster drying.', features: ['Truck-mounted hot-water extraction', 'Advanced odour elimination', '5-year stain warranty', 'Pet stain & odour treatment', 'Eco-friendly solutions', '2–4 hour drying time'], sections: [{ h: 'Our 6-step process', items: ['Pre-inspection & stain identification', 'Pre-treatment of high-traffic areas', 'Eco-friendly cleaning solutions', 'Deep extraction at 500 PSI', 'Optional stain-guard application', 'Grooming & post-clean inspection'] }] },
+    { id: 'commercial', label: 'Commercial Cleaning', accent: 'peach', desc: 'Complete cleaning for retail spaces and commercial properties with industry-specific protocols.', bullets: ['Specialised equipment', 'After-hours service', 'Compliance standards'], long: 'Designed for businesses that need specialised solutions, we adapt our methods to retail, food-service and other commercial properties with the right protocols.', features: ['Industry-specific protocols', 'Commercial-grade equipment', 'Flexible after-hours scheduling', 'OSHA-compliant methods', 'High-traffic area focus', 'Custom cleaning plans'], sections: [{ h: 'Includes', items: ['Floor care (strip, wax, polish)', 'High-dusting & vent cleaning', 'Restroom deep sanitation', 'Food-service area degreasing', 'Entryway maintenance', 'Window & glass cleaning'] }] },
+    { id: 'window', label: 'Window Cleaning', accent: 'ochre', desc: 'Streak-free interior and exterior window cleaning with professional tools for crystal-clear views.', bullets: ['Multi-story capability', 'Track cleaning', 'Screen cleaning'], long: 'We remove dirt, grime and hard-water stains to restore your windows to crystal clarity — inside and out, including frames and tracks.', features: ['Interior & exterior cleaning', 'Multi-story capability', 'Track & frame cleaning', 'Screen cleaning included', 'Streak-free guarantee', 'Eco-friendly solutions'], sections: [{ h: 'Our process', items: ['Pre-treatment of problem areas', 'Professional squeegee technique', 'Frame & track vacuuming', 'Screen removal & cleaning', 'Final detailing & inspection'] }] },
+    { id: 'building', label: 'Building Cleaning', accent: 'mint', desc: 'Comprehensive cleaning for apartment buildings, condos and multi-tenant properties.', bullets: ['Lobby maintenance', 'Elevator cleaning', 'Waste management'], long: 'We maintain the common areas of multi-unit properties to create welcoming, hygienic spaces for residents and visitors — handling every shared area with professional care.', features: ['Lobby & entrance maintenance', 'Elevator & stairwell cleaning', 'Common-area sanitation', 'Waste & recycling management', '24/7 emergency service', 'Customised schedules'], sections: [{ h: 'Includes', items: ['Entryway & lobby maintenance', 'Elevator interior cleaning', 'Stairwell & hallway cleaning', 'Mailroom organisation', 'Fitness-centre sanitation', 'Trash & recycling areas'] }] },
+    { id: 'self', label: 'Self Support', accent: 'coral', desc: 'Empowering independence with personalised support for daily tasks and skill development. NDIS approved.', bullets: ['Life skills training', 'Budget management', 'Meal planning'], long: 'Our self-support services help individuals build the skills and confidence for independent living, focusing on practical life skills that promote self-sufficiency and growth.', features: ['Life-skills development', 'Budget & money management', 'Meal planning & nutrition', 'Personal organisation', 'NDIS approved', 'Personalised programs'], sections: [{ h: 'Includes', items: ['Daily living skill development', 'Budgeting & financial management', 'Meal planning & preparation', 'Personal care routines', 'Transportation training', 'Social & communication skills'] }] },
+    { id: 'lawn', label: 'Cleaning & Lawn Mowing', accent: 'pink', desc: 'Complete property maintenance combining interior cleaning with exterior lawn care.', bullets: ['Bundled discounts', 'Seasonal care', 'Edging & trimming'], long: 'Enjoy the convenience of one trusted provider for both interior and exterior care — coordinated cleaning and lawn services with bundled savings.', features: ['Interior cleaning services', 'Professional lawn care', 'Bundled service discounts', 'Seasonal yard maintenance', 'Single point of contact', 'Flexible scheduling'], sections: [{ h: 'Service includes', items: ['Standard cleaning services', 'Lawn mowing & edging', 'Hedge trimming', 'Garden-bed maintenance', 'Leaf removal', 'Property cleanup'] }, { h: 'Benefits', items: ['Save time with coordinated services', 'Discounted bundled pricing', 'Single provider for all needs', 'Consistent quality throughout'] }] },
+    { id: 'outings', label: 'Outings — Day & Night', accent: 'teal', desc: 'Safe, enjoyable social outings with companion support for day trips or evening activities. NDIS approved.', bullets: ['Event planning', 'Personal assistance', 'Door-to-door service'], long: 'Whether a daytime activity or evening event, we help clients take part in community life with confidence — safe, enjoyable experiences with companion support.', features: ['Day & evening availability', 'Event planning assistance', 'Personal care support', 'Door-to-door service', 'NDIS approved', 'Customised experiences'], sections: [{ h: 'Includes', items: ['Social event participation', 'Cultural & recreational activities', 'Shopping & errand assistance', 'Dining-out support', 'Special event attendance', 'Community programs'] }, { h: 'Our approach', items: ['Focus on client preferences', 'Encourage social interaction', 'Support independence', 'Ensure safety & comfort'] }] },
+    { id: 'transport', label: 'Transport Services', accent: 'lavender', desc: 'Safe, reliable transport for medical appointments, shopping and social outings with trained assistants.', bullets: ['Wheelchair accessible', 'Door-through-door service', 'Emergency contact'], long: 'Comfortable transportation for seniors and individuals with mobility challenges — our trained assistants provide door-through-door service with care and compassion.', features: ['Wheelchair-accessible vehicles', 'Door-through-door assistance', '24/7 emergency contact', 'Trained, compassionate drivers', 'Flexible scheduling', 'Insurance coverage'], sections: [{ h: 'Includes', items: ['Medical appointments', 'Grocery shopping & errands', 'Social outings & family visits', 'Airport transfers', 'Special-event transport'] }, { h: 'Safety standards', items: ['Regular vehicle maintenance', 'COVID-safe sanitisation', 'First-aid certified drivers', 'Real-time GPS tracking'] }] },
+    { id: 'endlease', label: 'End of Lease Cleaning', accent: 'peach', desc: 'Bond-back guaranteed cleaning that meets all property-manager standards for stress-free moving.', bullets: ['Real estate approved', 'Photo documentation', '72-hour reclean guarantee'], long: 'Our bond-back cleaning meets all real-estate standards so you get your full deposit back, with photo documentation and a satisfaction guarantee for peace of mind.', features: ['Real-estate approved checklist', 'Before/after photo documentation', '72-hour reclean guarantee', 'Bond-back guarantee', 'Same-day service available', 'Professional equipment'], sections: [{ h: 'Includes', items: ['Kitchen degreasing (oven, rangehood, appliances)', 'Bathroom sanitisation (grout, tiles, fixtures)', 'Window cleaning (interior & tracks)', 'Carpet steam cleaning (if applicable)', 'Wall & skirting-board cleaning', 'Cupboard interiors & final walkthrough'] }] },
+    { id: 'personal', label: 'Personal Care', accent: 'ochre', desc: 'Compassionate in-home support for daily living to help maintain independence and dignity. NDIS approved.', bullets: ['Elderly care', 'Recovery support', 'Companion services'], long: 'Our personal-care services provide compassionate support for daily living, helping clients keep their independence while ensuring safety and dignity.', features: ['Elderly-care specialists', 'Post-surgery / recovery support', 'Companion services', 'Medication reminders', 'Meal preparation', 'NDIS approved'], sections: [{ h: 'Includes', items: ['Bathing & grooming assistance', 'Mobility support & transfers', 'Toileting & continence care', 'Dressing assistance', 'Meal planning & preparation', 'Companionship & social engagement'] }, { h: 'Our caregivers', items: ['Fully qualified & certified', 'Police & reference checked', 'First-aid & CPR trained', 'Compassionate & patient'] }] },
+    { id: 'pressure', label: 'Pressure Cleaning', accent: 'mint', desc: 'High-powered exterior cleaning that removes grime, mould and dirt to restore surfaces.', bullets: ['Driveways & sidewalks', 'Building exteriors', 'Decks & patios'], long: 'Our pressure washing revives your property by eliminating tough dirt, stains and organic buildup — ideal for residential and commercial exteriors.', features: ['High-pressure surface cleaning', 'Removes dirt, grime & algae', 'Safe for concrete, wood & siding', 'Environmentally friendly products', 'Quick & efficient service', 'Trained, experienced technicians'], sections: [{ h: 'Covers', items: ['Driveways & walkways', 'House siding & brick walls', 'Fences & decks', 'Garage floors & parking lots', 'Patios & pool areas'] }, { h: 'Why choose us', items: ['Damage-free washing technique', 'Biodegradable, non-toxic agents', 'Fully insured & certified crew', 'On-time service guarantee'] }] },
+    { id: 'facility', label: 'Facility Management', accent: 'coral', desc: 'Comprehensive facility solutions to ensure smooth operations, safety and cleanliness of your property.', bullets: ['Routine maintenance', 'Trained staff', 'Safety compliance'], long: 'Our facility-management services cover all aspects of building upkeep and safety to provide a clean, functional, efficient environment, tailored to your property.', features: ['Preventive & routine maintenance', 'Janitorial & cleaning services', 'Security & surveillance', 'HVAC & electrical maintenance', 'Waste management', 'Trained & certified personnel'], sections: [{ h: 'Includes', items: ['Electrical & plumbing maintenance', 'Lift & generator monitoring', 'Landscaping & pest control', 'Fire-safety system checks', 'Energy & utilities monitoring'] }, { h: 'Benefits', items: ['Increased operational efficiency', 'Reduced downtime & repairs', 'Enhanced workplace safety', 'Regulatory compliance'] }] }
+  ];
+  catalog = ['Office Cleaning', 'Residential Cleaning', 'Carpet Cleaning', 'Commercial Cleaning', 'Window Cleaning', 'Building Cleaning', 'End of Lease Cleaning', 'Pressure Cleaning', 'Facility Management', 'Cleaning & Lawn Mowing', 'Personal Care', 'Self Support', 'Transport Services', 'Outings — Day & Night'];
+
+  calcServices = [
+    { id: 'office', label: 'Office', rate: 0.90 },
+    { id: 'commercial', label: 'Commercial', rate: 1.10 },
+    { id: 'house', label: 'House', rate: 1.40 },
+    { id: 'endlease', label: 'End of Lease', rate: 2.20 },
+    { id: 'carpet', label: 'Carpet', rate: 3.20 },
+    { id: 'window', label: 'Window', rate: 1.80 }
+  ];
+  addonData = [
+    { key: 'carpet', label: 'Carpet steam', rate: 0.60 },
+    { key: 'window', label: 'Window & glass', rate: 0.40 },
+    { key: 'pressure', label: 'Pressure wash', rate: 0.50 },
+    { key: 'sanitise', label: 'Sanitisation', rate: 0.45 },
+    { key: 'garden', label: 'Garden tidy', rate: 0.30 }
+  ];
+  freqData = [
+    { id: 'oneoff', label: 'One-off', visits: 1 },
+    { id: 'weekly', label: 'Weekly', visits: 4.3 },
+    { id: 'fortnight', label: 'Fortnight', visits: 2.15 },
+    { id: '3x', label: '3×/wk', visits: 13 },
+    { id: 'daily', label: 'Daily', visits: 30 }
+  ];
+  stepsData = [
+    { n: '1', title: 'Choose Service', desc: 'Pick from cleaning or support services and tell us about your space.', c: 'pink' },
+    { n: '2', title: 'Book', desc: 'Lock a time that suits — Mon–Sat 6am–10:30pm, Sun 7:30am–7pm.', c: 'lavender' },
+    { n: '3', title: 'Pay', desc: 'Transparent quotes and simple invoicing — no hidden surprises.', c: 'ochre' },
+    { n: '4', title: 'Service Delivery', desc: 'Our trained, eco-friendly crew arrives on time and leaves it spotless.', c: 'teal' }
+  ];
+  whyData = [
+    { t: 'Professional', d: "We don't just clean — we restore environments to their best state. Trained professionals follow strict quality protocols for consistent results every time.", c: 'teal' },
+    { t: 'Eco-friendly', d: "We prioritise health — yours and the planet's. Advanced eco-friendly products deep-clean without leaving toxins, residues or environmental impact.", c: 'ochre' },
+    { t: 'Quick & punctual', d: 'We respect your time and space. Our team works with precise punctuality and discretion, delivering seamless service with minimal disruption.', c: 'pink' }
+  ];
+  statsData = [
+    { v: 3000, dec: 0, suf: '+', display: '3,000+', label: 'Happy customers across the region', color: '#ff4d8b' },
+    { v: 35, dec: 0, suf: '+', display: '35+', label: 'Trained cleaning & support staff', color: '#1a3a3a' },
+    { v: 1200, dec: 0, suf: '+', display: '1,200+', label: 'Buildings & homes cleaned', color: '#e8b94a' },
+    { v: 4.9, dec: 1, suf: '★', display: '4.9★', label: 'Average customer rating', color: '#ff6b5a' }
+  ];
+  caseData = [
+    { tag: 'Commercial Cleaning', title: 'Multi-tenant building', line: 'Nightly resets across common areas and amenities — zero complaints in 12 months.', c: 'pink' },
+    { tag: 'Office Cleaning', title: 'Albury CBD office', line: 'After-hours program built around business hours; spotless every single morning.', c: 'teal' },
+    { tag: 'End of Lease', title: '3-bedroom unit', line: 'Bond-back guaranteed clean — full deposit returned, property manager impressed.', c: 'lavender' },
+    { tag: 'Carpet Cleaning', title: 'Family home', line: 'Deep steam clean lifting years of stains, odours and allergens in a single visit.', c: 'peach' },
+    { tag: 'Pressure Cleaning', title: 'Driveway & exterior', line: 'High-pressure restoration of driveways, paths and a tired building facade.', c: 'ochre' },
+    { tag: 'Facility Management', title: 'Ongoing site care', line: 'End-to-end facility upkeep keeping the property safe, clean and compliant.', c: 'teal' }
+  ];
+  promptData = [
+    { id: 'p1', label: 'Quote an end-of-lease clean for a 3-bed unit', a: "For a typical 3-bedroom unit end-of-lease clean (around 110 m²) you're looking at roughly $240–$320 — and it's bond-back guaranteed. Most bookings confirm the same day; I can hold a time this week." },
+    { id: 'p2', label: 'Do you offer NDIS / personal support?', a: "Yes — alongside cleaning we provide personal care, self-support, transport, and day or night outings. Caring, trained staff help with daily living, appointments and social outings across the Albury–Wodonga region." },
+    { id: 'p3', label: 'What areas and hours do you cover?', a: "We're based on Dean St, Albury and cover the Albury–Wodonga region. We're open Mon–Sat 6am–10:30pm and Sun 7:30am–7pm, with an emergency line on 0421 602 524." }
+  ];
+  testimonialData = [
+    { quote: 'Apollo took over cleaning for our Albury office and the difference was instant — spotless every morning, and the team works neatly around our hours.', name: 'Operations Manager', role: 'Professional services, Albury CBD', initials: 'OM' },
+    { quote: 'We got our full bond back thanks to their end-of-lease clean. The property manager was genuinely impressed with the finish.', name: 'Recent tenant', role: 'Lavington, NSW', initials: 'RT' },
+    { quote: 'Reliable, friendly and thorough. Their support staff treat my mum with real care and dignity — it gives our whole family peace of mind.', name: 'Family carer', role: 'Wodonga, VIC', initials: 'FC' }
+  ];
+  faqData = [
+    { q: 'Which areas and hours do you service?', a: "We're locally owned and based on Dean St, Albury NSW, servicing homes and businesses across the Albury–Wodonga region. We're open Monday–Saturday 6am–10:30pm and Sunday 7:30am–7pm, with an emergency line on 0421 602 524." },
+    { q: 'Do you use eco-friendly products?', a: 'Yes. We use advanced eco-friendly products that deep-clean effectively without leaving behind toxins or residues — safer for your family, your pets and the planet.' },
+    { q: 'Do you offer a bond-back guarantee?', a: 'Our end-of-lease cleaning meets every property-manager standard and is bond-back guaranteed, so you can be confident of getting your full deposit returned.' },
+    { q: 'Do you provide disability and personal support?', a: 'Yes. Alongside cleaning we provide personal care, self-support, transport and day or night outings — compassionate assistance that helps clients maintain independence and dignity.' },
+    { q: 'How do I get a quote or book?', a: 'Use the live estimator above for an instant ballpark, fill in the quick booking form, or call us on 0421 602 524 / email Apollo.au@outlook.com for a free, no-obligation quote.' }
+  ];
+
+  componentDidMount() {
+    this._mounted = true;
+    this._waitGsap(0);
+    this._carousel = setInterval(() => { if (this._mounted) this.setState(s => ({ tIndex: (s.tIndex + 1) % this.testimonialData.length })); }, 6000);
+  }
+  componentWillUnmount() { this._mounted = false; if (this._carousel) clearInterval(this._carousel); }
+  _waitGsap(t) { if (window.gsap && window.ScrollTrigger) { this.initFX(); return; } if (t > 40) { ['apollo-intro','apollo-curtain'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; }); return; } setTimeout(() => this._waitGsap(t + 1), 100); }
+  initFX() {
+    const g = window.gsap, ST = window.ScrollTrigger; g.registerPlugin(ST);
+    const hero = document.querySelectorAll('[data-hero]');
+    const introHandlesHero = this.introPlay(hero);
+    if (!introHandlesHero && hero.length) g.from(hero, { y: 30, opacity: 0, duration: 0.85, stagger: 0.12, ease: 'power3.out', delay: 0.1 });
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      g.fromTo(el, { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
+    });
+    document.querySelectorAll('[data-stagger]').forEach(grid => {
+      g.from(grid.children, { y: 44, opacity: 0, scale: 0.95, duration: 0.7, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: grid, start: 'top 85%' } });
+    });
+    document.querySelectorAll('[data-float]').forEach(el => {
+      const sp = parseFloat(el.getAttribute('data-float')) || 0.4;
+      g.to(el, { y: -60 * sp, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 0.7 } });
+    });
+    const animate = (el) => {
+      const target = parseFloat(el.getAttribute('data-count')), dec = parseInt(el.getAttribute('data-decimals') || '0', 10), suf = el.getAttribute('data-suffix') || '', dur = 1600, t0 = performance.now();
+      const tick = (now) => { let p = Math.min((now - t0) / dur, 1); p = 1 - Math.pow(1 - p, 3); el.textContent = (target * p).toLocaleString(undefined, { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suf; if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
+    };
+    const obs = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { animate(e.target); obs.unobserve(e.target); } }); }, { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach(el => obs.observe(el));
+
+    const hexA = (h, a) => { const n = parseInt(h.slice(1), 16); return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; };
+    const svcGrid = document.querySelector('[data-svc-grid]');
+    if (svcGrid) {
+      g.from(svcGrid.children, { y: 64, opacity: 0, scale: 0.9, rotate: (i) => (i % 2 ? 2.5 : -2.5), duration: 0.7, ease: 'back.out(1.5)', stagger: { each: 0.08 }, scrollTrigger: { trigger: svcGrid, start: 'top 82%' } });
+    }
+    document.querySelectorAll('[data-svc-card]').forEach(card => {
+      const img = card.querySelector('[data-svc-img]');
+      const arrow = card.querySelector('[data-svc-arrow]');
+      const ac = card.getAttribute('data-accent') || '#1a3a3a';
+      card.addEventListener('mouseenter', () => {
+        g.to(card, { y: -10, boxShadow: '0 26px 54px ' + hexA(ac, 0.3), borderColor: hexA(ac, 0.55), duration: 0.4, ease: 'power3.out' });
+        if (img) g.to(img, { scale: 1.09, duration: 0.6, ease: 'power3.out' });
+        if (arrow) g.to(arrow, { x: 5, duration: 0.35, ease: 'power2.out' });
+      });
+      card.addEventListener('mouseleave', () => {
+        g.to(card, { y: 0, boxShadow: '0 0px 0px rgba(0,0,0,0)', borderColor: '#ece6d6', duration: 0.4, ease: 'power3.out' });
+        if (img) g.to(img, { scale: 1, duration: 0.6, ease: 'power3.out' });
+        if (arrow) g.to(arrow, { x: 0, duration: 0.35 });
+      });
+    });
+    ST.refresh();
+  }
+
+  introPlay(heroEls) {
+    const g = window.gsap;
+    const ov = document.getElementById('apollo-intro');
+    const curtain = document.getElementById('apollo-curtain');
+    const panels = curtain ? curtain.querySelectorAll('[data-curtain]') : [];
+    if (!ov) { if (curtain) curtain.style.display = 'none'; return false; }
+    const logo = ov.firstElementChild;
+    const txt = document.getElementById('apollo-intro-text');
+    if (heroEls && heroEls.length) g.set(heroEls, { opacity: 0, y: 42 });
+    const tl = g.timeline({ onComplete: () => { ov.style.display = 'none'; if (curtain) curtain.style.display = 'none'; if (heroEls) g.set(heroEls, { opacity: 1, y: 0 }); window.ScrollTrigger && window.ScrollTrigger.refresh(); } });
+    // 1 — the multicolour line traces out the word, then fills it in
+    if (txt) {
+      tl.to(txt, { strokeDashoffset: 0, duration: 1.25, ease: 'power2.inOut' });
+      tl.to(txt, { fillOpacity: 1, duration: 0.45, ease: 'power2.out' }, '-=0.25');
+    }
+    tl.to({}, { duration: 0.55 });
+    // 2 — logo exits, cream overlay lifts to reveal colour panels
+    tl.to(logo, { scale: 0.9, opacity: 0, duration: 0.4, ease: 'power2.in' });
+    tl.to(ov, { yPercent: -100, duration: 0.66, ease: 'power4.inOut' }, '-=0.12');
+    tl.set(ov, { display: 'none' });
+    // 3 — panels sweep up one by one, unveiling the hero
+    if (panels.length) tl.to(panels, { yPercent: -100, duration: 0.72, ease: 'power4.inOut', stagger: 0.085 }, '-=0.32');
+    tl.set(curtain, { display: 'none' });
+    // 4 — hero content staggers in behind the lifting panels
+    if (heroEls && heroEls.length) tl.to(heroEls, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', stagger: 0.1 }, '-=0.5');
+    return true;
+  }
+
+  fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+  askAI(p) {
+    if (this.state.thinking) return;
+    this.setState(s => ({ chat: [...s.chat, { role: 'user', text: p.label }], thinking: true }));
+    setTimeout(() => { if (this._mounted) this.setState(s => ({ chat: [...s.chat, { role: 'ai', text: p.a }], thinking: false })); }, 1100);
+  }
+
+  renderVals() {
+    const s = this.state, C = this.colors;
+    const cur = this.calcServices.find(d => d.id === s.svc) || this.calcServices[0];
+    const addonRate = this.addonData.reduce((t, a) => t + (s.addons[a.key] ? a.rate : 0), 0);
+    let visit = s.sqft * (cur.rate + addonRate);
+    if (s.emergency) visit *= 1.25;
+    const fobj = this.freqData.find(f => f.id === s.freq) || this.freqData[1];
+    const monthly = visit * fobj.visits;
+    const darkCard = (c) => c === 'pink' || c === 'teal';
+
+    const accentDark = { pink: true, teal: true, coral: true, lavender: false, peach: false, ochre: false, mint: false };
+    const imgKw = { office: 'office', residential: 'house', carpet: 'carpet', commercial: 'office', window: 'window', building: 'building', self: 'caregiver', lawn: 'lawn', outings: 'friends', transport: 'wheelchair', endlease: 'cleaning', personal: 'elderly', pressure: 'washing', facility: 'maintenance' };
+    let imgSeed = 10;
+    const services = this.featuredServices.map(d => {
+      const ac = C[d.accent], dark = accentDark[d.accent];
+      imgSeed += 1;
+      const url = 'https://loremflickr.com/640/420/' + imgKw[d.id] + '?lock=' + imgSeed;
+      return {
+        ...d,
+        slotId: 'svc-' + d.id,
+        placeholder: d.label + ' photo',
+        img: url,
+        imgStyle: "width:100%;height:100%;background-image:url('" + url + "');background-size:cover;background-position:center;background-color:" + ac + ";will-change:transform;",
+        accentHex: ac,
+        descShort: d.desc.length > 92 ? d.desc.slice(0, 89).replace(/[ ,.]+$/, '') + '…' : d.desc,
+        checkStyle: 'width:16px;height:16px;border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;background:' + ac + ';color:' + (dark ? '#fff' : '#0a0a0a') + ';',
+        learnStyle: 'margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:10px;background:#fffaf0;border:1px solid #e0d9c6;color:#0a0a0a;font-weight:600;font-size:12.5px;cursor:pointer;',
+        onOpen: () => this.setState({ openService: d.id })
+      };
+    });
+
+    const chipBase = "font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;font-weight:500;padding:9px 15px;border-radius:9999px;cursor:pointer;transition:all 0.18s;";
+    const calcChips = this.calcServices.map(d => ({ ...d, onSelect: () => this.setState({ svc: d.id }), chipStyle: chipBase + (s.svc === d.id ? 'background:#0a0a0a;color:#fff;border:1px solid #0a0a0a;' : 'background:#fffaf0;color:#3a3a3a;border:1px solid #e0d9c6;') }));
+
+    const freqBtn = "font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;padding:11px 4px;border-radius:12px;cursor:pointer;transition:all 0.18s;text-align:center;";
+    const freqOptions = this.freqData.map(f => ({ ...f, onSelect: () => this.setState({ freq: f.id }), style: freqBtn + (s.freq === f.id ? 'background:#0a0a0a;color:#fff;border:1px solid #0a0a0a;' : 'background:#fffaf0;color:#3a3a3a;border:1px solid #e0d9c6;') }));
+
+    const addonBtn = "display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;font-weight:500;padding:13px 14px;border-radius:12px;cursor:pointer;transition:all 0.18s;text-align:left;";
+    const addonItems = this.addonData.map(a => {
+      const on = s.addons[a.key];
+      return { ...a, priceLabel: '+$' + a.rate.toFixed(2), mark: on ? '✓' : '',
+        boxStyle: 'width:18px;height:18px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;color:#fff;' + (on ? 'background:#0a0a0a;border:1px solid #0a0a0a;' : 'background:#fffaf0;border:1px solid #ccc3ac;'),
+        onToggle: () => this.setState(st => ({ addons: { ...st.addons, [a.key]: !st.addons[a.key] } })),
+        style: addonBtn + (on ? 'background:#f5f0e0;border:1px solid #0a0a0a;color:#0a0a0a;' : 'background:#fffaf0;border:1px solid #e0d9c6;color:#3a3a3a;') };
+    });
+
+    const emergencyStyle = 'width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:12px;cursor:pointer;transition:all 0.18s;color:#0a0a0a;' + (s.emergency ? 'background:#ffeae6;border:1px solid #ff6b5a;' : 'background:#fffaf0;border:1px solid #e0d9c6;');
+
+    const faqs = this.faqData.map((f, i) => ({ ...f, open: s.faqOpen === i, onToggle: () => this.setState(st => ({ faqOpen: st.faqOpen === i ? -1 : i })), iconStyle: 'font-size:22px;font-weight:400;color:#ff4d8b;flex-shrink:0;transition:transform 0.25s;display:inline-block;transform:rotate(' + (s.faqOpen === i ? '45deg' : '0deg') + ');' }));
+
+    const dots = this.testimonialData.map((t, i) => ({ onClick: () => this.setState({ tIndex: i }), style: 'width:' + (s.tIndex === i ? '26px' : '9px') + ';height:9px;border-radius:9999px;border:none;cursor:pointer;transition:all 0.3s;background:' + (s.tIndex === i ? '#0a0a0a' : '#d8cfb8') + ';' }));
+
+    const chat = s.chat.map(m => ({ text: m.text,
+      rowStyle: 'display:flex;justify-content:' + (m.role === 'user' ? 'flex-end' : 'flex-start') + ';',
+      bubbleStyle: m.role === 'user'
+        ? 'max-width:80%;padding:13px 17px;border-radius:16px;border-bottom-right-radius:5px;background:#0a0a0a;color:#fff;font-size:14.5px;line-height:1.5;'
+        : 'max-width:84%;padding:13px 17px;border-radius:16px;border-bottom-left-radius:5px;background:#f5f0e0;color:#1a1a1a;font-size:14.5px;line-height:1.55;' }));
+
+    const steps = this.stepsData.map(p => ({ ...p, numStyle: "font-family:'Fredoka',sans-serif;font-weight:600;font-size:18px;width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;color:" + (darkCard(p.c) ? '#fff' : '#0a0a0a') + ";background:" + C[p.c] + ";" }));
+
+    const why = this.whyData.map(w => ({ ...w, dotStyle: 'width:44px;height:44px;border-radius:13px;margin-bottom:20px;background:' + C[w.c] + ';' }));
+
+    const stats = this.statsData.map(st => ({ ...st, numStyle: "font-family:'Fredoka',sans-serif;font-weight:500;font-size:52px;letter-spacing:-2px;line-height:1;color:" + st.color + ";" }));
+
+    const caseKw = { 'Commercial Cleaning': 'office,building', 'Office Cleaning': 'office', 'End of Lease': 'apartment', 'Carpet Cleaning': 'carpet', 'Pressure Cleaning': 'driveway', 'Facility Management': 'building' };
+    let caseSeed = 40;
+    const cases = this.caseData.map(cs => {
+      caseSeed += 1;
+      const kw = caseKw[cs.tag] || 'cleaning';
+      return { ...cs, phStyle: "width:100%;height:100%;background-size:cover;background-position:center;background-color:" + C[cs.c] + ";background-image:url('https://loremflickr.com/600/360/" + kw + "?lock=" + caseSeed + "');" };
+    });
+
+    const accentDarkM = { pink: true, teal: true, coral: true, lavender: false, peach: false, ochre: false, mint: false };
+    const md = s.openService ? this.featuredServices.find(d => d.id === s.openService) : null;
+    let modalOpen = false, modalTitle = '', modalLong = '', modalFeatures = [], modalSections = [], modalBannerStyle = '', modalTitleStyle = '', modalCloseStyle = '', modalCheckStyle = '';
+    if (md) {
+      modalOpen = true;
+      const ac = C[md.accent], dark = accentDarkM[md.accent];
+      modalTitle = md.label; modalLong = md.long; modalFeatures = md.features; modalSections = md.sections;
+      modalBannerStyle = 'background:' + ac + ';padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;';
+      modalTitleStyle = "font-family:'Fredoka',sans-serif;font-weight:500;font-size:28px;letter-spacing:-1px;margin:0;line-height:1.05;color:" + (dark ? '#fff' : '#0a0a0a') + ";";
+      modalCloseStyle = 'width:38px;height:38px;border-radius:11px;border:none;cursor:pointer;font-size:16px;flex-shrink:0;background:' + (dark ? 'rgba(255,255,255,0.2)' : 'rgba(10,10,10,0.08)') + ';color:' + (dark ? '#fff' : '#0a0a0a') + ';';
+      modalCheckStyle = 'width:18px;height:18px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;background:' + ac + ';color:' + (dark ? '#fff' : '#0a0a0a') + ';';
+    }
+    return {
+      services, catalog: this.catalog, calcChips, steps, why, stats, cases, freqOptions, addonItems, emergencyStyle,
+      modalOpen, modalTitle, modalLong, modalFeatures, modalSections, modalBannerStyle, modalTitleStyle, modalCloseStyle, modalCheckStyle, closeModal: () => this.setState({ openService: null }), stop: (e) => e.stopPropagation(),
+      toggleEmergency: () => this.setState(st => ({ emergency: !st.emergency })),
+      sqft: s.sqft, areaLabel: s.sqft.toLocaleString() + ' m²',
+      onSqft: (e) => this.setState({ sqft: parseInt(e.target.value, 10) }),
+      visitPrice: this.fmt(visit),
+      monthlyPrice: s.freq === 'oneoff' ? this.fmt(visit) : this.fmt(monthly),
+      visitsLabel: s.freq === 'oneoff' ? 'Single one-off service' : ('≈ ' + Math.round(fobj.visits) + ' visits / month'),
+      summaryLabel: cur.label + ' · ' + s.sqft.toLocaleString() + ' m² · ' + fobj.label,
+      faqs, testimonials: this.testimonialData, dots,
+      trackTransform: 'translateX(-' + (s.tIndex * 100) + '%)',
+      prevT: () => this.setState(st => ({ tIndex: (st.tIndex - 1 + this.testimonialData.length) % this.testimonialData.length })),
+      nextT: () => this.setState(st => ({ tIndex: (st.tIndex + 1) % this.testimonialData.length })),
+      chat, prompts: this.promptData.map(p => ({ label: p.label, onAsk: () => this.askAI(p) })), thinking: s.thinking
+    };
+  }
+}
+</script>
 </body>
 </html>
