@@ -16,6 +16,56 @@
   html{scroll-behavior:smooth;}
   body{margin:0;background:#fffaf0;}
   ::selection{background:#ffb084;color:#0a0a0a;}
+  
+  /* Mobile-first responsive styles */
+  @media (max-width: 1024px) {
+    /* Navigation */
+    nav > div:nth-child(2) {
+      display: none !important;
+    }
+    
+    nav {
+      padding: 0 20px !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    /* About grid */
+    [style*="grid-template-columns:1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+    
+    /* Stats */
+    [style*="grid-template-columns:repeat(4"] {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    /* Hours grid */
+    [style*="grid-template-columns:1fr 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+    
+    h1 {
+      font-size: 36px !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    /* Stats */
+    [style*="grid-template-columns:repeat(2"] {
+      grid-template-columns: 1fr !important;
+    }
+    
+    h1 {
+      font-size: 28px !important;
+    }
+    
+    /* Top contact strip */
+    [style*="background:#0a0a0a"] > div {
+      justify-content: center !important;
+      text-align: center !important;
+    }
+  }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
