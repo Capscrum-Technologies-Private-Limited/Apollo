@@ -210,6 +210,53 @@
 
 </div>
 </x-dc>
+<style>
+  /* STRONG SPECIFICITY RESPONSIVE STYLES - OVERRIDES INLINE STYLES */
+  @media (max-width: 1024px) {
+    nav > div:nth-child(2) {
+      display: none !important;
+    }
+    nav {
+      padding: 0 20px !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    [data-svc-grid],
+    [style*="grid-template-columns:repeat(4"] {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    [style*="grid-template-columns:repeat(3"] {
+      grid-template-columns: 1fr !important;
+    }
+    h1 {
+      font-size: 36px !important;
+    }
+    h2 {
+      font-size: 28px !important;
+    }
+    p {
+      font-size: 16px !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    [data-svc-grid],
+    [style*="grid-template-columns:repeat(2"] {
+      grid-template-columns: 1fr !important;
+    }
+    h1 {
+      font-size: 28px !important;
+    }
+    h2 {
+      font-size: 24px !important;
+    }
+    [style*="background:#0a0a0a"] > div {
+      justify-content: center !important;
+      text-align: center !important;
+    }
+  }
+</style>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = { openService: null };

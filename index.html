@@ -807,6 +807,72 @@
 
     </div>
   </x-dc>
+  <style>
+    /* STRONG SPECIFICITY RESPONSIVE STYLES - OVERRIDES INLINE STYLES */
+    @media (max-width: 1024px) {
+      header#top {
+        grid-template-columns: 1fr !important;
+        padding: 40px 20px 60px !important;
+        gap: 32px !important;
+      }
+      nav {
+        padding: 0 20px !important;
+      }
+      nav > div:nth-child(2) {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      [data-svc-grid] {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      [data-stagger][style*="grid-template-columns:repeat(3"] {
+        grid-template-columns: 1fr !important;
+      }
+      [data-stagger][style*="grid-template-columns:repeat(4"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      [data-reveal][style*="grid-template-columns:1.4fr"],
+      [data-reveal][style*="grid-template-columns:1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+      h1 {
+        font-size: 32px !important;
+      }
+      h2 {
+        font-size: 28px !important;
+      }
+      p {
+        font-size: 16px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      [data-svc-grid] {
+        grid-template-columns: 1fr !important;
+      }
+      [data-stagger][style*="grid-template-columns:repeat(2"] {
+        grid-template-columns: 1fr !important;
+      }
+      header#top {
+        padding: 32px 16px 48px !important;
+      }
+      h1 {
+        font-size: 28px !important;
+      }
+      h2 {
+        font-size: 24px !important;
+      }
+      p {
+        font-size: 15px !important;
+      }
+      [style*="background:#0a0a0a"] > div {
+        justify-content: center !important;
+        text-align: center !important;
+      }
+    }
+  </style>
   <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = {
