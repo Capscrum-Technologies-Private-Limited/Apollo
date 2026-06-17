@@ -11,6 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Contact Apollo Services | Book a Cleaning — Albury NSW</title>
+<meta name="description" content="Contact Apollo Services to book a cleaning or request a free quote. Call 0421 602 524, email us, or fill in the form. Fast response, no obligation.">
 <style>
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -93,7 +95,30 @@
       <a href="tel:0421602524" style="text-decoration:none;color:#0a0a0a;font-size:14px;font-weight:600;white-space:nowrap;">Call us</a>
       <a href="#form" style="text-decoration:none;display:inline-flex;align-items:center;height:42px;padding:0 18px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:14px;font-weight:600;white-space:nowrap;" style-hover="background:#262626;">Send message</a>
     </div>
+    <!-- Hamburger Button -->
+    <button onClick="{{ toggleMenu }}" class="hamburger-btn" style="background:rgba(10,10,10,0.04);border:1px solid rgba(10,10,10,0.06);cursor:pointer;display:none;flex-direction:column;gap:5px;width:38px;height:38px;border-radius:11px;justify-content:center;align-items:center;z-index:110;padding:0;transition:all 0.3s;">
+      <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;transform:{{ menuLine1Transform }};transform-origin:center;"></span>
+      <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;opacity:{{ menuLine2Opacity }};"></span>
+      <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;transform:{{ menuLine3Transform }};transform-origin:center;"></span>
+    </button>
   </nav>
+
+  <!-- MOBILE DRAWER -->
+  <sc-if value="{{ mobileMenuOpen }}">
+    <div style="position:fixed;top:64px;left:0;right:0;bottom:0;background:rgba(255,250,240,0.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:99;display:flex;flex-direction:column;padding:40px 28px;gap:20px;border-top:1px solid #ece6d6;animation:slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
+      <a href="index.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Home</a>
+      <a href="about.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">About</a>
+      <a href="services.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Services</a>
+      <a href="portfolio.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Portfolio</a>
+      <a href="career.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Career</a>
+      <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#0a0a0a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Contact</a>
+      <div style="height:1px;background:#ece6d6;margin:15px 0 5px 0;"></div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:10px;">
+        <a href="tel:0421602524" onClick="{{ toggleMenu }}" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:46px;border-radius:12px;border:1px solid #e0d9c6;color:#0a0a0a;font-size:15px;font-weight:600;background:#fffaf0;">Call us</a>
+        <a href="#form" onClick="{{ toggleMenu }}" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:46px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:15px;font-weight:600;">Send message</a>
+      </div>
+    </div>
+  </sc-if>
 
   <!-- PAGE HEADER -->
   <header style="position:relative;overflow:hidden;background:#faf5e8;border-bottom:1px solid #ece6d6;">
@@ -108,7 +133,7 @@
 
   <!-- CONTACT CARDS -->
   <section style="max-width:1280px;margin:0 auto;padding:60px 28px 20px;">
-    <div data-stagger style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+    <div data-stagger data-cols="4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
       <a href="tel:0421602524" style="text-decoration:none;border-radius:16px;background:#faf5e8;border:1px solid #ece6d6;padding:28px;display:block;">
         <div style="width:42px;height:42px;border-radius:12px;background:#ff4d8b;margin-bottom:18px;"></div>
         <div style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#9a9a9a;margin-bottom:8px;">Call us</div>
@@ -134,7 +159,7 @@
 
   <!-- FORM + MAP -->
   <section id="form" style="max-width:1280px;margin:0 auto;padding:50px 28px 80px;">
-    <div data-reveal style="border-radius:24px;overflow:hidden;border:1px solid #ece6d6;display:grid;grid-template-columns:1fr 1fr;">
+    <div data-reveal data-cols="2" style="border-radius:24px;overflow:hidden;border:1px solid #ece6d6;display:grid;grid-template-columns:1fr 1fr;">
       <div style="background:#fffaf0;padding:48px;">
         <div style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:30px;letter-spacing:-1px;color:#0a0a0a;margin-bottom:8px;">Contact us</div>
         <p style="font-size:15px;color:#6a6a6a;margin:0 0 26px;">Fill in the form and we'll get back to you with a quote.</p>
@@ -148,8 +173,11 @@
         <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
           <div style="display:flex;flex-direction:column;gap:14px;">
             <input type="text" placeholder="Full name*" style="height:48px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#0a0a0a;" />
+            <select style="height:48px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 12px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#3a3a3a;"><option>Select a service</option><option>Commercial Cleaning</option><option>Office Cleaning</option><option>End of Lease Bond Clean</option><option>Residential Deep Clean</option><option>Carpet Cleaning</option><option>Pressure Washing</option><option>Window Cleaning</option><option>NDIS / Personal Care Support</option><option>Other</option></select>
             <input type="email" placeholder="Email address*" style="height:48px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#0a0a0a;" />
+            <input type="tel" placeholder="Phone number" style="height:48px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#0a0a0a;" />
             <input type="text" placeholder="Subject*" style="height:48px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#0a0a0a;" />
+            <input type="date" placeholder="Preferred service date" style="height:48px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#3a3a3a;" />
             <textarea placeholder="Message*" rows="5" style="border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:12px 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#0a0a0a;resize:vertical;"></textarea>
             <button onClick="{{ submit }}" style="height:50px;border-radius:12px;border:none;background:#0a0a0a;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:15px;cursor:pointer;" style-hover="background:#262626;">Send message</button>
           </div>
@@ -170,7 +198,7 @@
   <!-- FOOTER -->
   <footer style="background:#faf5e8;position:relative;overflow:hidden;border-top:1px solid #ece6d6;">
     <div style="max-width:1280px;margin:0 auto;padding:64px 28px 40px;position:relative;z-index:1;">
-      <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:56px;">
+      <div data-grid="footer-main" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:56px;">
         <div>
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><span style="width:24px;height:24px;border-radius:9px;background:#0a0a0a;display:flex;align-items:center;justify-content:center;"><span style="width:10px;height:10px;border-radius:50%;background:#ffb084;display:block;"></span></span><span style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;letter-spacing:-0.5px;color:#0a0a0a;">Apollo Services</span></div>
           <p style="font-size:14px;line-height:1.55;color:#6a6a6a;max-width:300px;margin:0;">A locally owned cleaning & support company transforming homes and businesses across the Albury region — 35+ trained professionals, 3,000+ satisfied clients, eco-friendly methods.</p>
@@ -186,97 +214,121 @@
     <div data-float="0.2" style="position:absolute;left:42%;bottom:-130px;width:340px;height:240px;border-radius:50% 50% 0 0;background:#e8b94a;opacity:0.45;"></div>
   </footer>
 
+  <a href="tel:0421602524" class="mobile-fab" style="position:fixed;bottom:20px;right:16px;z-index:500;display:none;align-items:center;gap:8px;height:50px;padding:0 18px;border-radius:9999px;background:#0a0a0a;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:14px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,0.25);">📞 Call Now</a>
 </div>
-</x-dc>
 <style>
-  /* STRONG SPECIFICITY RESPONSIVE STYLES - OVERRIDES INLINE STYLES */
-  @media (max-width: 1024px) {
-    * {
-      box-sizing: border-box !important;
+    /* STRONG SPECIFICITY RESPONSIVE STYLES - OVERRIDES INLINE STYLES */
+    @keyframes slideDown {
+      from { transform: translateY(-15px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
-    html, body {
-      overflow-x: hidden !important;
-    }
-    nav > div:nth-child(2) {
+
+    .hamburger-btn {
       display: none !important;
     }
-    nav {
-      padding: 0 20px !important;
+    .hamburger-btn:hover {
+      background: rgba(10,10,10,0.08) !important;
     }
-    [style*="display:flex"] {
-      flex-wrap: wrap !important;
-    }
-    a[style], button[style], input[style], select[style], textarea[style] {
-      max-width: 100% !important;
-      word-wrap: break-word !important;
-      overflow-wrap: break-word !important;
-      padding-inline: 16px !important;
-    }
-  }
 
-  @media (max-width: 768px) {
-    [style*="grid-template-columns:repeat(4"] {
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 12px !important;
-      padding-inline: 16px !important;
+    @media (max-width: 1024px) {
+      * {
+        box-sizing: border-box !important;
+      }
+      html, body {
+        overflow-x: hidden !important;
+      }
+      nav > div:nth-child(2) {
+        display: none !important;
+      }
+      nav > div:nth-child(3) > a:first-child {
+        display: none !important; /* Hide Request Quote on Tablet navbar */
+      }
+      .hamburger-btn {
+        display: flex !important;
+      }
+      nav {
+        padding: 0 20px !important;
+      }
+      [style*="display:flex"] {
+        flex-wrap: wrap !important;
+      }
+      a[style], button[style], input[style], select[style], textarea[style] {
+        max-width: 100% !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        padding-inline: 16px !important;
+      }
     }
-    [style*="grid-template-columns:1fr 1fr"] {
-      grid-template-columns: 1fr !important;
-      padding-inline: 16px !important;
-    }
-    [style*="grid-template-columns:1.6fr"] {
-      grid-template-columns: 1fr !important;
-      padding-inline: 16px !important;
-    }
-    h1 {
-      font-size: 36px !important;
-      line-height: 1.1 !important;
-    }
-    h2 {
-      font-size: 28px !important;
-      line-height: 1.1 !important;
-    }
-    p {
-      font-size: 16px !important;
-      line-height: 1.5 !important;
-    }
-  }
 
-  @media (max-width: 480px) {
-    [style*="grid-template-columns:repeat(2"],
-    [style*="grid-template-columns:repeat(4"] {
-      grid-template-columns: 1fr !important;
-      gap: 12px !important;
-      padding-inline: 16px !important;
+    @media (max-width: 768px) {
+      nav > div:nth-child(3) {
+        display: none !important; /* Hide CTA buttons entirely on mobile navbar */
+      }
+      [data-float] {
+        display: none !important; /* Hide bulky background shapes on mobile */
+      }
+      [data-cols="4"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+        padding-inline: 16px !important;
+      }
+      [data-cols="2"] {
+        grid-template-columns: 1fr !important;
+        padding-inline: 16px !important;
+      }
+      [data-grid="footer-main"] {
+        grid-template-columns: 1fr !important;
+        padding-inline: 16px !important;
+      }
+      h1 {
+        font-size: 36px !important;
+        line-height: 1.1 !important;
+      }
+      h2 {
+        font-size: 28px !important;
+        line-height: 1.1 !important;
+      }
+      p {
+        font-size: 16px !important;
+        line-height: 1.5 !important;
+      }
+      .mobile-fab { display: flex !important; }
     }
-    [style*="grid-template-columns:1fr 1fr"],
-    [style*="grid-template-columns:1.6fr"] {
-      padding-inline: 16px !important;
+
+    @media (max-width: 480px) {
+      [data-cols="2"],
+      [data-cols="4"] {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        padding-inline: 16px !important;
+      }
+      [data-grid="footer-main"] {
+        padding-inline: 16px !important;
+      }
+      h1 {
+        font-size: 28px !important;
+        line-height: 1.1 !important;
+      }
+      h2 {
+        font-size: 24px !important;
+        line-height: 1.1 !important;
+      }
+      p {
+        font-size: 15px !important;
+        line-height: 1.5 !important;
+      }
+      [style*="background:#0a0a0a"] > div {
+        justify-content: center !important;
+        text-align: center !important;
+      }
+      * {
+        max-width: 100vw !important;
+      }
     }
-    h1 {
-      font-size: 28px !important;
-      line-height: 1.1 !important;
-    }
-    h2 {
-      font-size: 24px !important;
-      line-height: 1.1 !important;
-    }
-    p {
-      font-size: 15px !important;
-      line-height: 1.5 !important;
-    }
-    [style*="background:#0a0a0a"] > div {
-      justify-content: center !important;
-      text-align: center !important;
-    }
-    * {
-      max-width: 100vw !important;
-    }
-  }
-</style>
+  </style>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { submitted: false };
+  state = { submitted: false, menuOpen: false };
   componentDidMount() { this._mounted = true; this._waitGsap(0); }
   componentWillUnmount() { this._mounted = false; }
   _waitGsap(t) { if (window.gsap && window.ScrollTrigger) { this.initFX(); return; } if (t > 40) return; setTimeout(() => this._waitGsap(t + 1), 100); }
@@ -288,7 +340,16 @@ class Component extends DCLogic {
     ST.refresh();
   }
   renderVals() {
-    return { submitted: this.state.submitted, notSubmitted: !this.state.submitted, submit: () => this.setState({ submitted: true }) };
+    const s = this.state;
+    return {
+      toggleMenu: () => this.setState(st => ({ menuOpen: !st.menuOpen })),
+      menuLine1Transform: s.menuOpen ? 'rotate(45deg) translateY(5px)' : 'none',
+      menuLine2Opacity: s.menuOpen ? '0' : '1',
+      menuLine3Transform: s.menuOpen ? 'rotate(-45deg) translateY(-5px)' : 'none',
+      mobileMenuOpen: s.menuOpen,
+      submitted: this.state.submitted, notSubmitted: !this.state.submitted,
+      submit: () => this.setState({ submitted: true })
+    };
   }
 }
 </script>

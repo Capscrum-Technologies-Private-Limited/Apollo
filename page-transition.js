@@ -1,5 +1,5 @@
-/* Apollo page transitions — smooth cream wipe between pages.
-   The word "Apollo" is drawn by a single multicolour gradient line, then fills in.
+/* Apollo page transitions — smooth cursor-ripple clip-path wipe between pages.
+   The page transition morphs from a circle at the cursor click position.
    Loaded in each page's <helmet>. Self-registers once. */
 (function () {
   if (window.__apolloPT) return;
@@ -10,9 +10,11 @@
   function buildOverlay() {
     var ov = document.createElement('div');
     ov.id = 'apollo-pt';
-    ov.style.cssText = 'position:fixed;inset:0;z-index:1900;background:#fffaf0;opacity:1;pointer-events:none;transition:opacity .55s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;justify-content:center;';
+    // Use transition for clip-path with a custom bezier curve for high premium feel
+    ov.style.cssText = 'position:fixed;inset:0;z-index:1900;background:#fffaf0;pointer-events:none;' +
+                       'transition:clip-path .75s cubic-bezier(.86,0,.07,1);display:flex;align-items:center;justify-content:center;';
     ov.innerHTML =
-      '<svg width="380" height="120" viewBox="0 0 460 140" fill="none" style="max-width:72vw;">' +
+      '<svg width="380" height="120" viewBox="0 0 460 140" fill="none" style="max-width:72vw;z-index:2;position:relative;">' +
         '<defs><linearGradient id="apolloPtGrad" x1="30" y1="0" x2="430" y2="0" gradientUnits="userSpaceOnUse">' +
           '<stop offset="0" stop-color="#ff4d8b"></stop>' +
           '<stop offset="0.22" stop-color="#ff6b5a"></stop>' +
@@ -51,33 +53,63 @@
     var ov = buildOverlay();
     body.appendChild(ov);
 
-    // Reveal: draw the word, then fade the cover out on load.
-    play(ov._txt, 900);
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () { ov.style.opacity = '0'; });
-    });
-    setTimeout(function () { ov.style.display = 'none'; }, 700);
+    // Retrieve previous click position or default to center
+    var clickX = sessionStorage.getItem('apollo-click-x') || (window.innerWidth / 2);
+    var clickY = sessionStorage.getItem('apollo-click-y') || (window.innerHeight / 2);
 
-    // Intercept clicks on internal page links: wipe in, draw, then navigate.
+    // Initial state: cover the screen, then reveal the new page by shrinking the circle to the click position
+    ov.style.clipPath = 'circle(150% at ' + clickX + 'px ' + clickY + 'px)';
+    
+    // Draw the word as it reveals, then wipe cover out
+    play(ov._txt, 800);
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        ov.style.clipPath = 'circle(0% at ' + clickX + 'px ' + clickY + 'px)';
+      });
+    });
+
+    // Clean up coordinates after page reveal
+    sessionStorage.removeItem('apollo-click-x');
+    sessionStorage.removeItem('apollo-click-y');
+
+    // Intercept clicks on internal page links: ripple wipe in, draw, then navigate.
     document.addEventListener('click', function (e) {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       var a = e.target.closest ? e.target.closest('a') : null;
       if (!a) return;
       var href = a.getAttribute('href');
       if (!href || a.target === '_blank') return;
-      if (!/\.dc\.html(\?|#|$)/.test(href)) return;           // only internal page links
+      
+      // Determine if it is a local internal HTML link (index.html, about.html, career.html, etc.)
+      var isInternal = href && !/^https?:\/\//i.test(href) && !href.startsWith('#') && !href.startsWith('tel:') && !href.startsWith('mailto:');
+      if (!isInternal) return;
+
       e.preventDefault();
-      ov.style.display = 'flex';
-      ov.offsetHeight; // reflow
+
+      // Store click coordinates for the next page load
+      var x = e.clientX;
+      var y = e.clientY;
+      sessionStorage.setItem('apollo-click-x', String(x));
+      sessionStorage.setItem('apollo-click-y', String(y));
+
+      // Reset overlay to circle(0% at click position)
+      ov.style.clipPath = 'circle(0% at ' + x + 'px ' + y + 'px)';
       ov.style.pointerEvents = 'auto';
-      ov.style.opacity = '1';
+
+      // Reflow and trigger transition to circle(150% at click position)
+      ov.offsetHeight;
+      ov.style.clipPath = 'circle(150% at ' + x + 'px ' + y + 'px)';
+
       play(ov._txt, 620);
-      setTimeout(function () { window.location.href = href; }, 700);
+      setTimeout(function () { window.location.href = href; }, 750);
     }, true);
 
     // Hide the cover if the user returns via the back/forward cache.
     window.addEventListener('pageshow', function (ev) {
-      if (ev.persisted) { ov.style.display = 'none'; ov.style.opacity = '0'; ov.style.pointerEvents = 'none'; }
+      if (ev.persisted) {
+        ov.style.clipPath = 'circle(0% at ' + (window.innerWidth / 2) + 'px ' + (window.innerHeight / 2) + 'px)';
+        ov.style.pointerEvents = 'none';
+      }
     });
   }
 

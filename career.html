@@ -11,6 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Careers at Apollo Services | Join Our Team — Albury NSW</title>
+<meta name="description" content="Join Apollo Services — Albury's leading cleaning & support company. Open roles include commercial cleaner, residential cleaner, NDIS support worker and team leader. Apply now.">
 <style>
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -88,7 +90,30 @@
       <a href="contact.html" style="text-decoration:none;color:#0a0a0a;font-size:14px;font-weight:600;white-space:nowrap;">Request quote</a>
       <a href="#apply" style="text-decoration:none;display:inline-flex;align-items:center;height:42px;padding:0 18px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:14px;font-weight:600;white-space:nowrap;" style-hover="background:#262626;">Apply now</a>
     </div>
+    <!-- Hamburger Button -->
+    <button onClick="{{ toggleMenu }}" class="hamburger-btn" style="background:rgba(10,10,10,0.04);border:1px solid rgba(10,10,10,0.06);cursor:pointer;display:none;flex-direction:column;gap:5px;width:38px;height:38px;border-radius:11px;justify-content:center;align-items:center;z-index:110;padding:0;transition:all 0.3s;">
+      <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;transform:{{ menuLine1Transform }};transform-origin:center;"></span>
+      <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;opacity:{{ menuLine2Opacity }};"></span>
+      <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;transform:{{ menuLine3Transform }};transform-origin:center;"></span>
+    </button>
   </nav>
+
+  <!-- MOBILE DRAWER -->
+  <sc-if value="{{ mobileMenuOpen }}">
+    <div style="position:fixed;top:64px;left:0;right:0;bottom:0;background:rgba(255,250,240,0.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:99;display:flex;flex-direction:column;padding:40px 28px;gap:20px;border-top:1px solid #ece6d6;animation:slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
+      <a href="index.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Home</a>
+      <a href="about.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">About</a>
+      <a href="services.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Services</a>
+      <a href="portfolio.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Portfolio</a>
+      <a href="career.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#0a0a0a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Career</a>
+      <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Contact</a>
+      <div style="height:1px;background:#ece6d6;margin:15px 0 5px 0;"></div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:10px;">
+        <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:46px;border-radius:12px;border:1px solid #e0d9c6;color:#0a0a0a;font-size:15px;font-weight:600;background:#fffaf0;">Request quote</a>
+        <a href="#apply" onClick="{{ toggleMenu }}" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:46px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:15px;font-weight:600;">Apply now</a>
+      </div>
+    </div>
+  </sc-if>
 
   <!-- PAGE HEADER -->
   <header style="position:relative;overflow:hidden;background:#faf5e8;border-bottom:1px solid #ece6d6;">
@@ -103,7 +128,7 @@
 
   <!-- PERKS -->
   <section style="max-width:1280px;margin:0 auto;padding:72px 28px 30px;">
-    <div data-stagger style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+    <div data-stagger data-cols="4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
       <sc-for list="{{ perks }}" as="p" hint-placeholder-count="4">
         <div style="border-radius:16px;background:#faf5e8;border:1px solid #ece6d6;padding:26px;">
           <div style="{{ p.dotStyle }}"></div>
@@ -138,7 +163,7 @@
 
   <!-- APPLICATION FORM -->
   <section id="apply" style="max-width:1280px;margin:0 auto;padding:60px 28px 80px;">
-    <div data-reveal style="border-radius:24px;overflow:hidden;border:1px solid #ece6d6;display:grid;grid-template-columns:1fr 1.1fr;">
+    <div data-reveal data-cols="2" style="border-radius:24px;overflow:hidden;border:1px solid #ece6d6;display:grid;grid-template-columns:1fr 1.1fr;">
       <div style="background:#1a3a3a;color:#fff;padding:48px;">
         <h2 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:34px;line-height:1.08;letter-spacing:-1px;margin:0 0 16px;">Apply to join Apollo.</h2>
         <p style="font-size:16px;line-height:1.6;color:rgba(255,255,255,0.82);margin:0 0 28px;">Fill in your details and we'll be in touch. No cleaning experience? No problem — we train the right attitude.</p>
@@ -158,7 +183,7 @@
         </sc-if>
         <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
           <div style="display:flex;flex-direction:column;gap:14px;">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div data-grid="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
               <input type="text" placeholder="First name*" style="height:46px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#0a0a0a;" />
               <input type="text" placeholder="Last name*" style="height:46px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#0a0a0a;" />
             </div>
@@ -167,6 +192,14 @@
             <select style="height:46px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 12px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#3a3a3a;">
               <option>Role you're applying for</option>
               <sc-for list="{{ roleNames }}" as="rn" hint-placeholder-count="4"><option>{{ rn }}</option></sc-for>
+            </select>
+            <select style="height:46px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 12px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#3a3a3a;">
+              <option>Preferred shift availability</option>
+              <option>Weekday mornings (6am–12pm)</option>
+              <option>Weekday afternoons (12pm–6pm)</option>
+              <option>Weekday evenings (6pm–10:30pm)</option>
+              <option>Weekends</option>
+              <option>Flexible / Any shift</option>
             </select>
             <textarea placeholder="Tell us a little about yourself" rows="4" style="border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:12px 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#0a0a0a;resize:vertical;"></textarea>
             <button onClick="{{ submit }}" style="height:48px;border-radius:12px;border:none;background:#0a0a0a;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:15px;cursor:pointer;" style-hover="background:#262626;">Submit application</button>
@@ -180,7 +213,7 @@
   <!-- FOOTER -->
   <footer style="background:#faf5e8;position:relative;overflow:hidden;border-top:1px solid #ece6d6;">
     <div style="max-width:1280px;margin:0 auto;padding:64px 28px 40px;position:relative;z-index:1;">
-      <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:56px;">
+      <div data-grid="footer-main" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:56px;">
         <div>
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><span style="width:24px;height:24px;border-radius:9px;background:#0a0a0a;display:flex;align-items:center;justify-content:center;"><span style="width:10px;height:10px;border-radius:50%;background:#ffb084;display:block;"></span></span><span style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;letter-spacing:-0.5px;color:#0a0a0a;">Apollo Services</span></div>
           <p style="font-size:14px;line-height:1.55;color:#6a6a6a;max-width:300px;margin:0;">A locally owned cleaning & support company transforming homes and businesses across the Albury region — 35+ trained professionals, 3,000+ satisfied clients, eco-friendly methods.</p>
@@ -196,10 +229,36 @@
     <div data-float="0.2" style="position:absolute;left:42%;bottom:-130px;width:340px;height:240px;border-radius:50% 50% 0 0;background:#e8b94a;opacity:0.45;"></div>
   </footer>
 
+  <a href="tel:0421602524" class="mobile-fab" style="position:fixed;bottom:20px;right:16px;z-index:500;display:none;align-items:center;gap:8px;height:50px;padding:0 18px;border-radius:9999px;background:#0a0a0a;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:14px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,0.25);">📞 Call Now</a>
 </div>
 </x-dc>
 <style>
   /* STRONG SPECIFICITY RESPONSIVE STYLES - OVERRIDES INLINE STYLES */
+  @keyframes slideDown {
+    from { transform: translateY(-15px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  /* Form UX Improvements */
+  input:focus, select:focus, textarea:focus {
+    outline: none !important;
+    border-color: #0a0a0a !important;
+    box-shadow: 0 0 0 4px rgba(10,10,10,0.08) !important;
+  }
+  input, select, textarea {
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  input:hover, select:hover, textarea:hover {
+    border-color: #c4ba9c !important;
+  }
+
+  .hamburger-btn {
+    display: none !important;
+  }
+  .hamburger-btn:hover {
+    background: rgba(10,10,10,0.08) !important;
+  }
+
   @media (max-width: 1024px) {
     * {
       box-sizing: border-box !important;
@@ -209,6 +268,12 @@
     }
     nav > div:nth-child(2) {
       display: none !important;
+    }
+    nav > div:nth-child(3) > a:first-child {
+      display: none !important; /* Hide Request Quote on Tablet navbar */
+    }
+    .hamburger-btn {
+      display: flex !important;
     }
     nav {
       padding: 0 20px !important;
@@ -225,16 +290,22 @@
   }
 
   @media (max-width: 768px) {
-    [style*="grid-template-columns:repeat(4"] {
+    nav > div:nth-child(3) {
+      display: none !important; /* Hide CTA buttons entirely on mobile navbar */
+    }
+    [data-float] {
+      display: none !important; /* Hide bulky background shapes on mobile */
+    }
+    [data-cols="4"] {
       grid-template-columns: repeat(2, 1fr) !important;
       gap: 12px !important;
       padding-inline: 16px !important;
     }
-    [style*="grid-template-columns:1fr 1fr"] {
+    [data-cols="2"] {
       grid-template-columns: 1fr !important;
       padding-inline: 16px !important;
     }
-    [style*="grid-template-columns:1.6fr"] {
+    [data-grid="footer-main"] {
       grid-template-columns: 1fr !important;
       padding-inline: 16px !important;
     }
@@ -250,18 +321,21 @@
       font-size: 16px !important;
       line-height: 1.5 !important;
     }
+    .mobile-fab { display: flex !important; }
   }
 
   @media (max-width: 480px) {
-    [style*="grid-template-columns:repeat(2"],
-    [style*="grid-template-columns:repeat(4"] {
+    [data-cols="2"],
+    [data-cols="4"] {
       grid-template-columns: 1fr !important;
       gap: 12px !important;
       padding-inline: 16px !important;
     }
-    [style*="grid-template-columns:1fr 1fr"],
-    [style*="grid-template-columns:1.6fr"] {
+    [data-grid="footer-main"] {
       padding-inline: 16px !important;
+    }
+    [data-grid="form-row"] {
+      grid-template-columns: 1fr !important;
     }
     h1 {
       font-size: 28px !important;
@@ -286,7 +360,7 @@
 </style>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { submitted: false };
+  state = { submitted: false, menuOpen: false };
   colors = { pink: '#ff4d8b', teal: '#1a3a3a', lavender: '#b8a4ed', peach: '#ffb084', ochre: '#e8b94a', mint: '#a4d4c5', coral: '#ff6b5a' };
   perksData = [
     { t: 'Paid training', d: 'Full onboarding and ongoing skills training — no experience required to start.', c: 'pink' },
@@ -312,10 +386,16 @@ class Component extends DCLogic {
     ST.refresh();
   }
   renderVals() {
+    const s = this.state;
     const C = this.colors;
     const perks = this.perksData.map(p => ({ ...p, dotStyle: 'width:42px;height:42px;border-radius:12px;margin-bottom:18px;background:' + C[p.c] + ';' }));
     const roles = this.rolesData.map(r => ({ ...r, dotStyle: 'width:14px;height:14px;border-radius:50%;flex-shrink:0;background:' + C[r.c] + ';display:block;' }));
     return {
+      toggleMenu: () => this.setState(st => ({ menuOpen: !st.menuOpen })),
+      menuLine1Transform: s.menuOpen ? 'rotate(45deg) translateY(5px)' : 'none',
+      menuLine2Opacity: s.menuOpen ? '0' : '1',
+      menuLine3Transform: s.menuOpen ? 'rotate(-45deg) translateY(-5px)' : 'none',
+      mobileMenuOpen: s.menuOpen,
       perks, roles, roleNames: this.rolesData.map(r => r.title),
       submitted: this.state.submitted, notSubmitted: !this.state.submitted,
       submit: () => this.setState({ submitted: true })

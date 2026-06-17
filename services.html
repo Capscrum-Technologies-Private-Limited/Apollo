@@ -11,6 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Services | Apollo Cleaning &amp; Support — Albury NSW</title>
+<meta name="description" content="Apollo Services offers 14+ specialised cleaning &amp; support programs — commercial cleaning, residential, end-of-lease, carpet, window, NDIS and more. Serving Albury-Wodonga.">
 <style>
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -93,7 +95,30 @@
       <a href="contact.html" style="text-decoration:none;color:#0a0a0a;font-size:14px;font-weight:600;white-space:nowrap;">Request quote</a>
       <a href="contact.html" style="text-decoration:none;display:inline-flex;align-items:center;height:42px;padding:0 18px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:14px;font-weight:600;white-space:nowrap;" style-hover="background:#262626;">Book service</a>
     </div>
+    <!-- Hamburger Button -->
+    <button onClick="{{ toggleMenu }}" class="hamburger-btn" style="background:rgba(10,10,10,0.04);border:1px solid rgba(10,10,10,0.06);cursor:pointer;display:none;flex-direction:column;gap:5px;width:38px;height:38px;border-radius:11px;justify-content:center;align-items:center;z-index:110;padding:0;transition:all 0.3s;">
+      <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;transform:{{ menuLine1Transform }};transform-origin:center;"></span>
+      <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;opacity:{{ menuLine2Opacity }};"></span>
+      <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;transform:{{ menuLine3Transform }};transform-origin:center;"></span>
+    </button>
   </nav>
+
+  <!-- MOBILE DRAWER -->
+  <sc-if value="{{ mobileMenuOpen }}">
+    <div style="position:fixed;top:64px;left:0;right:0;bottom:0;background:rgba(255,250,240,0.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:99;display:flex;flex-direction:column;padding:40px 28px;gap:20px;border-top:1px solid #ece6d6;animation:slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
+      <a href="index.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Home</a>
+      <a href="about.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">About</a>
+      <a href="services.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#0a0a0a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Services</a>
+      <a href="portfolio.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Portfolio</a>
+      <a href="career.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Career</a>
+      <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Contact</a>
+      <div style="height:1px;background:#ece6d6;margin:15px 0 5px 0;"></div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:10px;">
+        <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:46px;border-radius:12px;border:1px solid #e0d9c6;color:#0a0a0a;font-size:15px;font-weight:600;background:#fffaf0;">Request quote</a>
+        <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:46px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:15px;font-weight:600;">Book service</a>
+      </div>
+    </div>
+  </sc-if>
 
   <!-- PAGE HEADER -->
   <header style="position:relative;overflow:hidden;background:#faf5e8;border-bottom:1px solid #ece6d6;">
@@ -108,8 +133,11 @@
 
   <!-- ALL SERVICES -->
   <section style="max-width:1280px;margin:0 auto;padding:72px 28px 40px;">
+    <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:28px;">
+      <sc-for list="{{ filterChips }}" as="fc" hint-placeholder-count="5"><button onClick="{{ fc.onSelect }}" style="{{ fc.style }}">{{ fc.label }}</button></sc-for>
+    </div>
     <div data-svc-grid style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
-      <sc-for list="{{ services }}" as="s" hint-placeholder-count="8">
+      <sc-for list="{{ filteredServices }}" as="s" hint-placeholder-count="8">
         <div data-svc-card data-accent="{{ s.accentHex }}" style="border-radius:14px;background:#fffaf0;border:1px solid #ece6d6;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;will-change:transform;" onClick="{{ s.onOpen }}">
           <div style="height:4px;background:{{ s.accentHex }};flex-shrink:0;"></div>
           <div style="height:130px;overflow:hidden;flex-shrink:0;"><div data-svc-img style="{{ s.imgStyle }}"></div></div>
@@ -133,7 +161,7 @@
         <div style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#6a6a6a;margin-bottom:12px;">Why choose Apollo</div>
         <h2 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:40px;line-height:1.08;letter-spacing:-1px;color:#0a0a0a;margin:0;">A standard you can see and measure.</h2>
       </div>
-      <div data-stagger style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+      <div data-stagger data-cols="3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
         <sc-for list="{{ why }}" as="w" hint-placeholder-count="3">
           <div style="border-radius:16px;background:#fffaf0;border:1px solid #e0d9c6;padding:28px;">
             <div style="{{ w.dotStyle }}"></div>
@@ -164,7 +192,7 @@
   <!-- FOOTER -->
   <footer style="background:#faf5e8;position:relative;overflow:hidden;border-top:1px solid #ece6d6;">
     <div style="max-width:1280px;margin:0 auto;padding:64px 28px 40px;position:relative;z-index:1;">
-      <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:56px;">
+      <div data-grid="footer-main" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:56px;">
         <div>
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><span style="width:24px;height:24px;border-radius:9px;background:#0a0a0a;display:flex;align-items:center;justify-content:center;"><span style="width:10px;height:10px;border-radius:50%;background:#ffb084;display:block;"></span></span><span style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;letter-spacing:-0.5px;color:#0a0a0a;">Apollo Services</span></div>
           <p style="font-size:14px;line-height:1.55;color:#6a6a6a;max-width:300px;margin:0;">A locally owned cleaning & support company transforming homes and businesses across the Albury region — 35+ trained professionals, 3,000+ satisfied clients, eco-friendly methods.</p>
@@ -191,7 +219,7 @@
         <div style="padding:30px 32px;">
           <p style="font-size:16px;line-height:1.6;color:#3a3a3a;margin:0 0 24px;">{{ modalLong }}</p>
           <div style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#9a9a9a;margin-bottom:14px;">Key features</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:28px;">
+          <div data-cols="2" style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:28px;">
             <sc-for list="{{ modalFeatures }}" as="f" hint-placeholder-count="6"><span style="display:flex;align-items:center;gap:9px;font-size:14px;color:#3a3a3a;"><span style="{{ modalCheckStyle }}">✓</span>{{ f }}</span></sc-for>
           </div>
           <sc-for list="{{ modalSections }}" as="sec" hint-placeholder-count="1">
@@ -208,10 +236,23 @@
     </div>
   </sc-if>
 
+  <a href="tel:0421602524" class="mobile-fab" style="position:fixed;bottom:20px;right:16px;z-index:500;display:none;align-items:center;gap:8px;height:50px;padding:0 18px;border-radius:9999px;background:#0a0a0a;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:14px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,0.25);">📞 Call Now</a>
 </div>
 </x-dc>
 <style>
   /* STRONG SPECIFICITY RESPONSIVE STYLES - OVERRIDES INLINE STYLES */
+  @keyframes slideDown {
+    from { transform: translateY(-15px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .hamburger-btn {
+    display: none !important;
+  }
+  .hamburger-btn:hover {
+    background: rgba(10,10,10,0.08) !important;
+  }
+
   @media (max-width: 1024px) {
     * {
       box-sizing: border-box !important;
@@ -221,6 +262,12 @@
     }
     nav > div:nth-child(2) {
       display: none !important;
+    }
+    nav > div:nth-child(3) > a:first-child {
+      display: none !important;
+    }
+    .hamburger-btn {
+      display: flex !important;
     }
     nav {
       padding: 0 20px !important;
@@ -237,16 +284,22 @@
   }
 
   @media (max-width: 768px) {
-    [data-svc-grid],
-    [style*="grid-template-columns:repeat(4"] {
+    nav > div:nth-child(3) {
+      display: none !important;
+    }
+    [data-float] {
+      display: none !important;
+    }
+    [data-svc-grid] {
       grid-template-columns: repeat(2, 1fr) !important;
       gap: 12px !important;
       padding-inline: 16px !important;
     }
-    [style*="grid-template-columns:repeat(3"] {
+    [data-cols="3"] {
       grid-template-columns: 1fr !important;
       padding-inline: 16px !important;
     }
+    .mobile-fab { display: flex !important; }
     h1 {
       font-size: 36px !important;
       line-height: 1.1 !important;
@@ -266,17 +319,34 @@
       word-wrap: break-word !important;
       overflow-wrap: break-word !important;
     }
+    div[style*="position:fixed"][style*="z-index:1500"] {
+      padding: 10px !important;
+    }
+    div[style*="max-width:720px"] {
+      margin-top: 20px !important;
+      max-height: 90vh !important;
+      overflow-y: auto !important;
+    }
+    [data-cols="2"] {
+      grid-template-columns: 1fr !important;
+    }
   }
 
   @media (max-width: 480px) {
     [data-svc-grid],
-    [style*="grid-template-columns:repeat(2"],
-    [style*="grid-template-columns:repeat(4"] {
+    [data-cols="2"] {
       grid-template-columns: 1fr !important;
       gap: 12px !important;
       padding-inline: 16px !important;
     }
-    [style*="grid-template-columns:repeat(3"] {
+    [data-cols="3"],
+    [data-cols="4"] {
+      grid-template-columns: 1fr !important;
+      gap: 12px !important;
+      padding-inline: 16px !important;
+    }
+    [data-grid="footer-main"] {
+      grid-template-columns: 1fr !important;
       padding-inline: 16px !important;
     }
     h1 {
@@ -311,24 +381,24 @@
 </style>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { openService: null };
-  colors = { pink: '#ff4d8b', teal: '#1a3a3a', lavender: '#b8a4ed', peach: '#ffb084', ochre: '#e8b94a', cream: '#f5f0e0', mint: '#a4d4c5', coral: '#ff6b5a' };
+  state = { openService: null, menuOpen: false, filter: 'all' };
+  colors = { pink: '#ff4d8b', teal: '#1a3a3a', lavender: '#b8a4ed', peach: '#ffb084', ochre: '#e8b94a', mint: '#a4d4c5', coral: '#ff6b5a' };
 
   featuredServices = [
-    { id: 'office', label: 'Office Cleaning', accent: 'pink', desc: 'Professional cleaning that creates hygienic, productive workspaces with minimal business disruption.', bullets: ['Daily / weekly plans', 'Eco-friendly products', 'After-hours service'], long: 'Our comprehensive office cleaning keeps your workspace spotless and hygienic — impressing clients and lifting employee morale. Every plan is customisable to your business.', features: ['Daily / weekly / monthly plans', 'Eco-friendly, non-toxic products', 'After-hours service available', '100% satisfaction guarantee', 'Fully insured & bonded', 'Background-checked staff'], sections: [{ h: 'Our 150-point process covers', items: ['Dusting of desks, shelves & electronics', 'Disinfection of high-touch areas', 'Vacuuming & mopping all floors', 'Restroom sanitation & restocking', 'Kitchen / break-room cleaning', 'Window & glass surfaces', 'Waste removal & recycling'] }] },
-    { id: 'residential', label: 'Residential Cleaning', accent: 'teal', desc: 'Thorough home cleaning that gives you back your free time, with pet-friendly products your family can trust.', bullets: ['125-point checklist', 'Supplies provided', 'Flexible scheduling'], long: 'Our residential cleaning gives you back your time while keeping your home spotless and hygienic. We use only pet-friendly, child-safe products that are tough on dirt and gentle on your family.', features: ['125-point comprehensive checklist', 'All cleaning supplies provided', 'Flexible scheduling options', 'Pet-friendly products', 'Customisable service plans', 'Background-checked cleaners'], sections: [{ h: 'Every session includes', items: ['Complete kitchen (appliances, counters, cabinets)', 'Bathroom sanitisation (tiles, fixtures, mirrors)', 'Bedroom organisation & dusting', 'Living-area vacuuming & polishing', 'Baseboard & window cleaning', 'Custom requests accommodated'] }] },
-    { id: 'carpet', label: 'Carpet Cleaning', accent: 'lavender', desc: 'Deep cleaning that removes 98% of dirt and allergens from carpets and upholstery, with quick drying.', bullets: ['Truck-mounted system', 'Odour elimination', '5-year stain warranty'], long: 'Our professional carpet cleaning removes deep-seated dirt, allergens and stains while protecting carpet fibres. Advanced truck-mounted systems deliver superior results with faster drying.', features: ['Truck-mounted hot-water extraction', 'Advanced odour elimination', '5-year stain warranty', 'Pet stain & odour treatment', 'Eco-friendly solutions', '2–4 hour drying time'], sections: [{ h: 'Our 6-step process', items: ['Pre-inspection & stain identification', 'Pre-treatment of high-traffic areas', 'Eco-friendly cleaning solutions', 'Deep extraction at 500 PSI', 'Optional stain-guard application', 'Grooming & post-clean inspection'] }] },
-    { id: 'commercial', label: 'Commercial Cleaning', accent: 'peach', desc: 'Complete cleaning for retail spaces and commercial properties with industry-specific protocols.', bullets: ['Specialised equipment', 'After-hours service', 'Compliance standards'], long: 'Designed for businesses that need specialised solutions, we adapt our methods to retail, food-service and other commercial properties with the right protocols.', features: ['Industry-specific protocols', 'Commercial-grade equipment', 'Flexible after-hours scheduling', 'OSHA-compliant methods', 'High-traffic area focus', 'Custom cleaning plans'], sections: [{ h: 'Includes', items: ['Floor care (strip, wax, polish)', 'High-dusting & vent cleaning', 'Restroom deep sanitation', 'Food-service area degreasing', 'Entryway maintenance', 'Window & glass cleaning'] }] },
-    { id: 'window', label: 'Window Cleaning', accent: 'ochre', desc: 'Streak-free interior and exterior window cleaning with professional tools for crystal-clear views.', bullets: ['Multi-story capability', 'Track cleaning', 'Screen cleaning'], long: 'We remove dirt, grime and hard-water stains to restore your windows to crystal clarity — inside and out, including frames and tracks.', features: ['Interior & exterior cleaning', 'Multi-story capability', 'Track & frame cleaning', 'Screen cleaning included', 'Streak-free guarantee', 'Eco-friendly solutions'], sections: [{ h: 'Our process', items: ['Pre-treatment of problem areas', 'Professional squeegee technique', 'Frame & track vacuuming', 'Screen removal & cleaning', 'Final detailing & inspection'] }] },
-    { id: 'building', label: 'Building Cleaning', accent: 'mint', desc: 'Comprehensive cleaning for apartment buildings, condos and multi-tenant properties.', bullets: ['Lobby maintenance', 'Elevator cleaning', 'Waste management'], long: 'We maintain the common areas of multi-unit properties to create welcoming, hygienic spaces for residents and visitors — handling every shared area with professional care.', features: ['Lobby & entrance maintenance', 'Elevator & stairwell cleaning', 'Common-area sanitation', 'Waste & recycling management', '24/7 emergency service', 'Customised schedules'], sections: [{ h: 'Includes', items: ['Entryway & lobby maintenance', 'Elevator interior cleaning', 'Stairwell & hallway cleaning', 'Mailroom organisation', 'Fitness-centre sanitation', 'Trash & recycling areas'] }] },
-    { id: 'self', label: 'Self Support', accent: 'coral', desc: 'Empowering independence with personalised support for daily tasks and skill development. NDIS approved.', bullets: ['Life skills training', 'Budget management', 'Meal planning'], long: 'Our self-support services help individuals build the skills and confidence for independent living, focusing on practical life skills that promote self-sufficiency and growth.', features: ['Life-skills development', 'Budget & money management', 'Meal planning & nutrition', 'Personal organisation', 'NDIS approved', 'Personalised programs'], sections: [{ h: 'Includes', items: ['Daily living skill development', 'Budgeting & financial management', 'Meal planning & preparation', 'Personal care routines', 'Transportation training', 'Social & communication skills'] }] },
-    { id: 'lawn', label: 'Cleaning & Lawn Mowing', accent: 'pink', desc: 'Complete property maintenance combining interior cleaning with exterior lawn care.', bullets: ['Bundled discounts', 'Seasonal care', 'Edging & trimming'], long: 'Enjoy the convenience of one trusted provider for both interior and exterior care — coordinated cleaning and lawn services with bundled savings.', features: ['Interior cleaning services', 'Professional lawn care', 'Bundled service discounts', 'Seasonal yard maintenance', 'Single point of contact', 'Flexible scheduling'], sections: [{ h: 'Service includes', items: ['Standard cleaning services', 'Lawn mowing & edging', 'Hedge trimming', 'Garden-bed maintenance', 'Leaf removal', 'Property cleanup'] }] },
-    { id: 'outings', label: 'Outings — Day & Night', accent: 'teal', desc: 'Safe, enjoyable social outings with companion support for day trips or evening activities. NDIS approved.', bullets: ['Event planning', 'Personal assistance', 'Door-to-door service'], long: 'Whether a daytime activity or evening event, we help clients take part in community life with confidence — safe, enjoyable experiences with companion support.', features: ['Day & evening availability', 'Event planning assistance', 'Personal care support', 'Door-to-door service', 'NDIS approved', 'Customised experiences'], sections: [{ h: 'Includes', items: ['Social event participation', 'Cultural & recreational activities', 'Shopping & errand assistance', 'Dining-out support', 'Special event attendance', 'Community programs'] }] },
-    { id: 'transport', label: 'Transport Services', accent: 'lavender', desc: 'Safe, reliable transport for medical appointments, shopping and social outings with trained assistants.', bullets: ['Wheelchair accessible', 'Door-through-door service', 'Emergency contact'], long: 'Comfortable transportation for seniors and individuals with mobility challenges — our trained assistants provide door-through-door service with care and compassion.', features: ['Wheelchair-accessible vehicles', 'Door-through-door assistance', '24/7 emergency contact', 'Trained, compassionate drivers', 'Flexible scheduling', 'Insurance coverage'], sections: [{ h: 'Includes', items: ['Medical appointments', 'Grocery shopping & errands', 'Social outings & family visits', 'Airport transfers', 'Special-event transport'] }] },
-    { id: 'endlease', label: 'End of Lease Cleaning', accent: 'peach', desc: 'Bond-back guaranteed cleaning that meets all property-manager standards for stress-free moving.', bullets: ['Real estate approved', 'Photo documentation', '72-hour reclean guarantee'], long: 'Our bond-back cleaning meets all real-estate standards so you get your full deposit back, with photo documentation and a satisfaction guarantee for peace of mind.', features: ['Real-estate approved checklist', 'Before/after photo documentation', '72-hour reclean guarantee', 'Bond-back guarantee', 'Same-day service available', 'Professional equipment'], sections: [{ h: 'Includes', items: ['Kitchen degreasing (oven, rangehood, appliances)', 'Bathroom sanitisation (grout, tiles, fixtures)', 'Window cleaning (interior & tracks)', 'Carpet steam cleaning (if applicable)', 'Wall & skirting-board cleaning', 'Cupboard interiors & final walkthrough'] }] },
-    { id: 'personal', label: 'Personal Care', accent: 'ochre', desc: 'Compassionate in-home support for daily living to help maintain independence and dignity. NDIS approved.', bullets: ['Elderly care', 'Recovery support', 'Companion services'], long: 'Our personal-care services provide compassionate support for daily living, helping clients keep their independence while ensuring safety and dignity.', features: ['Elderly-care specialists', 'Post-surgery / recovery support', 'Companion services', 'Medication reminders', 'Meal preparation', 'NDIS approved'], sections: [{ h: 'Includes', items: ['Bathing & grooming assistance', 'Mobility support & transfers', 'Toileting & continence care', 'Dressing assistance', 'Meal planning & preparation', 'Companionship & social engagement'] }] },
-    { id: 'pressure', label: 'Pressure Cleaning', accent: 'mint', desc: 'High-powered exterior cleaning that removes grime, mould and dirt to restore surfaces.', bullets: ['Driveways & sidewalks', 'Building exteriors', 'Decks & patios'], long: 'Our pressure washing revives your property by eliminating tough dirt, stains and organic buildup — ideal for residential and commercial exteriors.', features: ['High-pressure surface cleaning', 'Removes dirt, grime & algae', 'Safe for concrete, wood & siding', 'Environmentally friendly products', 'Quick & efficient service', 'Trained, experienced technicians'], sections: [{ h: 'Covers', items: ['Driveways & walkways', 'House siding & brick walls', 'Fences & decks', 'Garage floors & parking lots', 'Patios & pool areas'] }] },
-    { id: 'facility', label: 'Facility Management', accent: 'coral', desc: 'Comprehensive facility solutions to ensure smooth operations, safety and cleanliness of your property.', bullets: ['Routine maintenance', 'Trained staff', 'Safety compliance'], long: 'Our facility-management services cover all aspects of building upkeep and safety to provide a clean, functional, efficient environment, tailored to your property.', features: ['Preventive & routine maintenance', 'Janitorial & cleaning services', 'Security & surveillance', 'HVAC & electrical maintenance', 'Waste management', 'Trained & certified personnel'], sections: [{ h: 'Includes', items: ['Electrical & plumbing maintenance', 'Lift & generator monitoring', 'Landscaping & pest control', 'Fire-safety system checks', 'Energy & utilities monitoring'] }] }
+    { id: 'office', cat: 'commercial', label: 'Office Cleaning', accent: 'pink', desc: 'Professional cleaning that creates hygienic, productive workspaces with minimal business disruption.', bullets: ['Daily / weekly plans', 'Eco-friendly products', 'After-hours service'], long: 'Our comprehensive office cleaning keeps your workspace spotless and hygienic — impressing clients and lifting employee morale. Every plan is customisable to your business.', features: ['Daily / weekly / monthly plans', 'Eco-friendly, non-toxic products', 'After-hours service available', '100% satisfaction guarantee', 'Fully insured & bonded', 'Background-checked staff'], sections: [{ h: 'Our 150-point process covers', items: ['Dusting of desks, shelves & electronics', 'Disinfection of high-touch areas', 'Vacuuming & mopping all floors', 'Restroom sanitation & restocking', 'Kitchen / break-room cleaning', 'Window & glass surfaces', 'Waste removal & recycling'] }] },
+    { id: 'residential', cat: 'residential', label: 'Residential Cleaning', accent: 'teal', desc: 'Thorough home cleaning that gives you back your free time, with pet-friendly products your family can trust.', bullets: ['125-point checklist', 'Supplies provided', 'Flexible scheduling'], long: 'Our residential cleaning gives you back your time while keeping your home spotless and hygienic. We use only pet-friendly, child-safe products that are tough on dirt and gentle on your family.', features: ['125-point comprehensive checklist', 'All cleaning supplies provided', 'Flexible scheduling options', 'Pet-friendly products', 'Customisable service plans', 'Background-checked cleaners'], sections: [{ h: 'Every session includes', items: ['Complete kitchen (appliances, counters, cabinets)', 'Bathroom sanitisation (tiles, fixtures, mirrors)', 'Bedroom organisation & dusting', 'Living-area vacuuming & polishing', 'Baseboard & window cleaning', 'Custom requests accommodated'] }] },
+    { id: 'carpet', cat: 'residential', label: 'Carpet Cleaning', accent: 'lavender', desc: 'Deep cleaning that removes 98% of dirt and allergens from carpets and upholstery, with quick drying.', bullets: ['Truck-mounted system', 'Odour elimination', '5-year stain warranty'], long: 'Our professional carpet cleaning removes deep-seated dirt, allergens and stains while protecting carpet fibres. Advanced truck-mounted systems deliver superior results with faster drying.', features: ['Truck-mounted hot-water extraction', 'Advanced odour elimination', '5-year stain warranty', 'Pet stain & odour treatment', 'Eco-friendly solutions', '2–4 hour drying time'], sections: [{ h: 'Our 6-step process', items: ['Pre-inspection & stain identification', 'Pre-treatment of high-traffic areas', 'Eco-friendly cleaning solutions', 'Deep extraction at 500 PSI', 'Optional stain-guard application', 'Grooming & post-clean inspection'] }] },
+    { id: 'commercial', cat: 'commercial', label: 'Commercial Cleaning', accent: 'peach', desc: 'Complete cleaning for retail spaces and commercial properties with industry-specific protocols.', bullets: ['Specialised equipment', 'After-hours service', 'Compliance standards'], long: 'Designed for businesses that need specialised solutions, we adapt our methods to retail, food-service and other commercial properties with the right protocols.', features: ['Industry-specific protocols', 'Commercial-grade equipment', 'Flexible after-hours scheduling', 'OSHA-compliant methods', 'High-traffic area focus', 'Custom cleaning plans'], sections: [{ h: 'Includes', items: ['Floor care (strip, wax, polish)', 'High-dusting & vent cleaning', 'Restroom deep sanitation', 'Food-service area degreasing', 'Entryway maintenance', 'Window & glass cleaning'] }] },
+    { id: 'window', cat: 'exterior', label: 'Window Cleaning', accent: 'ochre', desc: 'Streak-free interior and exterior window cleaning with professional tools for crystal-clear views.', bullets: ['Multi-story capability', 'Track cleaning', 'Screen cleaning'], long: 'We remove dirt, grime and hard-water stains to restore your windows to crystal clarity — inside and out, including frames and tracks.', features: ['Interior & exterior cleaning', 'Multi-story capability', 'Track & frame cleaning', 'Screen cleaning included', 'Streak-free guarantee', 'Eco-friendly solutions'], sections: [{ h: 'Our process', items: ['Pre-treatment of problem areas', 'Professional squeegee technique', 'Frame & track vacuuming', 'Screen removal & cleaning', 'Final detailing & inspection'] }] },
+    { id: 'building', cat: 'commercial', label: 'Building Cleaning', accent: 'mint', desc: 'Comprehensive cleaning for apartment buildings, condos and multi-tenant properties.', bullets: ['Lobby maintenance', 'Elevator cleaning', 'Waste management'], long: 'We maintain the common areas of multi-unit properties to create welcoming, hygienic spaces for residents and visitors — handling every shared area with professional care.', features: ['Lobby & entrance maintenance', 'Elevator & stairwell cleaning', 'Common-area sanitation', 'Waste & recycling management', '24/7 emergency service', 'Customised schedules'], sections: [{ h: 'Includes', items: ['Entryway & lobby maintenance', 'Elevator interior cleaning', 'Stairwell & hallway cleaning', 'Mailroom organisation', 'Fitness-centre sanitation', 'Trash & recycling areas'] }] },
+    { id: 'self', cat: 'ndis', label: 'Self Support', accent: 'coral', desc: 'Empowering independence with personalised support for daily tasks and skill development. NDIS approved.', bullets: ['Life skills training', 'Budget management', 'Meal planning'], long: 'Our self-support services help individuals build the skills and confidence for independent living, focusing on practical life skills that promote self-sufficiency and growth.', features: ['Life-skills development', 'Budget & money management', 'Meal planning & nutrition', 'Personal organisation', 'NDIS approved', 'Personalised programs'], sections: [{ h: 'Includes', items: ['Daily living skill development', 'Budgeting & financial management', 'Meal planning & preparation', 'Personal care routines', 'Transportation training', 'Social & communication skills'] }] },
+    { id: 'lawn', cat: 'exterior', label: 'Cleaning & Lawn Mowing', accent: 'pink', desc: 'Complete property maintenance combining interior cleaning with exterior lawn care.', bullets: ['Bundled discounts', 'Seasonal care', 'Edging & trimming'], long: 'Enjoy the convenience of one trusted provider for both interior and exterior care — coordinated cleaning and lawn services with bundled savings.', features: ['Interior cleaning services', 'Professional lawn care', 'Bundled service discounts', 'Seasonal yard maintenance', 'Single point of contact', 'Flexible scheduling'], sections: [{ h: 'Service includes', items: ['Standard cleaning services', 'Lawn mowing & edging', 'Hedge trimming', 'Garden-bed maintenance', 'Leaf removal', 'Property cleanup'] }] },
+    { id: 'outings', cat: 'ndis', label: 'Outings — Day & Night', accent: 'teal', desc: 'Safe, enjoyable social outings with companion support for day trips or evening activities. NDIS approved.', bullets: ['Event planning', 'Personal assistance', 'Door-to-door service'], long: 'Whether a daytime activity or evening event, we help clients take part in community life with confidence — safe, enjoyable experiences with companion support.', features: ['Day & evening availability', 'Event planning assistance', 'Personal care support', 'Door-to-door service', 'NDIS approved', 'Customised experiences'], sections: [{ h: 'Includes', items: ['Social event participation', 'Cultural & recreational activities', 'Shopping & errand assistance', 'Dining-out support', 'Special event attendance', 'Community programs'] }] },
+    { id: 'transport', cat: 'ndis', label: 'Transport Services', accent: 'lavender', desc: 'Safe, reliable transport for medical appointments, shopping and social outings with trained assistants.', bullets: ['Wheelchair accessible', 'Door-through-door service', 'Emergency contact'], long: 'Comfortable transportation for seniors and individuals with mobility challenges — our trained assistants provide door-through-door service with care and compassion.', features: ['Wheelchair-accessible vehicles', 'Door-through-door assistance', '24/7 emergency contact', 'Trained, compassionate drivers', 'Flexible scheduling', 'Insurance coverage'], sections: [{ h: 'Includes', items: ['Medical appointments', 'Grocery shopping & errands', 'Social outings & family visits', 'Airport transfers', 'Special-event transport'] }] },
+    { id: 'endlease', cat: 'residential', label: 'End of Lease Cleaning', accent: 'peach', desc: 'Bond-back guaranteed cleaning that meets all property-manager standards for stress-free moving.', bullets: ['Real estate approved', 'Photo documentation', '72-hour reclean guarantee'], long: 'Our bond-back cleaning meets all real-estate standards so you get your full deposit back, with photo documentation and a satisfaction guarantee for peace of mind.', features: ['Real-estate approved checklist', 'Before/after photo documentation', '72-hour reclean guarantee', 'Bond-back guarantee', 'Same-day service available', 'Professional equipment'], sections: [{ h: 'Includes', items: ['Kitchen degreasing (oven, rangehood, appliances)', 'Bathroom sanitisation (grout, tiles, fixtures)', 'Window cleaning (interior & tracks)', 'Carpet steam cleaning (if applicable)', 'Wall & skirting-board cleaning', 'Cupboard interiors & final walkthrough'] }] },
+    { id: 'personal', cat: 'ndis', label: 'Personal Care', accent: 'ochre', desc: 'Compassionate in-home support for daily living to help maintain independence and dignity. NDIS approved.', bullets: ['Elderly care', 'Recovery support', 'Companion services'], long: 'Our personal-care services provide compassionate support for daily living, helping clients keep their independence while ensuring safety and dignity.', features: ['Elderly-care specialists', 'Post-surgery / recovery support', 'Companion services', 'Medication reminders', 'Meal preparation', 'NDIS approved'], sections: [{ h: 'Includes', items: ['Bathing & grooming assistance', 'Mobility support & transfers', 'Toileting & continence care', 'Dressing assistance', 'Meal planning & preparation', 'Companionship & social engagement'] }] },
+    { id: 'pressure', cat: 'exterior', label: 'Pressure Cleaning', accent: 'mint', desc: 'High-powered exterior cleaning that removes grime, mould and dirt to restore surfaces.', bullets: ['Driveways & sidewalks', 'Building exteriors', 'Decks & patios'], long: 'Our pressure washing revives your property by eliminating tough dirt, stains and organic buildup — ideal for residential and commercial exteriors.', features: ['High-pressure surface cleaning', 'Removes dirt, grime & algae', 'Safe for concrete, wood & siding', 'Environmentally friendly products', 'Quick & efficient service', 'Trained, experienced technicians'], sections: [{ h: 'Covers', items: ['Driveways & walkways', 'House siding & brick walls', 'Fences & decks', 'Garage floors & parking lots', 'Patios & pool areas'] }] },
+    { id: 'facility', cat: 'commercial', label: 'Facility Management', accent: 'coral', desc: 'Comprehensive facility solutions to ensure smooth operations, safety and cleanliness of your property.', bullets: ['Routine maintenance', 'Trained staff', 'Safety compliance'], long: 'Our facility-management services cover all aspects of building upkeep and safety to provide a clean, functional, efficient environment, tailored to your property.', features: ['Preventive & routine maintenance', 'Janitorial & cleaning services', 'Security & surveillance', 'HVAC & electrical maintenance', 'Waste management', 'Trained & certified personnel'], sections: [{ h: 'Includes', items: ['Electrical & plumbing maintenance', 'Lift & generator monitoring', 'Landscaping & pest control', 'Fire-safety system checks', 'Energy & utilities monitoring'] }] }
   ];
   whyData = [
     { t: 'Professional', d: "We don't just clean — we restore environments to their best state. Trained professionals follow strict quality protocols for consistent results every time.", c: 'teal' },
@@ -359,8 +429,21 @@ class Component extends DCLogic {
     const s = this.state, C = this.colors;
     const accentDark = { pink: true, teal: true, coral: true, lavender: false, peach: false, ochre: false, mint: false };
     const imgKw = { office: 'office', residential: 'house', carpet: 'carpet', commercial: 'office', window: 'window', building: 'building', self: 'caregiver', lawn: 'lawn', outings: 'friends', transport: 'wheelchair', endlease: 'cleaning', personal: 'elderly', pressure: 'washing', facility: 'maintenance' };
+    const filterDefs = [
+      { id: 'all', label: 'All services' },
+      { id: 'commercial', label: 'Commercial' },
+      { id: 'residential', label: 'Residential' },
+      { id: 'ndis', label: 'NDIS & Support' },
+      { id: 'exterior', label: 'Exterior' }
+    ];
+    const chipBase = "font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;font-weight:600;padding:10px 18px;border-radius:9999px;cursor:pointer;border:none;transition:all 0.18s;";
+    const filterChips = filterDefs.map(f => ({
+      ...f,
+      onSelect: () => this.setState({ filter: f.id }),
+      style: chipBase + (s.filter === f.id ? 'background:#0a0a0a;color:#fff;' : 'background:#fffaf0;color:#3a3a3a;border:1px solid #e0d9c6;')
+    }));
     let imgSeed = 10;
-    const services = this.featuredServices.map(d => {
+    const allServices = this.featuredServices.map(d => {
       const ac = C[d.accent], dark = accentDark[d.accent];
       imgSeed += 1;
       const url = 'https://loremflickr.com/640/420/' + imgKw[d.id] + '?lock=' + imgSeed;
@@ -374,6 +457,7 @@ class Component extends DCLogic {
         onOpen: () => this.setState({ openService: d.id })
       };
     });
+    const filteredServices = s.filter === 'all' ? allServices : allServices.filter(sv => sv.cat === s.filter);
     const why = this.whyData.map(w => ({ ...w, dotStyle: 'width:44px;height:44px;border-radius:13px;margin-bottom:20px;background:' + C[w.c] + ';' }));
 
     const md = s.openService ? this.featuredServices.find(d => d.id === s.openService) : null;
@@ -387,7 +471,27 @@ class Component extends DCLogic {
       modalCloseStyle = 'width:38px;height:38px;border-radius:11px;border:none;cursor:pointer;font-size:16px;flex-shrink:0;background:' + (dark ? 'rgba(255,255,255,0.2)' : 'rgba(10,10,10,0.08)') + ';color:' + (dark ? '#fff' : '#0a0a0a') + ';';
       modalCheckStyle = 'width:18px;height:18px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;background:' + ac + ';color:' + (dark ? '#fff' : '#0a0a0a') + ';';
     }
-    return { services, why, modalOpen, modalTitle, modalLong, modalFeatures, modalSections, modalBannerStyle, modalTitleStyle, modalCloseStyle, modalCheckStyle, closeModal: () => this.setState({ openService: null }), stop: (e) => e.stopPropagation() };
+    return {
+      toggleMenu: () => this.setState(st => ({ menuOpen: !st.menuOpen })),
+      menuLine1Transform: s.menuOpen ? 'rotate(45deg) translateY(5px)' : 'none',
+      menuLine2Opacity: s.menuOpen ? '0' : '1',
+      menuLine3Transform: s.menuOpen ? 'rotate(-45deg) translateY(-5px)' : 'none',
+      mobileMenuOpen: s.menuOpen,
+      filterChips,
+      filteredServices,
+      why,
+      modalOpen,
+      modalTitle,
+      modalLong,
+      modalFeatures,
+      modalSections,
+      modalBannerStyle,
+      modalTitleStyle,
+      modalCloseStyle,
+      modalCheckStyle,
+      closeModal: () => this.setState({ openService: null }),
+      stop: (e) => e.stopPropagation()
+    };
   }
 }
 </script>
