@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apollo Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+
+  /* ── Phase 1: fullscreen video ── */
+  #phase-video {
+    position: fixed; inset: 0; z-index: 1;
+    background: #000;
+    opacity: 1; transition: opacity 0.6s ease;
+  }
+  #phase-video.fade-out { opacity: 0; }
+  #bg-video {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+
+  /* ── Phase 2: text animation overlay ── */
+  #phase-text {
+    position: fixed; inset: 0; z-index: 2;
+    background: #000;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  #phase-text.visible { opacity: 1; pointer-events: auto; }
+
+  /* Letter-by-letter word */
+  .word {
+    display: flex; overflow: hidden;
+    line-height: 1;
+  }
+  .word + .word { margin-left: 0.22em; }
+
+  .letter {
+    font-family: 'Manrope', Arial, sans-serif;
+    font-weight: 800;
+    font-size: clamp(52px, 9vw, 108px);
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16,1,0.3,1);
+  }
+  .letter.primary { color: #1B3E6B; }
+
+  /* tagline beneath */
+  #tagline {
+    font-family: 'Manrope', Arial, sans-serif;
+    font-weight: 300;
+    font-size: clamp(12px, 1.4vw, 16px);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 28px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  #tagline.visible { opacity: 1; transform: translateY(0); }
+
+  /* horizontal line wipe */
+  #line-wipe {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 2px;
+    width: 0%;
+    background: #1B3E6B;
+    transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  #line-wipe.run { width: 100%; }
+
+  /* final full-screen wipe up */
+  #wipe-up {
+    position: fixed; inset: 0; z-index: 10;
+    background: #1B3E6B;
+    transform: translateY(100%);
+    transition: transform 0.7s cubic-bezier(0.76,0,0.24,1);
+  }
+  #wipe-up.run { transform: translateY(0); }
+
+  /* skip */
+  #skip {
+    position: fixed; bottom: 28px; right: 28px; z-index: 20;
+    font-family: 'Manrope', Arial, sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; color: rgba(255,255,255,0.45);
+    background: none; border: none; cursor: pointer;
+    transition: color 0.2s;
+  }
+  #skip:hover { color: rgba(255,255,255,0.9); }
+</style>
+</head>
+<body>
+
+<!-- Phase 1: raw video, no UI -->
+<div id="phase-video">
+  <video id="bg-video" autoplay muted playsinline>
+    <source src="landinf.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- Phase 2: text reveal -->
+<div id="phase-text">
+  <div style="display:flex; align-items:baseline;">
+    <div class="word" id="word-apollo"></div>
+    <div class="word" id="word-services"></div>
+  </div>
+  <div id="tagline">Albury's trusted cleaning &amp; support team</div>
+  <div id="line-wipe"></div>
+</div>
+
+<!-- Final wipe -->
+<div id="wipe-up"></div>
+
+<button id="skip" onclick="skipAll()">Skip ›</button>
+
+<script>
+(function(){
+  var VIDEO_MAX = 6000;   // max ms to show video before text phase
+  var TEXT_DURATION = 2800; // ms text phase stays before wipe
+
+  var vid       = document.getElementById('bg-video');
+  var phVid     = document.getElementById('phase-video');
+  var phText    = document.getElementById('phase-text');
+  var tagline   = document.getElementById('tagline');
+  var lineWipe  = document.getElementById('line-wipe');
+  var wipeUp    = document.getElementById('wipe-up');
+
+  var done = false;
+
+  // ── build letters ──
+  function buildWord(elId, text, isPrimary) {
+    var el = document.getElementById(elId);
+    text.split('').forEach(function(ch) {
+      var s = document.createElement('span');
+      s.className = 'letter' + (isPrimary ? ' primary' : '');
+      s.textContent = ch;
+      el.appendChild(s);
+    });
+  }
+  buildWord('word-apollo',   'Apollo',   true);
+  buildWord('word-services', '\u00a0Services', false);
+
+  // ── animate letters in ──
+  function revealLetters() {
+    var letters = document.querySelectorAll('.letter');
+    letters.forEach(function(l, i) {
+      setTimeout(function() {
+        l.style.opacity = '1';
+        l.style.transform = 'translateY(0)';
+      }, i * 55);
+    });
+    // tagline after all letters
+    setTimeout(function() {
+      tagline.classList.add('visible');
+    }, letters.length * 55 + 120);
+    // line wipe
+    setTimeout(function() {
+      lineWipe.classList.add('run');
+    }, letters.length * 55 + 300);
+  }
+
+  // ── phase transition: video → text ──
+  function startTextPhase() {
+    if (done) return;
+    // fade out video
+    phVid.classList.add('fade-out');
+    setTimeout(function() {
+      phText.classList.add('visible');
+      revealLetters();
+      // after text dwells, wipe up to site
+      setTimeout(doWipeUp, TEXT_DURATION);
+    }, 600);
+  }
+
+  // ── final wipe and redirect ──
+  function doWipeUp() {
+    if (done) return;
+    done = true;
+    wipeUp.classList.add('run');
+    setTimeout(function() {
+      window.location.replace('index.html');
+    }, 750);
+  }
+
+  // ── triggers ──
+  vid.addEventListener('ended', startTextPhase);
+  setTimeout(startTextPhase, VIDEO_MAX);
+  vid.addEventListener('error', function() { window.location.replace('index.html'); });
+
+  // skip goes straight to text phase immediately
+  window.skipAll = function() {
+    clearTimeout(); // won't clear named timers but that's fine
+    startTextPhase();
+  };
+})();
+</script>
+</body>
+</html>

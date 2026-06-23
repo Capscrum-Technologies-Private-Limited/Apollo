@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+  if(!sessionStorage.getItem('apollo_intro_seen')){
+    sessionStorage.setItem('apollo_intro_seen','1');
+    window.location.replace('intro.html');
+  }
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Blog &amp; Insights | Apollo Services</title>
+<meta name="description" content="Read our latest cleaning tips, NDIS support insights, commercial cleaning advice, and local Albury property maintenance news.">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#ffffff;}
+  ::selection{background:#c9e0fc;color:#1a1a1a;}
+  
+  /* Button hover states */
+  a[style*="background:#1B3E6B"]:hover,
+  button[style*="background:#1B3E6B"]:hover { background:#000000 !important; border-color:#000000 !important; }
+  a[style*="border:2px solid #1B3E6B"]:hover { color:#000000 !important; border-color:#000000 !important; }
+  a[style*="background:#150F38"]:hover { background:#000000 !important; }
+  
+  @keyframes slideDown{from{transform:translateY(-15px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+  .hamburger-btn{display:none !important;}
+  .hamburger-btn:hover{background:rgba(26,26,26,0.08) !important;}
+  
+  /* Blog Cards */
+  .blog-card {
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease;
+    border: 1px solid #e8e8e8;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(21, 15, 56, 0.08) !important;
+    border-color: #1B3E6B !important;
+  }
+
+  @media(max-width:1024px){
+    *{box-sizing:border-box !important;}
+    html,body{overflow-x:hidden !important;}
+    nav>div:nth-child(2){display:none !important;}
+    nav>div:nth-child(3)>a:first-child{display:none !important;}
+    .hamburger-btn{display:flex !important;}
+    nav{padding:0 20px !important;}
+    [style*="display:flex"]{flex-wrap:wrap !important;}
+    a[style],button[style]{max-width:100% !important;word-wrap:break-word !important;overflow-wrap:break-word !important;padding-inline:16px !important;}
+  }
+  @media(max-width:768px){
+    nav>div:nth-child(3){display:none !important;}
+    [data-float]{display:none !important;}
+    [data-cols="2"]{grid-template-columns:1fr !important;gap:24px !important;}
+    [data-cols="4"]{grid-template-columns:repeat(2,1fr) !important;}
+    [data-cols="3"]{grid-template-columns:1fr !important;}
+    [data-grid="footer-main"]{grid-template-columns:1fr !important;}
+    .mobile-fab{display:flex !important;}
+    h1{font-size:36px !important;line-height:1.1 !important;}
+    h2{font-size:28px !important;line-height:1.1 !important;}
+    p{font-size:16px !important;line-height:1.5 !important;}
+  }
+  @media(max-width:480px){
+    [data-cols="2"],[data-cols="4"]{grid-template-columns:1fr !important;}
+    [data-grid="footer-main"]{padding-inline:16px !important;}
+    h1{font-size:28px !important;line-height:1.1 !important;}
+    h2{font-size:22px !important;line-height:1.1 !important;}
+    p{font-size:15px !important;line-height:1.5 !important;}
+    *{max-width:100vw !important;}
+  }
+</style>
+<script src="page-transition.js"></script>
+</helmet>
+
+<div data-screen-label="Blog" style="background:#ffffff;color:#3d3d3d;font-family:'Manrope',Arial,sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;">
+
+  <!-- TOP UTILITY STRIP -->
+  <div style="background:#1a1a1a;color:#ffffff;font-size:12px;height:36px;display:flex;align-items:center;">
+    <div style="max-width:1366px;margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+      <span style="display:flex;align-items:center;gap:20px;">
+        <a href="tel:0421602524" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:12px;">Call 0421 602 524</a>
+        <a href="mailto:Apollo.au@outlook.com" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:12px;">Apollo.au@outlook.com</a>
+      </span>
+      <span style="color:rgba(255,255,255,0.6);font-size:12px;">Mon-Sat 6am-10:30pm | Sun 7:30am-7pm | Albury NSW</span>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav style="position:sticky;top:0;z-index:200;height:56px;background:#ffffff;border-bottom:1px solid #e8e8e8;display:flex;align-items:center;">
+    <div style="max-width:1366px;margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:0;">
+      <a href="index.html" style="text-decoration:none;flex-shrink:0;display:flex;align-items:center;">
+        <span style="font-family:'Manrope',Arial,sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.5px;color:#1B3E6B;">Apollo</span><span style="font-family:'Manrope',Arial,sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.5px;color:#111111;">&nbsp;Services</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:0;flex:1;justify-content:center;">
+        <a href="index.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">Home</a>
+        <a href="about.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">About</a>
+        <a href="services.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">Services</a>
+        <a href="portfolio.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">Portfolio</a>
+        <a href="blog.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:500;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid #1B3E6B;white-space:nowrap;">Blog</a>
+        <a href="career.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">Career</a>
+        <a href="contact.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">Contact</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px;flex-shrink:0;">
+        <a href="contact.html" style="text-decoration:none;display:flex;align-items:center;justify-content:center;height:38px;padding:0 18px;border-radius:4px;background:#1B3E6B;color:#ffffff;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;transition:all 0.2s;">Book Now</a>
+      </div>
+      <button onClick="{{ toggleMenu }}" class="hamburger-btn" style="background:none;border:none;cursor:pointer;display:none;flex-direction:column;gap:5px;width:40px;height:40px;justify-content:center;align-items:center;padding:0;flex-shrink:0;">
+        <span style="width:20px;height:2px;background:#1a1a1a;transition:transform 0.3s,opacity 0.3s;transform:{{ menuLine1Transform }};transform-origin:center;display:block;"></span>
+        <span style="width:20px;height:2px;background:#1a1a1a;transition:opacity 0.3s;opacity:{{ menuLine2Opacity }};display:block;"></span>
+        <span style="width:20px;height:2px;background:#1a1a1a;transition:transform 0.3s,opacity 0.3s;transform:{{ menuLine3Transform }};transform-origin:center;display:block;"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE DRAWER -->
+  <sc-if value="{{ mobileMenuOpen }}">
+    <div style="position:fixed;top:92px;left:0;right:0;bottom:0;background:#ffffff;z-index:199;display:flex;flex-direction:column;padding:32px 24px;gap:0;border-top:1px solid #e8e8e8;animation:slideDown 0.35s cubic-bezier(0.16,1,0.3,1);overflow-y:auto;">
+      <a href="index.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:500;padding:16px 0;border-bottom:1px solid #e8e8e8;">Home</a>
+      <a href="about.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">About</a>
+      <a href="services.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">Services</a>
+      <a href="portfolio.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">Portfolio</a>
+      <a href="blog.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">Blog</a>
+      <a href="career.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">Career</a>
+      <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">Contact</a>
+    </div>
+  </sc-if>
+
+  <!-- HERO HEADER SECTION -->
+  <section style="background:#f7f7f7;border-bottom:1px solid #e8e8e8;padding:80px 24px;">
+    <div style="max-width:960px;margin:0 auto;text-align:center;">
+      <span style="font-size:13px;font-weight:700;color:#1B3E6B;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:12px;">Insights &amp; Guides</span>
+      <h1 style="font-size:48px;font-weight:800;color:#150F38;letter-spacing:-1.5px;margin:0 0 16px;line-height:1.1;">The Apollo Journal</h1>
+      <p style="font-size:18px;color:#636363;max-width:640px;margin:0 auto;line-height:1.5;">Tips, guides, and updates from Albury's trusted cleaning and companion support specialists.</p>
+    </div>
+  </section>
+
+  <!-- CATEGORY FILTER CHIPS -->
+  <section style="padding:32px 24px;border-bottom:1px solid #e8e8e8;background:#ffffff;">
+    <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">
+      <sc-for list="{{ filterChips }}" as="chip">
+        <button onClick="{{ chip.onClick }}" style="{{ chip.style }}">
+          {{ chip.label }}
+        </button>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- BLOG POSTS GRID -->
+  <section style="padding:64px 24px;background:#ffffff;">
+    <div style="max-width:960px;margin:0 auto;">
+      
+      <!-- Loading State -->
+      <sc-if value="{{ loading }}">
+        <div style="text-align:center;padding:48px 0;color:#636363;">
+          <i class="fa-solid fa-spinner fa-spin" style="font-size:32px;color:#1B3E6B;margin-bottom:12px;display:block;"></i>
+          <span>Loading stories...</span>
+        </div>
+      </sc-if>
+
+      <!-- Empty State -->
+      <sc-if value="{{ noPosts }}">
+        <div style="text-align:center;padding:64px 24px;border:1px dashed #c2c2c2;border-radius:12px;color:#636363;">
+          <i class="fa-regular fa-folder-open" style="font-size:40px;color:#c2c2c2;margin-bottom:16px;display:block;"></i>
+          <h3 style="font-size:18px;color:#1a1a1a;margin-bottom:8px;">No articles found</h3>
+          <p>There are no published articles matching this category at the moment.</p>
+        </div>
+      </sc-if>
+
+      <!-- Grid of Posts -->
+      <sc-if value="{{ hasPosts }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(290px, 1fr));gap:32px;">
+          <sc-for list="{{ posts }}" as="p">
+            <article class="blog-card" style="display:flex;flex-direction:column;height:100%;">
+              <div style="padding:24px;flex-grow:1;display:flex;flex-direction:column;">
+                <div style="display:flex;justify-content:between;align-items:center;margin-bottom:14px;">
+                  <span style="font-size:11px;font-weight:700;text-transform:uppercase;color:#1B3E6B;background:#ecfdf5;color:#047857;padding:3px 8px;border-radius:4px;letter-spacing:0.5px;">
+                    {{ p.category }}
+                  </span>
+                  <span style="font-size:12px;color:#636363;margin-left:auto;">
+                    {{ p.dateFormatted }}
+                  </span>
+                </div>
+                <h3 style="font-size:20px;font-weight:700;color:#150F38;margin:0 0 10px;line-height:1.25;">
+                  <a href="{{ p.url }}" style="color:inherit;text-decoration:none;">{{ p.title }}</a>
+                </h3>
+                <p style="font-size:14px;color:#636363;line-height:1.45;margin:0 0 20px;">
+                  {{ p.summary }}
+                </p>
+              </div>
+              <div style="padding:16px 24px;border-top:1px solid #e8e8e8;background:#fafafa;display:flex;align-items:center;justify-content:space-between;">
+                <span style="font-size:12px;color:#636363;display:flex;align-items:center;gap:6px;">
+                  <i class="fa-regular fa-clock"></i> 3 min read
+                </span>
+                <a href="{{ p.url }}" style="font-size:13px;font-weight:700;color:#1B3E6B;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">
+                  Read story <i class="fa-solid fa-arrow-right" style="font-size:11px;"></i>
+                </a>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </sc-if>
+
+    </div>
+  </section>
+
+  <!-- CTA FOOTER BLOCK -->
+  <section style="background:#150F38;color:#ffffff;padding:80px 24px;text-align:center;">
+    <div style="max-width:640px;margin:0 auto;">
+      <h2 style="font-size:36px;font-weight:800;letter-spacing:-1px;margin:0 0 16px;line-height:1.15;">Need professional cleaning?</h2>
+      <p style="font-size:16px;color:rgba(255,255,255,0.7);margin:0 0 32px;line-height:1.5;">Book premium, NDIS-compliant, or commercial-grade cleaning services in Albury-Wodonga today.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="contact.html" style="text-decoration:none;display:flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:4px;background:#1B3E6B;color:#ffffff;font-size:14px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;transition:all 0.2s;">Book Service</a>
+        <a href="contact.html" style="text-decoration:none;display:flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:4px;border:2px solid rgba(255,255,255,0.3);color:#ffffff;font-size:14px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;transition:all 0.2s;">Get Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#1a1a1a;color:#ffffff;padding:64px 24px 32px;border-top:1px solid #2a2a2a;">
+    <div style="max-width:1366px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:64px;" data-grid="footer-main">
+      <div>
+        <span style="font-family:'Manrope',Arial,sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.5px;color:#ffffff;margin-bottom:16px;display:block;">Apollo Services</span>
+        <p style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:24px;max-width:360px;">Albury's premium NDIS, Commercial, and Residential cleaning and support specialists. Compassionate care and meticulous cleans, bond-back guaranteed.</p>
+      </div>
+      <div>
+        <h4 style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px;color:#ffffff;">Quick Links</h4>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="about.html" style="font-size:14px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s;">About us</a>
+          <a href="services.html" style="font-size:14px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s;">Services &amp; Pricing</a>
+          <a href="portfolio.html" style="font-size:14px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s;">Our Portfolio</a>
+          <a href="blog.html" style="font-size:14px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s;">Our Blog</a>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px;color:#ffffff;">Contact</h4>
+        <p style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:12px;">Albury-Wodonga region, NSW/VIC</p>
+        <p style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:12px;">Phone: <a href="tel:0421602524" style="color:inherit;text-decoration:none;">0421 602 524</a></p>
+        <p style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:12px;">Email: <a href="mailto:Apollo.au@outlook.com" style="color:inherit;text-decoration:none;">Apollo.au@outlook.com</a></p>
+      </div>
+    </div>
+    <div style="max-width:1366px;margin:0 auto;border-top:1px solid #2a2a2a;padding-top:32px;display:flex;justify-content:space-between;align-items:center;gap:16px;">
+      <span style="font-size:13px;color:rgba(255,255,255,0.4);">&copy; 2026 Apollo Cleaning &amp; Support Services. All rights reserved.</span>
+      <span style="font-size:13px;color:rgba(255,255,255,0.5);display:flex;align-items:center;gap:7px;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:block;"></span>Now taking bookings</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false, posts: [], activeCat: 'All', loading: true };
+  
+  componentDidMount() {
+    this._mounted = true;
+    this.fetchPosts();
+  }
+  
+  componentWillUnmount() {
+    this._mounted = false;
+  }
+
+  fetchPosts() {
+    fetch('api/get_blog.php')
+      .then(res => res.json())
+      .then(res => {
+        if (this._mounted && res.status === 'success') {
+          this.setState({ posts: res.data, loading: false });
+        } else if (this._mounted) {
+          this.setState({ loading: false });
+        }
+      })
+      .catch(err => {
+        console.error('Error fetching blog:', err);
+        if (this._mounted) this.setState({ loading: false });
+      });
+  }
+  
+  renderVals() {
+    const s = this.state;
+    
+    // Filter posts client-side based on category
+    const filteredRaw = s.posts.filter(p => {
+      if (s.activeCat === 'All') return true;
+      return p.category.toLowerCase() === s.activeCat.toLowerCase();
+    });
+
+    const posts = filteredRaw.map(p => ({
+      ...p,
+      url: 'blog-post.html?slug=' + encodeURIComponent(p.slug),
+      dateFormatted: new Date(p.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
+    }));
+
+    const categories = ['All', 'Residential', 'Commercial', 'NDIS', 'General'];
+    const filterChips = categories.map(cat => {
+      const active = s.activeCat === cat;
+      return {
+        label: cat,
+        onClick: () => this.setState({ activeCat: cat }),
+        style: 'height:36px;padding:0 18px;border-radius:9999px;font-family:\'Manrope\',Arial,sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;' +
+          (active ? 'background:#1B3E6B;color:#ffffff;border:none;' : 'background:#ffffff;color:#636363;border:1px solid #e8e8e8;')
+      };
+    });
+
+    return {
+      toggleMenu: () => this.setState(st => ({ menuOpen: !st.menuOpen })),
+      menuLine1Transform: s.menuOpen ? 'rotate(45deg) translateY(5px)' : 'none',
+      menuLine2Opacity: s.menuOpen ? '0' : '1',
+      menuLine3Transform: s.menuOpen ? 'rotate(-45deg) translateY(-5px)' : 'none',
+      mobileMenuOpen: s.menuOpen,
+      loading: s.loading,
+      posts,
+      filterChips,
+      hasPosts: posts.length > 0,
+      noPosts: !s.loading && posts.length === 0
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -2,6 +2,12 @@
 <html>
 
 <head>
+<script>
+  if(!sessionStorage.getItem('apollo_intro_seen')){
+    sessionStorage.setItem('apollo_intro_seen','1');
+    window.location.replace('intro.html');
+  }
+</script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="./support.js"></script>
@@ -10,13 +16,13 @@
 <body>
   <x-dc>
     <helmet>
-      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-      <title>Apollo Services | Professional Cleaning & Support — Albury NSW</title>
-      <meta name="description" content="Apollo Services — Albury's trusted cleaning & support specialists. Commercial cleaning, end-of-lease, NDIS support, carpet cleaning and more. 3,000+ happy clients. Get a free quote today.">
+      <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <title>Apollo Services | Professional Cleaning &amp; Support — Albury NSW</title>
+      <meta name="description"
+        content="Apollo Services — Albury's trusted cleaning &amp; support specialists. Commercial cleaning, end-of-lease, NDIS support, carpet cleaning and more. 3,000+ happy clients. Get a free quote today.">
       <style>
         * {
           box-sizing: border-box;
@@ -28,15 +34,20 @@
 
         body {
           margin: 0;
-          background: #fffaf0;
+          background: #ffffff;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
         }
 
         ::selection {
-          background: #ffb084;
-          color: #0a0a0a;
+          background: #c9e0fc;
+          color: #1a1a1a;
         }
+        /* Button hover states */
+        a[style*="background:#1B3E6B"]:hover,
+        button[style*="background:#1B3E6B"]:hover { background:#000000 !important; border-color:#000000 !important; }
+        a[style*="border:2px solid #1B3E6B"]:hover { color:#000000 !important; border-color:#000000 !important; }
+        a[style*="background:#150F38"]:hover { background:#000000 !important; }
 
         @keyframes bob {
 
@@ -60,332 +71,537 @@
           }
         }
 
-        /* Mobile-first responsive styles */
+        @keyframes slideDown {
+          from {
+            transform: translateY(-15px);
+            opacity: 0;
+          }
+
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        .hamburger-btn {
+          display: none !important;
+        }
+
+        .hamburger-btn:hover {
+          background: rgba(26, 26, 26, 0.08) !important;
+        }
+
+        /* ── HP-exact hero carousel ── */
+        #hp-hero { position:relative; overflow:hidden; background:#ffffff; border-bottom:1px solid #e8e8e8; }
+        #hp-track { display:flex; will-change:transform; transition:transform 0.55s cubic-bezier(0.4,0,0.2,1); width:100%; }
+        .hp-slide {
+          min-width:100%; width:100%; display:flex; align-items:stretch; flex-shrink:0;
+          min-height:calc(100vh - 92px); background:#ffffff; position:relative;
+        }
+        /* left copy pane */
+        .hp-slide-copy {
+          flex:0 0 42%; padding:72px 48px 72px 96px;
+          display:flex; flex-direction:column; justify-content:center;
+          position:relative; z-index:2; background:#ffffff;
+        }
+        /* right photo pane */
+        .hp-slide-img {
+          flex:1; position:relative; display:flex; align-items:stretch;
+        }
+        .hp-slide-img img {
+          width:100%; height:100%; object-fit:contain; object-position:center center;
+          display:block; background:#f7f7f7;
+        }
+        /* HP-style gray box arrows — must sit above track */
+        .hp-arrow {
+          position:absolute; top:50%; transform:translateY(-50%);
+          z-index:100; width:40px; height:56px;
+          background:rgba(220,220,220,0.95);
+          border:none; cursor:pointer; display:flex; align-items:center; justify-content:center;
+          font-size:20px; color:#1a1a1a; transition:background 0.2s;
+          -webkit-tap-highlight-color:transparent;
+        }
+        .hp-arrow:hover { background:rgba(180,180,180,1); }
+        .hp-arrow:active { background:rgba(150,150,150,1); }
+        .hp-arrow:focus-visible { outline:3px solid #150F38; outline-offset:2px; }
+        #hp-prev { left:0; border-radius:0 2px 2px 0; }
+        #hp-next { right:0; border-radius:2px 0 0 2px; }
+        /* dot indicators */
+        #hp-dots { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); z-index:100; display:flex; gap:8px; align-items:center; }
+        .hp-dot { width:10px; height:10px; border-radius:50%; border:1.5px solid #1a1a1a; background:transparent; cursor:pointer; padding:0; transition:all 0.25s; -webkit-tap-highlight-color:transparent; }
+        .hp-dot:focus-visible { outline:3px solid #150F38; outline-offset:3px; }
+        .hp-dot.hp-dot-active { background:#1a1a1a; width:32px; border-radius:5px; }
+        .hp-slide-copy a:focus-visible { outline:3px solid #150F38; outline-offset:3px; }
+        /* responsive */
+        @media (max-width:1024px) {
+          .hp-slide { min-height:60vh; }
+          .hp-slide-copy { flex:0 0 50%; padding:52px 32px 52px 48px; }
+          .hp-slide-copy h1,.hp-slide-copy h2 { font-size:40px !important; }
+        }
+        @media (max-width:768px) {
+          .hp-slide { flex-direction:column; min-height:auto; }
+          .hp-slide-copy { flex:unset; padding:40px 24px 32px; }
+          .hp-slide-img { min-height:280px; flex:unset; }
+          .hp-slide-copy h1,.hp-slide-copy h2 { font-size:32px !important; }
+        }
+        /* Photo grid responsive */
+        @media (max-width: 768px) {
+          [style*="grid-template-columns:2fr 1fr 1fr"] {
+            grid-template-columns: 1fr 1fr !important;
+            grid-template-rows: 200px 200px 200px !important;
+          }
+          [style*="grid-template-columns:2fr 1fr 1fr"] > div:first-child {
+            grid-row: 1 / 2 !important; grid-column: 1 / 3 !important;
+          }
+        }
+        @media (max-width: 480px) {
+          [style*="grid-template-columns:2fr 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+            grid-template-rows: repeat(5,200px) !important;
+          }
+          [style*="grid-template-columns:2fr 1fr 1fr"] > div:first-child {
+            grid-row:1/2 !important; grid-column:1/2 !important;
+          }
+        }
+
         @media (max-width: 1024px) {
-          /* Hero section */
+          * {
+            box-sizing: border-box !important;
+          }
+
+          html,
+          body {
+            overflow-x: hidden !important;
+          }
+
           header#top {
             grid-template-columns: 1fr !important;
             padding: 40px 20px 60px !important;
             gap: 32px !important;
           }
-          
-          h1 {
-            font-size: 42px !important;
-          }
-          
-          /* Navigation */
+
           nav {
             padding: 0 20px !important;
           }
-          
-          nav > div:nth-child(2) {
+
+          nav>div:nth-child(2) {
             display: none !important;
+          }
+
+          nav>div:nth-child(3)>a:first-child {
+            display: none !important;
+          }
+
+          .hamburger-btn {
+            display: flex !important;
+          }
+
+          [style*="display:flex"] {
+            flex-wrap: wrap !important;
+          }
+
+          a[style],
+          button[style] {
+            max-width: 100% !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            padding-inline: 16px !important;
           }
         }
 
         @media (max-width: 768px) {
-          /* Services grid */
+          .mobile-fab {
+            display: flex !important;
+          }
+
+          nav>div:nth-child(3) {
+            display: none !important;
+          }
+
+          [data-float] {
+            display: none !important;
+          }
+
           [data-svc-grid] {
             grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
+            padding-inline: 16px !important;
           }
-          
-          /* Why choose us */
-          [data-stagger][style*="grid-template-columns:repeat(3"] {
+
+          [data-cols="3"] {
             grid-template-columns: 1fr !important;
           }
-          
-          [data-stagger][style*="grid-template-columns:repeat(4"] {
+
+          [data-cols="4"] {
             grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
           }
-          
-          /* Process section */
-          [data-stagger][style*="grid-template-columns:repeat(4"] {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-          
-          /* Case studies */
-          [data-stagger][style*="grid-template-columns:repeat(3"] {
+
+          [data-grid="calculator-main"],
+          [data-grid="contact-main"] {
             grid-template-columns: 1fr !important;
+            padding-inline: 16px !important;
           }
-          
-          /* Calculator */
-          [data-reveal][style*="grid-template-columns:1.4fr"] {
-            grid-template-columns: 1fr !important;
+
+          [data-cols="5"] {
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 6px !important;
           }
-          
+
           h1 {
-            font-size: 32px !important;
+            font-size: 36px !important;
+            line-height: 1.1 !important;
           }
-          
+
           h2 {
             font-size: 28px !important;
+            line-height: 1.1 !important;
+          }
+
+          p {
+            font-size: 16px !important;
+            line-height: 1.5 !important;
+          }
+
+          #reviews p {
+            font-size: 18px !important;
+            line-height: 1.4 !important;
           }
         }
 
         @media (max-width: 480px) {
-          /* Services grid */
           [data-svc-grid] {
             grid-template-columns: 1fr !important;
+            gap: 12px !important;
+            padding-inline: 16px !important;
           }
-          
-          /* Process section */
-          [data-stagger][style*="grid-template-columns:repeat(2"] {
+
+          [data-cols="2"] {
             grid-template-columns: 1fr !important;
+            gap: 12px !important;
           }
-          
-          /* Why choose us stats */
-          [data-stagger][style*="grid-template-columns:repeat(2"] {
+
+          [data-cols="3"],
+          [data-cols="4"] {
             grid-template-columns: 1fr !important;
+            gap: 12px !important;
           }
-          
-          /* Hero */
+
+          [data-cols="5"] {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 6px !important;
+          }
+
+          [data-grid="footer-main"] {
+            grid-template-columns: 1fr !important;
+            padding-inline: 16px !important;
+          }
+
           header#top {
             padding: 32px 16px 48px !important;
           }
-          
+
           h1 {
             font-size: 28px !important;
+            line-height: 1.1 !important;
           }
-          
+
+          h2 {
+            font-size: 24px !important;
+            line-height: 1.1 !important;
+          }
+
           p {
-            font-size: 16px !important;
+            font-size: 15px !important;
+            line-height: 1.5 !important;
           }
-          
-          /* Top contact strip */
-          [style*="background:#0a0a0a"] > div {
-            justify-content: center !important;
-            text-align: center !important;
+
+          * {
+            max-width: 100vw !important;
           }
         }
+        /* Interactive Cards & Icons */
+        .interactive-card {
+          transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease;
+        }
+        .interactive-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 24px rgba(26, 26, 26, 0.12) !important;
+          border-color: #1B3E6B !important;
+        }
+
       </style>
+      <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+      <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
       <script src="page-transition.js"></script>
     </helmet>
 
     <div data-screen-label="APOLLO Warm Home"
-      style="background:#fffaf0;color:#3a3a3a;font-family:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;">
+      style="background:#ffffff;color:#3d3d3d;font-family:'Manrope',Arial,sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;">
 
-      <!-- INTRO ANIMATION (multicolor line draws the word) -->
-      <div id="apollo-intro"
-        style="position:fixed;inset:0;z-index:2000;background:#fffaf0;display:flex;align-items:center;justify-content:center;">
-        <svg id="apollo-intro-svg" width="460" height="140" viewBox="0 0 460 140" fill="none" style="max-width:78vw;">
-          <defs>
-            <linearGradient id="apolloGrad" x1="30" y1="0" x2="430" y2="0" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stop-color="#ff4d8b"></stop>
-              <stop offset="0.22" stop-color="#ff6b5a"></stop>
-              <stop offset="0.44" stop-color="#e8b94a"></stop>
-              <stop offset="0.64" stop-color="#a4d4c5"></stop>
-              <stop offset="0.82" stop-color="#1a3a3a"></stop>
-              <stop offset="1" stop-color="#b8a4ed"></stop>
-            </linearGradient>
-          </defs>
-          <text id="apollo-intro-text" x="230" y="74" text-anchor="middle" dominant-baseline="central"
-            font-family="'Fredoka',sans-serif" font-weight="500" font-size="88" letter-spacing="2"
-            fill="url(#apolloGrad)" fill-opacity="0" stroke="url(#apolloGrad)" stroke-width="1.4"
-            stroke-dasharray="1700" stroke-dashoffset="1700">Apollo</text>
-        </svg>
-      </div>
-
-      <!-- CURTAIN REVEAL (Upside-style panel sweep) -->
-      <div id="apollo-curtain" style="position:fixed;inset:0;z-index:1950;display:flex;pointer-events:none;">
-        <div data-curtain style="flex:1;height:100%;background:#1a3a3a;"></div>
-        <div data-curtain style="flex:1;height:100%;background:#ff4d8b;"></div>
-        <div data-curtain style="flex:1;height:100%;background:#b8a4ed;"></div>
-        <div data-curtain style="flex:1;height:100%;background:#ffb084;"></div>
-        <div data-curtain style="flex:1;height:100%;background:#e8b94a;"></div>
-      </div>
-
-      <!-- TOP CONTACT STRIP -->
-      <div style="background:#0a0a0a;color:#f5f0e0;font-size:12.5px;">
-        <div
-          style="max-width:1280px;margin:0 auto;padding:8px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
-          <span style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;"><a href="tel:0421602524"
-              style="color:#f5f0e0;text-decoration:none;">Call 0421 602 524</a><a href="mailto:Apollo.au@outlook.com"
-              style="color:#f5f0e0;text-decoration:none;">Apollo.au@outlook.com</a></span>
-          <span style="color:#cdbf9e;">Mon–Sat 6am–10:30pm · Sun 7:30am–7pm · Albury NSW</span>
+            <!-- TOP UTILITY STRIP -->
+      <div style="background:#1a1a1a;color:#ffffff;font-size:12px;height:36px;display:flex;align-items:center;">
+        <div style="max-width:1366px;margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+          <span style="display:flex;align-items:center;gap:20px;">
+            <a href="tel:0421602524" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:12px;">Call 0421 602 524</a>
+            <a href="mailto:Apollo.au@outlook.com" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:12px;">Apollo.au@outlook.com</a>
+          </span>
+          <span style="color:rgba(255,255,255,0.6);font-size:12px;">Mon�Sat 6am�10:30pm � Sun 7:30am�7pm � Albury NSW</span>
         </div>
       </div>
-
       <!-- NAV -->
-      <nav
-        style="position:sticky;top:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:rgba(255,250,240,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #ece6d6;">
-        <a href="#top" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#0a0a0a;">
-          <span
-            style="width:26px;height:26px;border-radius:9px;background:#0a0a0a;display:flex;align-items:center;justify-content:center;"><span
-              style="width:11px;height:11px;border-radius:50%;background:#ffb084;display:block;"></span></span>
-          <span
-            style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:21px;letter-spacing:-0.5px;color:#0a0a0a;">Apollo
-            Services</span>
-        </a>
-        <div style="display:flex;align-items:center;gap:28px;">
-          <a href="index.html" style="text-decoration:none;color:#0a0a0a;font-size:14px;font-weight:600;"
-            style-hover="color:#0a0a0a;">Home</a>
-          <a href="about.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;"
-            style-hover="color:#0a0a0a;">About</a>
-          <a href="services.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;"
-            style-hover="color:#0a0a0a;">Services</a>
-          <a href="portfolio.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;"
-            style-hover="color:#0a0a0a;">Portfolio</a>
-          <a href="career.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;"
-            style-hover="color:#0a0a0a;">Career</a>
-          <a href="contact.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;"
-            style-hover="color:#0a0a0a;">Contact</a>
+      <nav style="position:sticky;top:0;z-index:200;height:56px;background:#ffffff;border-bottom:1px solid #e8e8e8;display:flex;align-items:center;">
+        <div style="max-width:1366px;margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:0;">
+          <a href="index.html" style="text-decoration:none;flex-shrink:0;display:flex;align-items:center;gap:0;">
+            <span style="font-family:'Manrope',Arial,sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.5px;color:#1B3E6B;">Apollo</span><span style="font-family:'Manrope',Arial,sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.5px;color:#111111;">&nbsp;Services</span>
+          </a>
+          <div style="display:flex;align-items:center;gap:0;flex:1;justify-content:center;">
+            <a href="index.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid #1B3E6B;white-space:nowrap;">Home</a>
+            <a href="about.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">About</a>
+            <a href="services.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">Services</a>
+            <a href="portfolio.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">Portfolio</a>
+            <a href="career.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">Career</a>
+            <a href="contact.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">Contact</a>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;flex-shrink:0;">
+            <div style="position:relative;margin-right:8px;">
+              <input type="text" placeholder="What can we help you with?" style="height:34px;width:220px;border:1px solid #c2c2c2;border-radius:0;padding:0 36px 0 12px;font-family:'Manrope',Arial,sans-serif;font-size:13px;color:#1a1a1a;background:#ffffff;outline:none;">
+              <svg style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="#636363" stroke-width="1.5"/><path d="M10 10l3 3" stroke="#636363" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <button style="width:40px;height:40px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Quote cart">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M2 2h2l2.4 10.4a1 1 0 0 0 1 .6h9.2a1 1 0 0 0 .96-.72l1.84-6.28H5.5" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="18" r="1.2" fill="#1a1a1a"/><circle cx="16" cy="18" r="1.2" fill="#1a1a1a"/></svg>
+            </button>
+            <button style="width:40px;height:40px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Sign in">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="7" r="3.5" stroke="#1a1a1a" stroke-width="1.5"/><path d="M3 19c0-4 3.6-7 8-7s8 3 8 7" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <a href="contact.html" style="text-decoration:none;display:inline-flex;align-items:center;height:36px;padding:0 18px;background:#1B3E6B;color:#ffffff;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;border-radius:0;margin-left:8px;transition:background 0.2s;">Book now</a>
+          </div>
+          <button onClick="{{ toggleMenu }}" class="hamburger-btn" style="background:none;border:none;cursor:pointer;display:none;flex-direction:column;gap:5px;width:40px;height:40px;justify-content:center;align-items:center;padding:0;flex-shrink:0;">
+            <span style="width:20px;height:2px;background:#1a1a1a;transition:transform 0.3s,opacity 0.3s;transform:{{ menuLine1Transform }};transform-origin:center;display:block;"></span>
+            <span style="width:20px;height:2px;background:#1a1a1a;transition:opacity 0.3s;opacity:{{ menuLine2Opacity }};display:block;"></span>
+            <span style="width:20px;height:2px;background:#1a1a1a;transition:transform 0.3s,opacity 0.3s;transform:{{ menuLine3Transform }};transform-origin:center;display:block;"></span>
+          </button>
         </div>
-        <div style="display:flex;align-items:center;gap:14px;">
-          <a href="contact.html"
-            style="text-decoration:none;color:#0a0a0a;font-size:14px;font-weight:600;white-space:nowrap;">Request
-            quote</a>
-          <a href="contact.html"
-            style="text-decoration:none;display:inline-flex;align-items:center;height:42px;padding:0 18px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:14px;font-weight:600;white-space:nowrap;"
-            style-hover="background:#262626;">Book service</a>
-        </div>
-        <!-- Hamburger Button -->
-        <button onClick="{{ toggleMenu }}" class="hamburger-btn" style="background:rgba(10,10,10,0.04);border:1px solid rgba(10,10,10,0.06);cursor:pointer;display:none;flex-direction:column;gap:5px;width:38px;height:38px;border-radius:11px;justify-content:center;align-items:center;z-index:110;padding:0;transition:all 0.3s;">
-          <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;transform:{{ menuLine1Transform }};transform-origin:center;"></span>
-          <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;opacity:{{ menuLine2Opacity }};"></span>
-          <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;transform:{{ menuLine3Transform }};transform-origin:center;"></span>
-        </button>
       </nav>
-
       <!-- MOBILE DRAWER -->
       <sc-if value="{{ mobileMenuOpen }}">
-        <div style="position:fixed;top:64px;left:0;right:0;bottom:0;background:rgba(255,250,240,0.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:99;display:flex;flex-direction:column;padding:40px 28px;gap:20px;border-top:1px solid #ece6d6;animation:slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
-          <a href="index.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#0a0a0a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Home</a>
-          <a href="about.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">About</a>
-          <a href="services.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Services</a>
-          <a href="portfolio.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Portfolio</a>
-          <a href="career.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Career</a>
-          <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Contact</a>
-          <div style="height:1px;background:#ece6d6;margin:15px 0 5px 0;"></div>
-          <div style="display:flex;flex-direction:column;gap:12px;margin-top:10px;">
-            <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:46px;border-radius:12px;border:1px solid #e0d9c6;color:#0a0a0a;font-size:15px;font-weight:600;background:#fffaf0;">Request quote</a>
-            <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:46px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:15px;font-weight:600;">Book service</a>
+        <div style="position:fixed;top:92px;left:0;right:0;bottom:0;background:#ffffff;z-index:199;display:flex;flex-direction:column;padding:32px 24px;gap:0;border-top:1px solid #e8e8e8;animation:slideDown 0.35s cubic-bezier(0.16,1,0.3,1);overflow-y:auto;">
+          <a href="index.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:500;padding:16px 0;border-bottom:1px solid #e8e8e8;">Home</a>
+          <a href="about.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">About</a>
+          <a href="services.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">Services</a>
+          <a href="portfolio.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">Portfolio</a>
+          <a href="career.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">Career</a>
+          <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">Contact</a>
+          <div style="margin-top:24px;display:flex;flex-direction:column;gap:12px;">
+            <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;display:flex;align-items:center;justify-content:center;height:44px;border:2px solid #1B3E6B;color:#1B3E6B;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;">Get a quote</a>
+            <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;display:flex;align-items:center;justify-content:center;height:44px;background:#1B3E6B;color:#ffffff;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;transition:background 0.2s;">Book service</a>
           </div>
         </div>
       </sc-if>
 
-      <!-- HERO -->
-      <header id="top"
-        style="max-width:1280px;margin:0 auto;padding:64px 28px 88px;display:grid;grid-template-columns:1.05fr 0.95fr;gap:48px;align-items:center;">
-        <div>
-          <div data-hero
-            style="display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 14px;border-radius:9999px;background:#f5f0e0;font-size:13px;font-weight:500;color:#3a3a3a;margin-bottom:24px;white-space:nowrap;">
-            <span style="width:7px;height:7px;border-radius:50%;background:#22c55e;display:block;"></span>
-            Albury's trusted cleaning & support team
-          </div>
-          <h1 data-hero
-            style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:60px;line-height:1.02;letter-spacing:-2px;color:#0a0a0a;margin:0 0 20px;">
-            Professional support services that keep your business running smoothly.</h1>
-          <p data-hero style="font-size:19px;line-height:1.55;color:#3a3a3a;max-width:500px;margin:0 0 30px;">Reliable
-            support, fast response times, and scalable service solutions tailored to your needs — from spotless
-            workspaces to compassionate in-home care.</p>
-          <div data-hero style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px;">
-            <a href="#contact"
-              style="text-decoration:none;display:inline-flex;align-items:center;height:48px;padding:0 24px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:15px;font-weight:600;"
-              style-hover="background:#262626;">Book service</a>
-            <a href="#calculator"
-              style="text-decoration:none;display:inline-flex;align-items:center;height:48px;padding:0 24px;border-radius:12px;background:#fffaf0;color:#0a0a0a;font-size:15px;font-weight:600;border:1px solid #e0d9c6;"
-              style-hover="background:#faf5e8;">Request quote</a>
-          </div>
-          <div data-hero
-            style="display:flex;align-items:center;gap:18px;font-size:13.5px;color:#6a6a6a;flex-wrap:wrap;">
-            <span style="display:flex;align-items:center;gap:6px;"><span
-                style="color:#e8b94a;font-size:15px;">★★★★★</span> 4.9/5 · 3,000+ clients</span>
-            <span>· Eco-friendly products</span>
-          </div>
-        </div>
+      <!-- ═══════════════════════════════════════════════
+           HERO CAROUSEL — HP.com exact replica
+           White bg · copy left 42% · blue slash center · photo right
+      ═══════════════════════════════════════════════ -->
+      <section id="hp-hero">
 
-        <div data-hero style="position:relative;height:480px;border-radius:24px;background:#faf5e8;overflow:hidden;">
-          <div data-float="0.5"
-            style="position:absolute;top:42px;right:54px;width:120px;height:120px;border-radius:50%;background:#e8b94a;">
-          </div>
-          <div
-            style="position:absolute;left:-40px;bottom:-70px;width:340px;height:300px;border-radius:50% 50% 0 0;background:#b8a4ed;">
-          </div>
-          <div
-            style="position:absolute;right:-50px;bottom:-90px;width:320px;height:260px;border-radius:50% 50% 0 0;background:#ffb084;">
-          </div>
-          <div
-            style="position:absolute;left:90px;bottom:-50px;width:230px;height:200px;border-radius:50% 50% 0 0;background:#1a3a3a;">
-          </div>
-          <div data-float="0.9"
-            style="position:absolute;left:46px;top:64px;width:64px;height:64px;border-radius:50% 50% 50% 14px;background:#a4d4c5;">
-          </div>
-          <div data-float="0.35"
-            style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:300px;border-radius:16px;background:#fffaf0;border:1px solid #ece6d6;padding:18px;box-shadow:0 18px 40px rgba(26,58,58,0.14);">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-              <span
-                style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#6a6a6a;">Today's
-                booking</span>
-              <span
-                style="height:22px;padding:0 9px;border-radius:9999px;background:#a4d4c5;color:#11302a;font-size:11px;font-weight:700;display:inline-flex;align-items:center;">Confirmed</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-              <span style="width:34px;height:34px;border-radius:50%;background:#ff4d8b;flex-shrink:0;"></span>
-              <div>
-                <div style="font-size:14px;font-weight:600;color:#0a0a0a;">Office Cleaning · Albury CBD</div>
-                <div style="font-size:12.5px;color:#6a6a6a;">Crew of 3 · After hours, 7:00 PM</div>
+        <!-- slide track -->
+        <div id="hp-track">
+
+
+          <!-- SLIDE 1 -->
+          <div class="hp-slide">
+            <div class="hp-slide-copy">
+              <p style="font-size:14px;font-weight:500;color:#636363;margin:0 0 20px 0;letter-spacing:0.3px;text-transform:uppercase;">Albury's trusted cleaning &amp; support team</p>
+              <h1 style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:58px;line-height:1.05;letter-spacing:-1px;color:#1a1a1a;margin:0 0 22px;max-width:480px;">Professional cleaning services that deliver spotless results.</h1>
+              <p style="font-size:18px;line-height:1.6;color:#3d3d3d;margin:0 0 32px;max-width:420px;">Commercial, residential, end-of-lease and NDIS support — one local team, every job done right.</p>
+              <div style="display:flex;gap:14px;flex-wrap:wrap;">
+                <a href="#contact" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;background:#1B3E6B;color:#ffffff;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;border-radius:0;border:2px solid #1B3E6B;cursor:pointer;transition:background 0.2s;">Book service</a>
+                <a href="services.html" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;background:#ffffff;color:#1B3E6B;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;border:2px solid #1B3E6B;border-radius:0;cursor:pointer;transition:all 0.2s;">Our services</a>
               </div>
             </div>
-            <div style="height:8px;border-radius:9999px;background:#f0eada;overflow:hidden;">
-              <div style="width:72%;height:100%;background:#1a3a3a;border-radius:9999px;"></div>
+            <div class="hp-slide-img">
+              <img src="WhatsApp Image 2026-06-22 at 11.16.51 PM.jpeg" alt="Office cleaning Albury">
             </div>
-            <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#6a6a6a;margin-top:8px;">
-              <span>Eco-friendly products</span><span>On time</span></div>
           </div>
+
+          <!-- SLIDE 2 -->
+          <div class="hp-slide">
+            <div class="hp-slide-copy">
+              <p style="font-size:14px;font-weight:500;color:#636363;margin:0 0 20px 0;letter-spacing:0.3px;text-transform:uppercase;">Office Cleaning</p>
+              <h2 style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:58px;line-height:1.05;letter-spacing:-1px;color:#1a1a1a;margin:0 0 22px;max-width:480px;">Spotless offices every single morning.</h2>
+              <p style="font-size:18px;line-height:1.6;color:#3d3d3d;margin:0 0 32px;max-width:420px;">Tailored after-hours programs so your team walks in to a clean, productive workspace — every day.</p>
+              <div style="display:flex;gap:14px;flex-wrap:wrap;">
+                <a href="services.html" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;background:#1B3E6B;color:#ffffff;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;border-radius:0;border:2px solid #1B3E6B;cursor:pointer;transition:background 0.2s;">Learn more</a>
+                <a href="#contact" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;background:#ffffff;color:#1B3E6B;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;border:2px solid #1B3E6B;border-radius:0;cursor:pointer;transition:all 0.2s;">Get a quote</a>
+              </div>
+            </div>
+            <div class="hp-slide-img">
+              <img src="WhatsApp Image 2026-06-22 at 11.16.51 PM (1).jpeg" alt="Office cleaning service">
+            </div>
+          </div>
+
+          <!-- SLIDE 3 -->
+          <div class="hp-slide">
+            <div class="hp-slide-copy">
+              <p style="font-size:14px;font-weight:500;color:#636363;margin:0 0 20px 0;letter-spacing:0.3px;text-transform:uppercase;">Commercial Cleaning</p>
+              <h2 style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:58px;line-height:1.05;letter-spacing:-1px;color:#1a1a1a;margin:0 0 22px;max-width:480px;">Commercial cleaning at its finest.</h2>
+              <p style="font-size:18px;line-height:1.6;color:#3d3d3d;margin:0 0 32px;max-width:420px;">From retail floors to industrial facilities — our crews handle large-scale sites with precision and care.</p>
+              <div style="display:flex;gap:14px;flex-wrap:wrap;">
+                <a href="services.html" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;background:#1B3E6B;color:#ffffff;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;border-radius:0;border:2px solid #1B3E6B;cursor:pointer;transition:background 0.2s;">Learn more</a>
+                <a href="#contact" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;background:#ffffff;color:#1B3E6B;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;border:2px solid #1B3E6B;border-radius:0;cursor:pointer;transition:all 0.2s;">Get a quote</a>
+              </div>
+            </div>
+            <div class="hp-slide-img">
+              <img src="WhatsApp Image 2026-06-22 at 11.16.51 PM (2).jpeg" alt="Commercial cleaning">
+            </div>
+          </div>
+
+          <!-- SLIDE 4 -->
+          <div class="hp-slide">
+            <div class="hp-slide-copy">
+              <p style="font-size:14px;font-weight:500;color:#636363;margin:0 0 20px 0;letter-spacing:0.3px;text-transform:uppercase;">Deep Clean</p>
+              <h2 style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:58px;line-height:1.05;letter-spacing:-1px;color:#1a1a1a;margin:0 0 22px;max-width:480px;">Deep clean that goes beyond the surface.</h2>
+              <p style="font-size:18px;line-height:1.6;color:#3d3d3d;margin:0 0 32px;max-width:420px;">Thorough sanitisation, eco-friendly products, and 125-point checklists for homes and businesses.</p>
+              <div style="display:flex;gap:14px;flex-wrap:wrap;">
+                <a href="services.html" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;background:#1B3E6B;color:#ffffff;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;border-radius:0;border:2px solid #1B3E6B;cursor:pointer;transition:background 0.2s;">Learn more</a>
+                <a href="#contact" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;background:#ffffff;color:#1B3E6B;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;border:2px solid #1B3E6B;border-radius:0;cursor:pointer;transition:all 0.2s;">Get a quote</a>
+              </div>
+            </div>
+            <div class="hp-slide-img">
+              <img src="WhatsApp Image 2026-06-22 at 11.16.51 PM (3).jpeg" alt="Deep cleaning service">
+            </div>
+          </div>
+
+        </div><!-- end #hp-track -->
+
+        <!-- HP-style gray box arrows on left/right edges -->
+        <button class="hp-arrow" id="hp-prev" aria-label="Previous slide">&#8592;</button>
+        <button class="hp-arrow" id="hp-next" aria-label="Next slide">&#8594;</button>
+
+        <!-- HP-style dot indicators: active = wide filled, inactive = circle outline -->
+        <div id="hp-dots">
+          <button class="hp-dot hp-dot-active" aria-label="Slide 1"></button>
+          <button class="hp-dot" aria-label="Slide 2"></button>
+          <button class="hp-dot" aria-label="Slide 3"></button>
+          <button class="hp-dot" aria-label="Slide 4"></button>
         </div>
-      </header>
+
+        <script>
+          (function(){
+            function initCarousel(){
+              var track = document.getElementById('hp-track');
+              var prev  = document.getElementById('hp-prev');
+              var next  = document.getElementById('hp-next');
+              var dots  = document.querySelectorAll('.hp-dot');
+              // Elements not in DOM yet — retry in 50ms
+              if(!track || !prev || !next || dots.length === 0){
+                setTimeout(initCarousel, 50); return;
+              }
+              var cur=0, total=dots.length, timer;
+
+              function hpGo(n){
+                cur = ((n % total) + total) % total;
+                track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+                dots.forEach(function(d,i){
+                  d.classList.toggle('hp-dot-active', i === cur);
+                });
+              }
+              function resetTimer(){
+                clearInterval(timer);
+                timer = setInterval(function(){ hpGo(cur + 1); }, 6000);
+              }
+
+              prev.addEventListener('click', function(e){
+                e.stopPropagation(); hpGo(cur - 1); resetTimer();
+              });
+              next.addEventListener('click', function(e){
+                e.stopPropagation(); hpGo(cur + 1); resetTimer();
+              });
+              dots.forEach(function(d, i){
+                d.addEventListener('click', function(e){
+                  e.stopPropagation(); hpGo(i); resetTimer();
+                });
+              });
+
+              // Keyboard navigation
+              document.addEventListener('keydown', function(e){
+                if(e.key === 'ArrowLeft')  { hpGo(cur - 1); resetTimer(); }
+                if(e.key === 'ArrowRight') { hpGo(cur + 1); resetTimer(); }
+              });
+
+              // Touch swipe
+              var tx = 0;
+              track.addEventListener('touchstart', function(e){
+                tx = e.touches[0].clientX;
+              }, {passive: true});
+              track.addEventListener('touchend', function(e){
+                var dx = e.changedTouches[0].clientX - tx;
+                if(Math.abs(dx) > 50){ hpGo(cur + (dx < 0 ? 1 : -1)); resetTimer(); }
+              });
+
+              resetTimer();
+            }
+
+            // Start trying as soon as possible
+            if(document.readyState === 'loading'){
+              document.addEventListener('DOMContentLoaded', initCarousel);
+            } else {
+              initCarousel();
+            }
+          })();
+        </script>
+      </section>
 
       <!-- TRUST BAR -->
       <section
-        style="border-top:1px solid #ece6d6;border-bottom:1px solid #ece6d6;background:#faf5e8;padding:26px 28px;">
+        style="border-top:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;background:#f7f7f7;padding:26px 28px;">
         <div style="max-width:1280px;margin:0 auto;">
           <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:22px;">
             <span
-              style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px;border-radius:9999px;background:#fffaf0;border:1px solid #e0d9c6;font-size:13px;font-weight:600;color:#0a0a0a;"><span
+              style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px;border-radius:9999px;background:#ffffff;border:1px solid #e8e8e8;font-size:13px;font-weight:600;color:#1a1a1a;"><span
                 style="color:#e8b94a;">★</span> 4.9 average rating</span>
             <span
-              style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px;border-radius:9999px;background:#fffaf0;border:1px solid #e0d9c6;font-size:13px;font-weight:600;color:#0a0a0a;">3,000+
+              style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px;border-radius:9999px;background:#ffffff;border:1px solid #e8e8e8;font-size:13px;font-weight:600;color:#1a1a1a;">3,000+
               happy clients</span>
             <span
-              style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px;border-radius:9999px;background:#fffaf0;border:1px solid #e0d9c6;font-size:13px;font-weight:600;color:#0a0a0a;">35+
+              style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px;border-radius:9999px;background:#ffffff;border:1px solid #e8e8e8;font-size:13px;font-weight:600;color:#1a1a1a;">35+
               trained professionals</span>
             <span
-              style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px;border-radius:9999px;background:#fffaf0;border:1px solid #e0d9c6;font-size:13px;font-weight:600;color:#0a0a0a;">Eco-friendly
+              style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px;border-radius:9999px;background:#ffffff;border:1px solid #e8e8e8;font-size:13px;font-weight:600;color:#1a1a1a;">Eco-friendly
               certified</span>
           </div>
           <div style="display:flex;align-items:center;gap:24px;">
-            <span style="font-size:13px;font-weight:600;color:#6a6a6a;white-space:nowrap;flex-shrink:0;">Clients we've
+            <span style="font-size:13px;font-weight:600;color:#636363;white-space:nowrap;flex-shrink:0;">Clients we've
               worked with</span>
             <div
               style="flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);">
               <div style="display:flex;width:max-content;animation:marq 28s linear infinite;">
                 <div style="display:flex;align-items:center;gap:42px;padding-right:42px;opacity:0.72;">
-                  <span
-                    style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:19px;color:#1a1a1a;">Adairs</span><span
+                  <span style="font-weight:600;font-size:17px;color:#1a1a1a;">Adairs</span><span
                     style="font-weight:700;font-size:17px;color:#1a1a1a;">ADECCO</span><span
-                    style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;color:#1a1a1a;">Aristocrat</span><span
-                    style="font-weight:800;font-size:16px;color:#1a1a1a;letter-spacing:0.5px;">BUSINESS NSW</span><span
-                    style="font-weight:600;font-size:18px;color:#1a1a1a;font-style:italic;">O Health</span><span
-                    style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;color:#1a1a1a;">Hansen</span><span
+                    style="font-weight:600;font-size:17px;color:#1a1a1a;">Aristocrat</span><span
+                    style="font-weight:700;font-size:15px;color:#1a1a1a;letter-spacing:0.5px;">BUSINESS NSW</span><span
+                    style="font-weight:600;font-size:17px;color:#1a1a1a;font-style:italic;">O Health</span><span
+                    style="font-weight:600;font-size:17px;color:#1a1a1a;">Hansen</span><span
                     style="font-weight:700;font-size:17px;color:#1a1a1a;">Monarch</span><span
-                    style="font-weight:600;font-size:18px;color:#1a1a1a;">EasyShed</span><span
-                    style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;color:#1a1a1a;">Kell-Moore</span><span
+                    style="font-weight:600;font-size:17px;color:#1a1a1a;">EasyShed</span><span
+                    style="font-weight:600;font-size:17px;color:#1a1a1a;">Kell-Moore</span><span
                     style="font-weight:700;font-size:17px;color:#1a1a1a;">OSG</span>
                 </div>
                 <div style="display:flex;align-items:center;gap:42px;padding-right:42px;opacity:0.72;"
                   aria-hidden="true">
-                  <span
-                    style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:19px;color:#1a1a1a;">Adairs</span><span
+                  <span style="font-weight:600;font-size:17px;color:#1a1a1a;">Adairs</span><span
                     style="font-weight:700;font-size:17px;color:#1a1a1a;">ADECCO</span><span
-                    style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;color:#1a1a1a;">Aristocrat</span><span
-                    style="font-weight:800;font-size:16px;color:#1a1a1a;letter-spacing:0.5px;">BUSINESS NSW</span><span
-                    style="font-weight:600;font-size:18px;color:#1a1a1a;font-style:italic;">O Health</span><span
-                    style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;color:#1a1a1a;">Hansen</span><span
+                    style="font-weight:600;font-size:17px;color:#1a1a1a;">Aristocrat</span><span
+                    style="font-weight:700;font-size:15px;color:#1a1a1a;letter-spacing:0.5px;">BUSINESS NSW</span><span
+                    style="font-weight:600;font-size:17px;color:#1a1a1a;font-style:italic;">O Health</span><span
+                    style="font-weight:600;font-size:17px;color:#1a1a1a;">Hansen</span><span
                     style="font-weight:700;font-size:17px;color:#1a1a1a;">Monarch</span><span
-                    style="font-weight:600;font-size:18px;color:#1a1a1a;">EasyShed</span><span
-                    style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;color:#1a1a1a;">Kell-Moore</span><span
+                    style="font-weight:600;font-size:17px;color:#1a1a1a;">EasyShed</span><span
+                    style="font-weight:600;font-size:17px;color:#1a1a1a;">Kell-Moore</span><span
                     style="font-weight:700;font-size:17px;color:#1a1a1a;">OSG</span>
                 </div>
               </div>
@@ -394,36 +610,118 @@
         </div>
       </section>
 
+
+      <!-- PHOTO SHOWCASE — real images -->
+      <section style="background:#ffffff;max-width:1280px;margin:0 auto;padding:80px 28px 0;">
+        <div data-reveal style="margin-bottom:36px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+          <div>
+            <div style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#636363;margin-bottom:10px;">Our work</div>
+            <h2 style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:36px;line-height:1.0;letter-spacing:-1px;color:#1a1a1a;margin:0;">Real results, real spaces.</h2>
+          </div>
+          <a href="portfolio.html" style="text-decoration:none;color:#150F38;font-size:14px;font-weight:600;letter-spacing:0.5px;display:inline-flex;align-items:center;gap:6px;">View full portfolio →</a>
+        </div>
+        <!-- 4-up image grid with hover zoom — real photos -->
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:260px 260px;gap:8px;">
+          <!-- large left — office clean -->
+          <div style="grid-row:1/3;border-radius:8px;overflow:hidden;position:relative;">
+            <img src="WhatsApp Image 2026-06-22 at 11.16.51 PM.jpeg"
+              style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;"
+              onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'"
+              alt="Office cleaning Albury CBD">
+            <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 20px 18px;background:linear-gradient(0deg,rgba(0,0,0,0.55),transparent);">
+              <span style="font-size:13px;font-weight:600;color:#ffffff;letter-spacing:0.3px;">Office Cleaning · Albury CBD</span>
+            </div>
+          </div>
+          <!-- top right 1 -->
+          <div style="border-radius:8px;overflow:hidden;position:relative;">
+            <img src="WhatsApp Image 2026-06-22 at 11.16.51 PM (1).jpeg"
+              style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;"
+              onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'"
+              alt="Commercial cleaning service">
+            <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 16px 12px;background:linear-gradient(0deg,rgba(0,0,0,0.55),transparent);">
+              <span style="font-size:12px;font-weight:600;color:#ffffff;">Commercial Clean</span>
+            </div>
+          </div>
+          <!-- top right 2 -->
+          <div style="border-radius:8px;overflow:hidden;position:relative;">
+            <img src="WhatsApp Image 2026-06-22 at 11.16.51 PM (2).jpeg"
+              style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;"
+              onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'"
+              alt="Deep cleaning">
+            <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 16px 12px;background:linear-gradient(0deg,rgba(0,0,0,0.55),transparent);">
+              <span style="font-size:12px;font-weight:600;color:#ffffff;">Deep Clean</span>
+            </div>
+          </div>
+          <!-- bottom right 1 -->
+          <div style="border-radius:8px;overflow:hidden;position:relative;">
+            <img src="WhatsApp Image 2026-06-22 at 11.16.51 PM (3).jpeg"
+              style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;"
+              onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'"
+              alt="Residential cleaning">
+            <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 16px 12px;background:linear-gradient(0deg,rgba(0,0,0,0.55),transparent);">
+              <span style="font-size:12px;font-weight:600;color:#ffffff;">Residential</span>
+            </div>
+          </div>
+          <!-- bottom right 2 — video thumbnail with play -->
+          <div style="border-radius:8px;overflow:hidden;position:relative;cursor:pointer;" onclick="document.getElementById('vid-modal').style.display='flex';">
+            <video muted playsinline preload="metadata"
+              style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="WhatsApp Video 2026-06-22 at 10.02.00 PM.mp4" type="video/mp4">
+            </video>
+            <div style="position:absolute;inset:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;">
+              <div style="width:52px;height:52px;border-radius:50%;background:#150F38;display:flex;align-items:center;justify-content:center;">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M5 3l11 6-11 6V3z" fill="#fff"/></svg>
+              </div>
+            </div>
+            <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 16px 12px;background:linear-gradient(0deg,rgba(0,0,0,0.55),transparent);">
+              <span style="font-size:12px;font-weight:600;color:#ffffff;">▶ Watch us work</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIDEO MODAL -->
+      <div id="vid-modal" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.88);align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this){this.style.display='none';this.querySelector('video').pause();}">
+        <div style="max-width:860px;width:100%;position:relative;">
+          <button onclick="document.getElementById('vid-modal').style.display='none';this.parentElement.querySelector('video').pause();"
+            style="position:absolute;top:-44px;right:0;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);color:#fff;width:36px;height:36px;border-radius:4px;cursor:pointer;font-size:16px;">✕</button>
+          <video controls muted style="width:100%;border-radius:8px;display:block;max-height:80vh;">
+            <source src="WhatsApp Video 2026-06-22 at 10.02.00 PM.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
       <!-- CORE SERVICES -->
-      <section id="services" style="max-width:1280px;margin:0 auto;padding:90px 28px;">
+      <section id="services" style="background:#ffffff;max-width:1280px;margin:0 auto;padding:80px 28px;">
         <div data-reveal style="max-width:680px;margin-bottom:44px;">
           <div
-            style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#6a6a6a;margin-bottom:14px;">
+            style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#636363;margin-bottom:14px;">
             Core services</div>
           <h2
-            style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:46px;line-height:1.05;letter-spacing:-1.5px;color:#0a0a0a;margin:0 0 14px;">
+            style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:46px;line-height:1.0;letter-spacing:-1.5px;color:#1a1a1a;margin:0 0 14px;">
             Everything your space and home needs.</h2>
-          <p style="font-size:18px;line-height:1.55;color:#3a3a3a;margin:0;">From commercial sites to end-of-lease bonds
+          <p style="font-size:18px;line-height:1.38;color:#3d3d3d;margin:0;">From commercial sites to end-of-lease bonds
             and in-home support — one trusted local team, eco-friendly products, spotless results.</p>
         </div>
         <div data-svc-grid style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
           <sc-for list="{{ services }}" as="s" hint-placeholder-count="8">
             <div data-svc-card data-accent="{{ s.accentHex }}"
-              style="border-radius:14px;background:#fffaf0;border:1px solid #ece6d6;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;will-change:transform;"
+              style="border-radius:16px;background:#ffffff;border:1px solid #e8e8e8;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;will-change:transform;box-shadow:0 2px 8px rgba(26,26,26,0.08);"
               onClick="{{ s.onOpen }}">
-              <div style="height:4px;background:{{ s.accentHex }};flex-shrink:0;"></div>
               <div style="height:130px;overflow:hidden;flex-shrink:0;">
                 <div data-svc-img style="{{ s.imgStyle }}"></div>
               </div>
               <div style="padding:18px;display:flex;flex-direction:column;flex:1;">
                 <h3
-                  style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:17px;letter-spacing:-0.3px;color:#0a0a0a;margin:0 0 6px;line-height:1.15;">
+                  style="font-family:'Manrope',Arial,sans-serif;font-weight:600;font-size:17px;letter-spacing:-0.3px;color:#1a1a1a;margin:0 0 6px;line-height:1.15;">
                   {{ s.label }}</h3>
-                <p style="font-size:13px;line-height:1.45;color:#6a6a6a;margin:0 0 14px;">{{ s.descShort }}</p>
+                <p style="font-size:13px;line-height:1.38;color:#636363;margin:0 0 14px;">{{ s.descShort }}</p>
                 <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;">
-                  <sc-for list="{{ s.bullets }}" as="b" hint-placeholder-count="3"><span
-                      style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#3a3a3a;"><span
-                        style="{{ s.checkStyle }}">✓</span>{{ b }}</span></sc-for>
+                  <sc-for list="{{ s.bullets }}" as="b" hint-placeholder-count="3">
+                    <span style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#3d3d3d;">
+                      <span style="{{ s.checkStyle }}">✓</span>{{ b }}
+                    </span>
+                  </sc-for>
                 </div>
                 <button onClick="{{ s.onOpen }}" style="{{ s.learnStyle }}"><span>Learn more</span><span data-svc-arrow
                     style="display:inline-block;margin-left:6px;">→</span></button>
@@ -433,39 +731,42 @@
         </div>
         <div data-reveal style="display:flex;justify-content:center;margin-top:34px;">
           <a href="services.html"
-            style="text-decoration:none;display:inline-flex;align-items:center;height:48px;padding:0 26px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:15px;font-weight:600;"
-            style-hover="background:#262626;">View all services →</a>
+            style="text-decoration:none;display:inline-flex;align-items:center;height:44px;padding:0 24px;border-radius:4px;background:#1B3E6B;color:#ffffff;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;">View
+            all services →</a>
         </div>
       </section>
 
       <!-- WHY CHOOSE APOLLO -->
-      <section id="why" style="background:#ebe6d6;">
+      <section id="why" style="background:#f7f7f7;">
         <div style="max-width:1280px;margin:0 auto;padding:80px 28px;">
           <div data-reveal style="margin-bottom:40px;max-width:560px;">
             <div
-              style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#6a6a6a;margin-bottom:12px;">
+              style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#636363;margin-bottom:12px;">
               Why choose Apollo</div>
             <h2
-              style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:40px;line-height:1.08;letter-spacing:-1px;color:#0a0a0a;margin:0;">
+              style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:40px;line-height:1.0;letter-spacing:-1px;color:#1a1a1a;margin:0;">
               A cleaner space, a happier you.</h2>
           </div>
-          <div data-stagger data-cols="3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px;">
+          <div data-stagger data-cols="3"
+            style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px;">
             <sc-for list="{{ why }}" as="w" hint-placeholder-count="3">
-              <div style="border-radius:16px;background:#fffaf0;border:1px solid #e0d9c6;padding:28px;">
-                <div style="{{ w.dotStyle }}"></div>
+              <div class="interactive-card"
+                style="border-radius:16px;background:#ffffff;border:1px solid #e8e8e8;padding:32px;box-shadow:0 2px 8px rgba(26,26,26,0.08);">
+                <div class="interactive-icon-block" style="{{ w.dotStyle }}"><i class="fa-solid {{ w.icon }}" style="font-size:22px;color:#ffffff;"></i></div>
                 <h3
-                  style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:22px;letter-spacing:-0.5px;color:#0a0a0a;margin:0 0 10px;">
+                  style="font-family:'Manrope',Arial,sans-serif;font-weight:600;font-size:22px;letter-spacing:-0.5px;color:#1a1a1a;margin:0 0 10px;">
                   {{ w.t }}</h3>
-                <p style="font-size:14.5px;line-height:1.55;color:#6a6a6a;margin:0;">{{ w.d }}</p>
+                <p style="font-size:14.5px;line-height:1.38;color:#636363;margin:0;">{{ w.d }}</p>
               </div>
             </sc-for>
           </div>
-          <div data-stagger data-cols="4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;">
+          <div data-stagger data-cols="4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
             <sc-for list="{{ stats }}" as="st" hint-placeholder-count="4">
-              <div>
+              <div class="interactive-card"
+                style="border-radius:16px;background:#ffffff;border:1px solid #e8e8e8;padding:32px;box-shadow:0 2px 8px rgba(26,26,26,0.08);">
                 <div style="{{ st.numStyle }}"><span data-count="{{ st.v }}" data-decimals="{{ st.dec }}"
                     data-suffix="{{ st.suf }}">{{ st.display }}</span></div>
-                <div style="font-size:14px;color:#3a3a3a;margin-top:10px;">{{ st.label }}</div>
+                <div style="font-size:14px;color:#3d3d3d;margin-top:10px;line-height:1.38;">{{ st.label }}</div>
               </div>
             </sc-for>
           </div>
@@ -473,99 +774,116 @@
       </section>
 
       <!-- SERVICE PROCESS -->
-      <section id="process" style="max-width:1280px;margin:0 auto;padding:90px 28px;">
+      <section id="process" style="background:#ffffff;max-width:1280px;margin:0 auto;padding:80px 28px;">
         <div data-reveal style="margin-bottom:44px;">
           <div
-            style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#6a6a6a;margin-bottom:12px;">
+            style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#636363;margin-bottom:12px;">
             Service process</div>
           <h2
-            style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:40px;line-height:1.08;letter-spacing:-1px;color:#0a0a0a;margin:0;max-width:520px;">
+            style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:40px;line-height:1.0;letter-spacing:-1px;color:#1a1a1a;margin:0;max-width:520px;">
             Four simple steps to a spotless result.</h2>
         </div>
         <div data-stagger data-cols="4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
           <sc-for list="{{ steps }}" as="p" hint-placeholder-count="4">
-            <div style="border-radius:16px;background:#fffaf0;border:1px solid #ece6d6;padding:24px;">
+            <div
+              style="border-radius:16px;background:#ffffff;border:1px solid #e8e8e8;padding:24px;box-shadow:0 2px 8px rgba(26,26,26,0.08);">
               <div style="{{ p.numStyle }}">{{ p.n }}</div>
-              <h3 style="font-size:18px;font-weight:600;color:#0a0a0a;margin:0 0 8px;">{{ p.title }}</h3>
-              <p style="font-size:14.5px;line-height:1.5;color:#6a6a6a;margin:0;">{{ p.desc }}</p>
+              <h3 style="font-size:18px;font-weight:600;color:#1a1a1a;margin:0 0 8px;">{{ p.title }}</h3>
+              <p style="font-size:14.5px;line-height:1.38;color:#636363;margin:0;">{{ p.desc }}</p>
             </div>
           </sc-for>
         </div>
       </section>
 
+
       <!-- CALCULATOR -->
-      <section id="calculator" style="background:#faf5e8;border-top:1px solid #ece6d6;border-bottom:1px solid #ece6d6;">
-        <div style="max-width:1280px;margin:0 auto;padding:90px 28px;">
+      <section id="calculator" style="background:#f7f7f7;border-top:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;">
+        <div style="max-width:1280px;margin:0 auto;padding:80px 28px;">
           <div data-reveal style="text-align:center;max-width:620px;margin:0 auto 44px;">
             <div
-              style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#6a6a6a;margin-bottom:12px;">
+              style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#636363;margin-bottom:12px;">
               Instant estimate</div>
             <h2
-              style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:44px;line-height:1.05;letter-spacing:-1.5px;color:#0a0a0a;margin:0 0 12px;">
+              style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:44px;line-height:1.0;letter-spacing:-1.5px;color:#1a1a1a;margin:0 0 12px;">
               Get a ballpark in seconds.</h2>
-            <p style="font-size:18px;line-height:1.5;color:#3a3a3a;margin:0;">Configure your job and see an estimate
+            <p style="font-size:18px;line-height:1.38;color:#3d3d3d;margin:0;">Configure your job and see an estimate
               update live. Final quote confirmed free on a quick site walk.</p>
           </div>
-          <div data-reveal data-grid="calculator-main" style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start;">
-            <div style="border-radius:16px;background:#fffaf0;border:1px solid #ece6d6;padding:30px;">
+          <div data-reveal data-grid="calculator-main"
+            style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start;">
+            <div
+              style="border-radius:16px;background:#ffffff;border:1px solid #e8e8e8;padding:30px;box-shadow:0 2px 8px rgba(26,26,26,0.08);">
               <div
-                style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#9a9a9a;margin-bottom:12px;">
+                style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#636363;margin-bottom:12px;">
                 01 — Service</div>
-              <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:28px;"><sc-for list="{{ calcChips }}" as="s"
-                  hint-placeholder-count="6"><button onClick="{{ s.onSelect }}" style="{{ s.chipStyle }}">{{ s.label
-                    }}</button></sc-for></div>
-              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;"><span
-                  style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#9a9a9a;">02 —
-                  Area</span><span
-                  style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;color:#0a0a0a;">{{ areaLabel
-                  }}</span></div>
+              <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:28px;">
+                <sc-for list="{{ calcChips }}" as="s" hint-placeholder-count="6">
+                  <button onClick="{{ s.onSelect }}" style="{{ s.chipStyle }}">{{ s.label }}</button>
+                </sc-for>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;">
+                <span
+                  style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#636363;">02 —
+                  Area</span>
+                <span style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:18px;color:#1a1a1a;">{{
+                  areaLabel }}</span>
+              </div>
               <input type="range" min="50" max="6000" step="10" value="{{ sqft }}" onInput="{{ onSqft }}"
-                style="width:100%;accent-color:#ff4d8b;height:6px;cursor:pointer;margin-bottom:6px;">
+                style="width:100%;accent-color:#150F38;height:6px;cursor:pointer;margin-bottom:6px;">
               <div
-                style="display:flex;justify-content:space-between;font-size:11.5px;color:#9a9a9a;margin-bottom:28px;">
-                <span>50 m²</span><span>6,000 m²</span></div>
+                style="display:flex;justify-content:space-between;font-size:11.5px;color:#636363;margin-bottom:28px;">
+                <span>50 m²</span><span>6,000 m²</span>
+              </div>
               <div
-                style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#9a9a9a;margin-bottom:12px;">
+                style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#636363;margin-bottom:12px;">
                 03 — Frequency</div>
-              <div data-cols="5" style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:28px;"><sc-for
-                  list="{{ freqOptions }}" as="f" hint-placeholder-count="5"><button onClick="{{ f.onSelect }}"
-                    style="{{ f.style }}">{{ f.label }}</button></sc-for></div>
+              <div data-cols="5" style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:28px;">
+                <sc-for list="{{ freqOptions }}" as="f" hint-placeholder-count="5">
+                  <button onClick="{{ f.onSelect }}" style="{{ f.style }}">{{ f.label }}</button>
+                </sc-for>
+              </div>
               <div
-                style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#9a9a9a;margin-bottom:12px;">
+                style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#636363;margin-bottom:12px;">
                 04 — Add-ons</div>
-              <div data-cols="2" style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:24px;"><sc-for
-                  list="{{ addonItems }}" as="a" hint-placeholder-count="5"><button onClick="{{ a.onToggle }}"
-                    style="{{ a.style }}"><span style="display:flex;align-items:center;gap:10px;"><span
-                        style="{{ a.boxStyle }}">{{ a.mark }}</span>{{ a.label }}</span><span
-                      style="font-size:12px;color:#9a9a9a;">{{ a.priceLabel }}</span></button></sc-for></div>
-              <button onClick="{{ toggleEmergency }}" style="{{ emergencyStyle }}"><span
-                  style="display:flex;align-items:center;gap:10px;"><span
-                    style="width:8px;height:8px;border-radius:50%;background:#ff6b5a;display:block;"></span><span
-                    style="font-weight:600;font-size:14.5px;">Same-day / priority booking</span></span><span
-                  style="font-size:13px;font-weight:600;color:#ff6b5a;">+25%</span></button>
+              <div data-cols="2" style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:24px;">
+                <sc-for list="{{ addonItems }}" as="a" hint-placeholder-count="5">
+                  <button onClick="{{ a.onToggle }}" style="{{ a.style }}">
+                    <span style="display:flex;align-items:center;gap:10px;"><span style="{{ a.boxStyle }}">{{ a.mark
+                        }}</span>{{ a.label }}</span>
+                    <span style="font-size:12px;color:#636363;">{{ a.priceLabel }}</span>
+                  </button>
+                </sc-for>
+              </div>
+              <button onClick="{{ toggleEmergency }}" style="{{ emergencyStyle }}">
+                <span style="display:flex;align-items:center;gap:10px;">
+                  <span style="width:8px;height:8px;border-radius:50%;background:#150F38;display:block;"></span>
+                  <span style="font-weight:600;font-size:14.5px;">Same-day / priority booking</span>
+                </span>
+                <span style="font-size:13px;font-weight:600;color:#150F38;">+25%</span>
+              </button>
             </div>
-            <div style="position:sticky;top:84px;border-radius:16px;background:#1a3a3a;padding:30px;color:#fff;">
+            <div style="position:sticky;top:84px;border-radius:16px;background:#1a1a1a;padding:30px;color:#ffffff;">
               <div
-                style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#a4d4c5;margin-bottom:6px;">
+                style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;">
                 Estimated job</div>
               <div style="font-size:14px;color:rgba(255,255,255,0.78);margin-bottom:24px;">{{ summaryLabel }}</div>
               <div
                 style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;">
                 Per visit</div>
               <div
-                style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:32px;letter-spacing:-1px;margin-bottom:22px;">
+                style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:32px;letter-spacing:-1px;margin-bottom:22px;">
                 {{ visitPrice }}</div>
               <div style="height:1px;background:rgba(255,255,255,0.16);margin-bottom:22px;"></div>
               <div
                 style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;">
                 Estimated monthly</div>
               <div
-                style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:50px;letter-spacing:-2px;line-height:1;color:#fff;margin-bottom:6px;">
+                style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:50px;letter-spacing:-2px;line-height:1;color:#ffffff;margin-bottom:6px;">
                 {{ monthlyPrice }}</div>
-              <div style="font-size:13px;color:#a4d4c5;margin-bottom:26px;">{{ visitsLabel }}</div>
+              <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:26px;">{{ visitsLabel }}</div>
               <a href="#contact"
-                style="text-decoration:none;display:flex;align-items:center;justify-content:center;height:48px;border-radius:12px;background:#fffaf0;color:#0a0a0a;font-weight:600;font-size:15px;"
-                style-hover="background:#fff;">Book this service →</a>
+                style="text-decoration:none;display:flex;align-items:center;justify-content:center;height:44px;border-radius:4px;background:#1B3E6B;color:#ffffff;font-weight:600;font-size:14px;letter-spacing:0.7px;text-transform:uppercase;">Book
+                this service →</a>
               <div style="text-align:center;font-size:11.5px;color:rgba(255,255,255,0.5);margin-top:14px;">Estimate only
                 · free quote confirmed on site</div>
             </div>
@@ -573,31 +891,32 @@
         </div>
       </section>
 
+
       <!-- CASE STUDIES / OUR WORK -->
-      <section id="work" style="max-width:1280px;margin:0 auto;padding:90px 28px;">
+      <section id="work" style="background:#ffffff;max-width:1280px;margin:0 auto;padding:80px 28px;">
         <div data-reveal style="margin-bottom:44px;max-width:620px;">
           <div
-            style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#6a6a6a;margin-bottom:12px;">
+            style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#636363;margin-bottom:12px;">
             Case studies</div>
           <h2
-            style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:44px;line-height:1.05;letter-spacing:-1.5px;color:#0a0a0a;margin:0;">
+            style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:44px;line-height:1.0;letter-spacing:-1.5px;color:#1a1a1a;margin:0;">
             Recent work across the Albury region.</h2>
         </div>
         <div data-stagger data-cols="3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
           <sc-for list="{{ cases }}" as="cs" hint-placeholder-count="6">
-            <div style="border-radius:16px;background:#fffaf0;border:1px solid #ece6d6;overflow:hidden;"
-              style-hover="transform:translateY(-6px);transition:transform 0.28s ease;">
+            <div
+              style="border-radius:16px;background:#ffffff;border:1px solid #e8e8e8;overflow:hidden;box-shadow:0 2px 8px rgba(26,26,26,0.08);">
               <div style="height:160px;overflow:hidden;">
                 <div style="{{ cs.phStyle }}"></div>
               </div>
               <div style="padding:22px 24px;">
                 <span
-                  style="display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:9999px;background:#f5f0e0;font-size:12px;font-weight:600;color:#3a3a3a;margin-bottom:14px;">{{
+                  style="display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:9999px;background:#f7f7f7;border:1px solid #e8e8e8;font-size:12px;font-weight:600;color:#3d3d3d;margin-bottom:14px;">{{
                   cs.tag }}</span>
                 <h3
-                  style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:20px;letter-spacing:-0.5px;color:#0a0a0a;margin:0 0 8px;">
+                  style="font-family:'Manrope',Arial,sans-serif;font-weight:600;font-size:20px;letter-spacing:-0.5px;color:#1a1a1a;margin:0 0 8px;">
                   {{ cs.title }}</h3>
-                <p style="font-size:14px;line-height:1.5;color:#6a6a6a;margin:0;">{{ cs.line }}</p>
+                <p style="font-size:14px;line-height:1.38;color:#636363;margin:0;">{{ cs.line }}</p>
               </div>
             </div>
           </sc-for>
@@ -605,8 +924,8 @@
       </section>
 
       <!-- TESTIMONIALS -->
-      <section id="reviews" style="max-width:1280px;margin:0 auto;padding:90px 28px;">
-        <div data-reveal style="position:relative;border-radius:24px;background:#f5f0e0;padding:48px;">
+      <section id="reviews" style="background:#ffffff;max-width:1280px;margin:0 auto;padding:80px 28px;">
+        <div data-reveal style="position:relative;border-radius:16px;background:#1a1a1a;padding:48px;">
           <div style="overflow:hidden;">
             <div
               style="display:flex;transition:transform 0.55s cubic-bezier(0.16,1,0.3,1);transform:{{ trackTransform }};">
@@ -614,14 +933,15 @@
                 <div style="min-width:100%;padding-right:8px;">
                   <div style="color:#e8b94a;font-size:16px;margin-bottom:18px;">★★★★★</div>
                   <p
-                    style="font-family:'Fredoka',sans-serif;font-weight:400;font-size:25px;line-height:1.38;letter-spacing:-0.5px;color:#0a0a0a;margin:0 0 26px;text-wrap:pretty;">
+                    style="font-family:'Manrope',Arial,sans-serif;font-weight:400;font-size:25px;line-height:1.38;letter-spacing:-0.5px;color:#ffffff;margin:0 0 26px;text-wrap:pretty;">
                     "{{ t.quote }}"</p>
-                  <div style="display:flex;align-items:center;gap:13px;"><span
-                      style="width:46px;height:46px;border-radius:50%;background:#ffb084;display:flex;align-items:center;justify-content:center;font-weight:700;color:#0a0a0a;">{{
+                  <div style="display:flex;align-items:center;gap:13px;">
+                    <span
+                      style="width:46px;height:46px;border-radius:50%;background:#3d3d3d;display:flex;align-items:center;justify-content:center;font-weight:700;color:#ffffff;">{{
                       t.initials }}</span>
                     <div>
-                      <div style="font-weight:600;font-size:15px;color:#0a0a0a;">{{ t.name }}</div>
-                      <div style="font-size:13px;color:#6a6a6a;">{{ t.role }}</div>
+                      <div style="font-weight:600;font-size:15px;color:#ffffff;">{{ t.name }}</div>
+                      <div style="font-size:13px;color:rgba(255,255,255,0.7);">{{ t.role }}</div>
                     </div>
                   </div>
                 </div>
@@ -629,210 +949,240 @@
             </div>
           </div>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-top:30px;">
-            <div style="display:flex;gap:8px;"><sc-for list="{{ dots }}" as="d" hint-placeholder-count="3"><button
-                  onClick="{{ d.onClick }}" style="{{ d.style }}"></button></sc-for></div>
-            <div style="display:flex;gap:10px;"><button onClick="{{ prevT }}"
-                style="width:42px;height:42px;border-radius:9999px;border:1px solid #ddd5c2;background:#fffaf0;color:#0a0a0a;cursor:pointer;"
-                style-hover="background:#fff;">←</button><button onClick="{{ nextT }}"
-                style="width:42px;height:42px;border-radius:9999px;border:1px solid #ddd5c2;background:#fffaf0;color:#0a0a0a;cursor:pointer;"
-                style-hover="background:#fff;">→</button></div>
+            <div style="display:flex;gap:8px;">
+              <sc-for list="{{ dots }}" as="d" hint-placeholder-count="3">
+                <button onClick="{{ d.onClick }}" style="{{ d.style }}"></button>
+              </sc-for>
+            </div>
+            <div style="display:flex;gap:10px;">
+              <button onClick="{{ prevT }}"
+                style="width:42px;height:42px;border-radius:9999px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:#ffffff;cursor:pointer;">←</button>
+              <button onClick="{{ nextT }}"
+                style="width:42px;height:42px;border-radius:9999px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:#ffffff;cursor:pointer;">→</button>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- FAQ -->
-      <section id="faq" style="max-width:860px;margin:0 auto;padding:40px 28px 90px;">
+      <section id="faq" style="background:#ffffff;max-width:860px;margin:0 auto;padding:40px 28px 80px;">
         <div data-reveal style="text-align:center;margin-bottom:44px;">
           <div
-            style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#6a6a6a;margin-bottom:12px;">
+            style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#636363;margin-bottom:12px;">
             FAQ</div>
           <h2
-            style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:40px;line-height:1.05;letter-spacing:-1px;color:#0a0a0a;margin:0;">
+            style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:40px;line-height:1.0;letter-spacing:-1px;color:#1a1a1a;margin:0;">
             Everything, before you ask.</h2>
         </div>
         <div data-reveal style="display:flex;flex-direction:column;gap:12px;">
           <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="5">
-            <div style="border-radius:16px;background:#fffaf0;border:1px solid #ece6d6;overflow:hidden;">
+            <div style="border-radius:16px;background:#e8e8e8;border:1px solid #e8e8e8;overflow:hidden;">
               <button onClick="{{ q.onToggle }}"
-                style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;background:transparent;border:none;cursor:pointer;text-align:left;color:#0a0a0a;font-family:'Hanken Grotesk',sans-serif;font-size:17px;font-weight:600;">{{
-                q.q }}<span style="{{ q.iconStyle }}">+</span></button>
+                style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;background:transparent;border:none;cursor:pointer;text-align:left;color:#1a1a1a;font-family:'Manrope',Arial,sans-serif;font-size:17px;font-weight:600;">
+                {{ q.q }}<span style="{{ q.iconStyle }}">+</span>
+              </button>
               <sc-if value="{{ q.open }}" hint-placeholder-val="{{ false }}">
-                <div style="padding:0 24px 24px;font-size:15px;line-height:1.6;color:#3a3a3a;">{{ q.a }}</div>
+                <div style="padding:0 24px 24px;font-size:15px;line-height:1.38;color:#3d3d3d;">{{ q.a }}</div>
               </sc-if>
             </div>
           </sc-for>
         </div>
       </section>
 
+
       <!-- CONTACT CTA + BOOKING -->
-      <section id="contact" style="max-width:1280px;margin:0 auto;padding:0 28px 90px;">
+      <section id="contact" style="background:#ffffff;max-width:1280px;margin:0 auto;padding:0 28px 80px;">
         <div data-reveal data-grid="contact-main"
-          style="position:relative;border-radius:24px;background:#faf5e8;border:1px solid #ece6d6;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;">
+          style="position:relative;border-radius:16px;background:#f7f7f7;border:1px solid #e8e8e8;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;">
           <div style="padding:56px 48px;position:relative;z-index:1;">
             <h2
-              style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:42px;line-height:1.05;letter-spacing:-1.5px;color:#0a0a0a;margin:0 0 14px;">
+              style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:42px;line-height:1.0;letter-spacing:-1.5px;color:#1a1a1a;margin:0 0 14px;">
               Book a service or request a free quote.</h2>
-            <p style="font-size:17px;color:#3a3a3a;line-height:1.5;margin:0 0 28px;max-width:420px;">Tell us what you
+            <p style="font-size:17px;color:#3d3d3d;line-height:1.38;margin:0 0 28px;max-width:420px;">Tell us what you
               need — we'll get back fast with a no-obligation quote. For emergencies, call us anytime.</p>
             <div style="display:flex;flex-direction:column;gap:16px;">
-              <div style="display:flex;align-items:center;gap:13px;"><span
-                  style="width:40px;height:40px;border-radius:11px;background:#ff4d8b;flex-shrink:0;"></span>
+              <div style="display:flex;align-items:center;gap:13px;">
+                <span style="width:40px;height:40px;border-radius:4px;background:#150F38;flex-shrink:0;"></span>
                 <div>
-                  <div style="font-size:12px;color:#6a6a6a;">Call us</div><a href="tel:0421602524"
-                    style="font-size:16px;font-weight:600;color:#0a0a0a;text-decoration:none;">0421 602 524</a>
+                  <div style="font-size:12px;color:#636363;">Call us</div>
+                  <a href="tel:0421602524"
+                    style="font-size:16px;font-weight:600;color:#1a1a1a;text-decoration:none;">0421 602 524</a>
                 </div>
               </div>
-              <div style="display:flex;align-items:center;gap:13px;"><span
-                  style="width:40px;height:40px;border-radius:11px;background:#b8a4ed;flex-shrink:0;"></span>
+              <div style="display:flex;align-items:center;gap:13px;">
+                <span style="width:40px;height:40px;border-radius:4px;background:#1a1a1a;flex-shrink:0;"></span>
                 <div>
-                  <div style="font-size:12px;color:#6a6a6a;">Email us</div><a href="mailto:Apollo.au@outlook.com"
-                    style="font-size:16px;font-weight:600;color:#0a0a0a;text-decoration:none;">Apollo.au@outlook.com</a>
+                  <div style="font-size:12px;color:#636363;">Email us</div>
+                  <a href="mailto:Apollo.au@outlook.com"
+                    style="font-size:16px;font-weight:600;color:#1a1a1a;text-decoration:none;">Apollo.au@outlook.com</a>
                 </div>
               </div>
-              <div style="display:flex;align-items:center;gap:13px;"><span
-                  style="width:40px;height:40px;border-radius:11px;background:#e8b94a;flex-shrink:0;"></span>
+              <div style="display:flex;align-items:center;gap:13px;">
+                <span style="width:40px;height:40px;border-radius:4px;background:#1a1a1a;flex-shrink:0;"></span>
                 <div>
-                  <div style="font-size:12px;color:#6a6a6a;">Visit us</div>
-                  <div style="font-size:16px;font-weight:600;color:#0a0a0a;">Dean St, Albury NSW 2640</div>
+                  <div style="font-size:12px;color:#636363;">Visit us</div>
+                  <div style="font-size:16px;font-weight:600;color:#1a1a1a;">Dean St, Albury NSW 2640</div>
                 </div>
               </div>
-              <div style="display:flex;align-items:center;gap:13px;"><span
-                  style="width:40px;height:40px;border-radius:11px;background:#a4d4c5;flex-shrink:0;"></span>
+              <div style="display:flex;align-items:center;gap:13px;">
+                <span style="width:40px;height:40px;border-radius:4px;background:#1a1a1a;flex-shrink:0;"></span>
                 <div>
-                  <div style="font-size:12px;color:#6a6a6a;">Hours</div>
-                  <div style="font-size:15px;font-weight:600;color:#0a0a0a;">Mon–Sat 6am–10:30pm · Sun 7:30am–7pm</div>
+                  <div style="font-size:12px;color:#636363;">Hours</div>
+                  <div style="font-size:15px;font-weight:600;color:#1a1a1a;">Mon–Sat 6am–10:30pm · Sun 7:30am–7pm</div>
                 </div>
               </div>
             </div>
           </div>
           <div
-            style="background:#fffaf0;border-left:1px solid #ece6d6;padding:48px;display:flex;flex-direction:column;gap:14px;">
+            style="background:#ffffff;border-left:1px solid #e8e8e8;padding:48px;display:flex;flex-direction:column;gap:14px;">
             <div
-              style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:22px;letter-spacing:-0.5px;color:#0a0a0a;margin-bottom:4px;">
+              style="font-family:'Manrope',Arial,sans-serif;font-weight:600;font-size:22px;letter-spacing:-0.5px;color:#1a1a1a;margin-bottom:4px;">
               Quick booking</div>
             <sc-if value="{{ bookingSubmitted }}" hint-placeholder-val="{{ false }}">
-              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:340px;gap:16px;">
-                <div style="width:64px;height:64px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;">✓</div>
-                <h3 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:24px;letter-spacing:-0.5px;color:#0a0a0a;margin:0;">Booking request sent!</h3>
-                <p style="font-size:15px;color:#6a6a6a;max-width:280px;margin:0;">We'll call you back within 2 hours to confirm your booking and provide a free quote.</p>
-                <a href="tel:0421602524" style="display:inline-flex;align-items:center;height:44px;padding:0 20px;border-radius:12px;border:1px solid #e0d9c6;color:#0a0a0a;font-weight:600;font-size:14px;text-decoration:none;">Or call 0421 602 524</a>
+              <div
+                style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:340px;gap:16px;">
+                <div
+                  style="width:64px;height:64px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;color:#ffffff;font-size:28px;">
+                  ✓</div>
+                <h3
+                  style="font-family:'Manrope',Arial,sans-serif;font-weight:600;font-size:24px;letter-spacing:-0.5px;color:#1a1a1a;margin:0;">
+                  Booking request sent!</h3>
+                <p style="font-size:15px;color:#636363;max-width:280px;margin:0;">We'll call you back within 2 hours to
+                  confirm your booking and provide a free quote.</p>
+                <a href="tel:0421602524"
+                  style="display:inline-flex;align-items:center;height:44px;padding:0 20px;border-radius:4px;border:1px solid #e8e8e8;color:#1a1a1a;font-weight:600;font-size:14px;text-decoration:none;">Or
+                  call 0421 602 524</a>
               </div>
             </sc-if>
             <sc-if value="{{ notBookingSubmitted }}" hint-placeholder-val="{{ true }}">
-              <input type="text" placeholder="Your name"
-                style="height:46px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#0a0a0a;" />
-              <input type="tel" placeholder="Phone number"
-                style="height:46px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#0a0a0a;" />
-              <select
-                style="height:46px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 12px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#3a3a3a;">
-                <option>Select a service</option>
-                <sc-for list="{{ catalog }}" as="c" hint-placeholder-count="16">
-                  <option>{{ c }}</option>
+              <sc-if value="{{ formError }}">
+                <div style="background:#fee2e2;color:#b91c1c;font-size:13px;padding:8px 12px;border-radius:4px;border:1px solid #fecaca;margin-bottom:6px;font-family:'Manrope',Arial,sans-serif;font-weight:600;">
+                  {{ formError }}
+                </div>
+              </sc-if>
+              <input type="text" placeholder="Your name" value="{{ formName }}" onChange="{{ onNameChange }}"
+                style="height:44px;border-radius:4px;border:1px solid #c2c2c2;background:#ffffff;padding:0 16px;font-family:'Manrope',Arial,sans-serif;font-size:15px;color:#1a1a1a;" />
+              <input type="email" placeholder="Email address" value="{{ formEmail }}" onChange="{{ onEmailChange }}"
+                style="height:44px;border-radius:4px;border:1px solid #c2c2c2;background:#ffffff;padding:0 16px;font-family:'Manrope',Arial,sans-serif;font-size:15px;color:#1a1a1a;" />
+              <input type="tel" placeholder="Phone number" value="{{ formPhone }}" onChange="{{ onPhoneChange }}"
+                style="height:44px;border-radius:4px;border:1px solid #c2c2c2;background:#ffffff;padding:0 16px;font-family:'Manrope',Arial,sans-serif;font-size:15px;color:#1a1a1a;" />
+              <select value="{{ formService }}" onChange="{{ onServiceChange }}"
+                style="height:44px;border-radius:4px;border:1px solid #c2c2c2;background:#ffffff;padding:0 12px;font-family:'Manrope',Arial,sans-serif;font-size:15px;color:#3d3d3d;">
+                <option value="">Select a service</option>
+                <sc-for list="{{ servicesOptions }}" as="srv">
+                  <option value="{{ srv.id }}">{{ srv.label }}</option>
                 </sc-for>
               </select>
-              <input type="date"
-                style="height:46px;border-radius:12px;border:1px solid #e0d9c6;background:#fffaf0;padding:0 16px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:#3a3a3a;" />
+              <input type="date" value="{{ formDate }}" onChange="{{ onDateChange }}"
+                style="height:44px;border-radius:4px;border:1px solid #c2c2c2;background:#ffffff;padding:0 16px;font-family:'Manrope',Arial,sans-serif;font-size:15px;color:#3d3d3d;" />
+              <select value="{{ formTime }}" onChange="{{ onTimeChange }}"
+                style="height:44px;border-radius:4px;border:1px solid #c2c2c2;background:#ffffff;padding:0 12px;font-family:'Manrope',Arial,sans-serif;font-size:15px;color:#3d3d3d;">
+                <option value="">Select a time</option>
+                <option value="08:00 AM">Morning (8:00 AM)</option>
+                <option value="11:00 AM">Late Morning (11:00 AM)</option>
+                <option value="02:00 PM">Afternoon (2:00 PM)</option>
+                <option value="05:00 PM">Evening (5:00 PM)</option>
+              </select>
               <button onClick="{{ submitBooking }}"
-                style="display:flex;align-items:center;justify-content:center;height:48px;border-radius:12px;border:none;background:#0a0a0a;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:15px;margin-top:4px;cursor:pointer;"
-                style-hover="background:#262626;">Request my booking →</button>
-              <div style="text-align:center;font-size:12px;color:#9a9a9a;">Or call <strong style="color:#0a0a0a;">0421 602 524</strong> · we reply fast</div>
+                style="display:flex;align-items:center;justify-content:center;height:44px;border-radius:4px;border:none;background:#150F38;color:#ffffff;font-family:'Manrope',Arial,sans-serif;font-weight:600;font-size:14px;letter-spacing:0.7px;text-transform:uppercase;margin-top:4px;cursor:pointer;">Request my booking &rarr;</button>
+              <div style="text-align:center;font-size:12px;color:#636363;">Or call <strong style="color:#1a1a1a;">0421 602 524</strong> &bull; we reply fast</div>
             </sc-if>
           </div>
         </div>
       </section>
 
+
       <!-- FOOTER -->
-      <footer style="background:#faf5e8;position:relative;overflow:hidden;border-top:1px solid #ece6d6;">
+      <footer style="background:#1a1a1a;color:#ffffff;border-top:1px solid #000000;">
         <div style="max-width:1280px;margin:0 auto;padding:64px 28px 40px;position:relative;z-index:1;">
-          <div data-grid="footer-main" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:56px;">
+          <div data-grid="footer-main"
+            style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:56px;">
             <div>
-              <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><span
-                  style="width:24px;height:24px;border-radius:9px;background:#0a0a0a;display:flex;align-items:center;justify-content:center;"><span
-                    style="width:10px;height:10px;border-radius:50%;background:#ffb084;display:block;"></span></span><span
-                  style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;letter-spacing:-0.5px;color:#0a0a0a;">Apollo
-                  Services</span></div>
-              <p style="font-size:14px;line-height:1.55;color:#6a6a6a;max-width:300px;margin:0;">A locally owned
-                cleaning & support company transforming homes and businesses across the Albury region — 35+ trained
-                professionals, 3,000+ satisfied clients, eco-friendly methods.</p>
+              <a href="index.html"
+                style="display:flex;align-items:center;gap:8px;text-decoration:none;margin-bottom:14px;">
+                <span
+                  style="font-family:'Manrope',Arial,sans-serif;font-weight:700;font-size:20px;color:#ffffff;letter-spacing:-0.5px;">Apollo
+                  Services</span>
+              </a>
+              <p style="font-size:14px;line-height:1.38;color:rgba(255,255,255,0.7);max-width:300px;margin:0;">A locally
+                owned cleaning &amp; support company transforming homes and businesses across the Albury region — 35+
+                trained professionals, 3,000+ satisfied clients, eco-friendly methods.</p>
             </div>
             <div>
-              <div style="font-size:13px;font-weight:600;color:#0a0a0a;margin-bottom:14px;">Explore</div>
-              <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;"><a href="index.html"
-                  style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Home</a><a href="about.html"
-                  style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">About</a><a
-                  href="services.html" style="color:#6a6a6a;text-decoration:none;"
-                  style-hover="color:#0a0a0a;">Services</a><a href="contact.html"
-                  style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Get a quote</a></div>
+              <div style="font-size:13px;font-weight:600;color:#ffffff;margin-bottom:14px;">Explore</div>
+              <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;">
+                <a href="index.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Home</a>
+                <a href="about.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">About</a>
+                <a href="services.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Services</a>
+                <a href="contact.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Get a quote</a>
+              </div>
             </div>
             <div>
-              <div style="font-size:13px;font-weight:600;color:#0a0a0a;margin-bottom:14px;">Company</div>
-              <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;"><a href="portfolio.html"
-                  style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Portfolio</a><a
-                  href="career.html" style="color:#6a6a6a;text-decoration:none;"
-                  style-hover="color:#0a0a0a;">Career</a><a href="contact.html"
-                  style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Contact</a><a href="#faq"
-                  style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">FAQ</a></div>
+              <div style="font-size:13px;font-weight:600;color:#ffffff;margin-bottom:14px;">Company</div>
+              <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;">
+                <a href="portfolio.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Portfolio</a>
+                <a href="career.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Career</a>
+                <a href="contact.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Contact</a>
+                <a href="#faq" style="color:rgba(255,255,255,0.7);text-decoration:none;">FAQ</a>
+              </div>
             </div>
             <div>
-              <div style="font-size:13px;font-weight:600;color:#0a0a0a;margin-bottom:14px;">Contact</div>
-              <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:#6a6a6a;"><span>0421 602
-                  524</span><span>Apollo.au@outlook.com</span><span>Dean St, Albury NSW 2640</span><span>Mon–Sat
-                  6am–10:30pm</span></div>
+              <div style="font-size:13px;font-weight:600;color:#ffffff;margin-bottom:14px;">Contact</div>
+              <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
+                <span>0421 602 524</span>
+                <span>Apollo.au@outlook.com</span>
+                <span>Dean St, Albury NSW 2640</span>
+                <span>Mon–Sat 6am–10:30pm</span>
+              </div>
             </div>
           </div>
           <div
-            style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-top:24px;border-top:1px solid #ece6d6;">
-            <span style="font-size:13px;color:#9a9a9a;">© 2026 Apollo Services · Albury NSW</span><span
-              style="font-size:13px;color:#9a9a9a;display:flex;align-items:center;gap:7px;"><span
+            style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.12);">
+            <span style="font-size:13px;color:rgba(255,255,255,0.5);">© 2026 Apollo Services · Albury NSW</span>
+            <span style="font-size:13px;color:rgba(255,255,255,0.5);display:flex;align-items:center;gap:7px;"><span
                 style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:block;"></span>Now taking
-              bookings</span></div>
-        </div>
-        <div data-float="0.3"
-          style="position:absolute;left:-60px;bottom:-90px;width:380px;height:240px;border-radius:50% 50% 0 0;background:#b8a4ed;opacity:0.5;">
-        </div>
-        <div data-float="0.45"
-          style="position:absolute;right:-40px;bottom:-110px;width:420px;height:260px;border-radius:50% 50% 0 0;background:#ffb084;opacity:0.5;">
-        </div>
-        <div data-float="0.2"
-          style="position:absolute;left:42%;bottom:-130px;width:340px;height:240px;border-radius:50% 50% 0 0;background:#e8b94a;opacity:0.45;">
+              bookings</span>
+          </div>
         </div>
       </footer>
 
       <!-- SERVICE DETAIL MODAL -->
       <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ closeModal }}"
-          style="position:fixed;inset:0;z-index:1500;background:rgba(10,10,10,0.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;">
+          style="position:fixed;inset:0;z-index:1500;background:rgba(26,26,26,0.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;">
           <div onClick="{{ stop }}"
-            style="max-width:720px;width:100%;background:#fffaf0;border-radius:20px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,0.35);">
+            style="max-width:720px;width:100%;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,0.35);">
             <div style="{{ modalBannerStyle }}">
               <h3 style="{{ modalTitleStyle }}">{{ modalTitle }}</h3>
               <button onClick="{{ closeModal }}" style="{{ modalCloseStyle }}">✕</button>
             </div>
             <div style="padding:30px 32px;">
-              <p style="font-size:16px;line-height:1.6;color:#3a3a3a;margin:0 0 24px;">{{ modalLong }}</p>
+              <p style="font-size:16px;line-height:1.38;color:#3d3d3d;margin:0 0 24px;">{{ modalLong }}</p>
               <div
-                style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#9a9a9a;margin-bottom:14px;">
+                style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#636363;margin-bottom:14px;">
                 Key features</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:28px;">
-                <sc-for list="{{ modalFeatures }}" as="f" hint-placeholder-count="6"><span
-                    style="display:flex;align-items:center;gap:9px;font-size:14px;color:#3a3a3a;"><span
-                      style="{{ modalCheckStyle }}">✓</span>{{ f }}</span></sc-for>
+                <sc-for list="{{ modalFeatures }}" as="f" hint-placeholder-count="6">
+                  <span style="display:flex;align-items:center;gap:9px;font-size:14px;color:#3d3d3d;"><span
+                      style="{{ modalCheckStyle }}">✓</span>{{ f }}</span>
+                </sc-for>
               </div>
               <sc-for list="{{ modalSections }}" as="sec" hint-placeholder-count="1">
                 <div style="margin-bottom:22px;">
                   <h4
-                    style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;letter-spacing:-0.3px;color:#0a0a0a;margin:0 0 12px;">
+                    style="font-family:'Manrope',Arial,sans-serif;font-weight:600;font-size:18px;letter-spacing:-0.3px;color:#1a1a1a;margin:0 0 12px;">
                     {{ sec.h }}</h4>
                   <div style="display:flex;flex-direction:column;gap:9px;">
-                    <sc-for list="{{ sec.items }}" as="it" hint-placeholder-count="4"><span
-                        style="display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.45;color:#3a3a3a;"><span
-                          style="color:#1a3a3a;font-weight:800;flex-shrink:0;line-height:1.45;">•</span>{{ it
-                        }}</span></sc-for>
+                    <sc-for list="{{ sec.items }}" as="it" hint-placeholder-count="4">
+                      <span
+                        style="display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.38;color:#3d3d3d;"><span
+                          style="color:#1a1a1a;font-weight:800;flex-shrink:0;line-height:1.38;">•</span>{{ it }}</span>
+                    </sc-for>
                   </div>
                 </div>
               </sc-for>
               <a href="#contact" onClick="{{ closeModal }}"
-                style="display:inline-flex;align-items:center;justify-content:center;height:46px;padding:0 22px;border-radius:12px;background:#0a0a0a;color:#fff;font-weight:600;font-size:15px;text-decoration:none;margin-top:4px;">Book
+                style="display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 22px;border-radius:4px;background:#1B3E6B;color:#ffffff;font-weight:600;font-size:14px;letter-spacing:0.7px;text-transform:uppercase;text-decoration:none;margin-top:4px;">Book
                 this service →</a>
             </div>
           </div>
@@ -842,186 +1192,23 @@
     </div>
 
     <!-- MOBILE CALL FAB -->
-    <a href="tel:0421602524" class="mobile-fab" style="position:fixed;bottom:20px;right:16px;z-index:500;display:none;align-items:center;gap:8px;height:50px;padding:0 20px;border-radius:9999px;background:#0a0a0a;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:14px;text-decoration:none;box-shadow:0 4px 24px rgba(0,0,0,0.28);">&#128222;&nbsp;Call Now</a>
+    <a href="tel:0421602524" class="mobile-fab"
+      style="position:fixed;bottom:20px;right:16px;z-index:500;display:none;align-items:center;gap:8px;height:50px;padding:0 20px;border-radius:9999px;background:#150F38;color:#ffffff;font-family:'Manrope',Arial,sans-serif;font-weight:600;font-size:14px;text-decoration:none;box-shadow:0 4px 24px rgba(2,74,216,0.35);">&#128222;&nbsp;Call
+      Now</a>
   </x-dc>
-  <style>
-    /* STRONG SPECIFICITY RESPONSIVE STYLES - OVERRIDES INLINE STYLES */
-    @keyframes slideDown {
-      from { transform: translateY(-15px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
 
-    .hamburger-btn {
-      display: none !important;
-    }
-    .hamburger-btn:hover {
-      background: rgba(10,10,10,0.08) !important;
-    }
-
-    @media (max-width: 1024px) {
-      * {
-        box-sizing: border-box !important;
-      }
-      html, body {
-        overflow-x: hidden !important;
-      }
-      header#top {
-        grid-template-columns: 1fr !important;
-        padding: 40px 20px 60px !important;
-        gap: 32px !important;
-      }
-      nav {
-        padding: 0 20px !important;
-      }
-      nav > div:nth-child(2) {
-        display: none !important;
-      }
-      nav > div:nth-child(3) > a:first-child {
-        display: none !important; /* Hide Request Quote on Tablet navbar */
-      }
-      .hamburger-btn {
-        display: flex !important;
-      }
-      [style*="display:flex"] {
-        flex-wrap: wrap !important;
-      }
-      a[style], button[style] {
-        max-width: 100% !important;
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
-        padding-inline: 16px !important;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .mobile-fab { display: flex !important; }
-      nav > div:nth-child(3) {
-        display: none !important; /* Hide CTA buttons entirely on mobile navbar */
-      }
-      [data-float] {
-        display: none !important; /* Hide bulky background shapes on mobile */
-      }
-      [data-svc-grid] {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
-        padding-inline: 16px !important;
-      }
-      [data-cols="3"] {
-        grid-template-columns: 1fr !important;
-      }
-      [data-cols="4"] {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
-        padding-inline: 16px !important;
-      }
-      [data-grid="calculator-main"],
-      [data-grid="contact-main"] {
-        grid-template-columns: 1fr !important;
-        padding-inline: 16px !important;
-      }
-      /* Collapse calculator frequency buttons grid on mobile */
-      [data-cols="5"] {
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 6px !important;
-      }
-      h1 {
-        font-size: 36px !important;
-        line-height: 1.1 !important;
-      }
-      h2 {
-        font-size: 28px !important;
-        line-height: 1.1 !important;
-      }
-      p {
-        font-size: 16px !important;
-        line-height: 1.5 !important;
-      }
-      [data-svc-card] {
-        overflow: hidden !important;
-      }
-      [data-svc-card] * {
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
-      }
-      /* Reduce testimonial quote font size on mobile */
-      #reviews p {
-        font-size: 18px !important;
-        line-height: 1.4 !important;
-      }
-    }
-
-    @media (max-width: 480px) {
-      [data-svc-grid] {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-        padding-inline: 16px !important;
-      }
-      [data-cols="2"] {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-        padding-inline: 16px !important;
-      }
-      [data-cols="3"],
-      [data-cols="4"] {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-        padding-inline: 16px !important;
-      }
-      [data-cols="5"] {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 6px !important;
-      }
-      [data-grid="footer-main"] {
-        grid-template-columns: 1fr !important;
-        padding-inline: 16px !important;
-      }
-      header#top {
-        padding: 32px 16px 48px !important;
-      }
-      h1 {
-        font-size: 28px !important;
-        line-height: 1.1 !important;
-      }
-      h2 {
-        font-size: 24px !important;
-        line-height: 1.1 !important;
-      }
-      p {
-        font-size: 15px !important;
-        line-height: 1.5 !important;
-      }
-      [style*="background:#0a0a0a"] > div {
-        justify-content: center !important;
-        text-align: center !important;
-      }
-      * {
-        max-width: 100vw !important;
-      }
-      [style*="display:grid"] {
-        padding-inline: 16px !important;
-      }
-      [data-svc-card] {
-        width: 100% !important;
-        overflow: hidden !important;
-      }
-      [data-svc-card] * {
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
-        hyphens: auto !important;
-      }
-    }
-  </style>
   <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = {
     svc: 'office', sqft: 400, freq: 'weekly',
     addons: { carpet: false, window: true, pressure: false, sanitise: true, garden: false },
     emergency: false, faqOpen: 0, tIndex: 0, openService: null,
-    chat: [{ role: 'ai', text: "Hi! I'm Apollo. Tell me about your space or the support you need and I'll point you to the right service and a quick estimate. We cover the Albury–Wodonga region." }],
-    thinking: false, menuOpen: false, bookingSubmitted: false
+    chat: [{ role: 'ai', text: "Hi! I'm Apollo. Tell me about your space or the support you need and I'll point you to the right service and a quick estimate. We cover the Albury-Wodonga region." }],
+    thinking: false, menuOpen: false, bookingSubmitted: false,
+    formName: '', formEmail: '', formPhone: '', formService: '', formDate: '', formTime: '', formError: ''
   };
 
-  colors = { pink: '#ff4d8b', teal: '#1a3a3a', lavender: '#b8a4ed', peach: '#ffb084', ochre: '#e8b94a', cream: '#f5f0e0', mint: '#a4d4c5', coral: '#ff6b5a' };
+  colors = { pink: '#1B3E6B', teal: '#1B3E6B', lavender: '#2A5A8C', peach: '#1B3E6B', ochre: '#2A5A8C', cream: '#f7f7f7', mint: '#2A5A8C', coral: '#1B3E6B' };
 
   featuredServices = [
     { id: 'office', label: 'Office Cleaning', accent: 'pink', desc: 'Professional cleaning that creates hygienic, productive workspaces with minimal business disruption.', bullets: ['Daily / weekly plans', 'Eco-friendly products', 'After-hours service'], long: 'Our comprehensive office cleaning keeps your workspace spotless and hygienic — impressing clients and lifting employee morale. Every plan is customisable to your business.', features: ['Daily / weekly / monthly plans', 'Eco-friendly, non-toxic products', 'After-hours service available', '100% satisfaction guarantee', 'Fully insured & bonded', 'Background-checked staff'], sections: [{ h: 'Our 150-point process covers', items: ['Dusting of desks, shelves & electronics', 'Disinfection of high-touch areas', 'Vacuuming & mopping all floors', 'Restroom sanitation & restocking', 'Kitchen / break-room cleaning', 'Window & glass surfaces', 'Waste removal & recycling'] }] },
@@ -1070,15 +1257,15 @@ class Component extends DCLogic {
     { n: '4', title: 'Service Delivery', desc: 'Our trained, eco-friendly crew arrives on time and leaves it spotless.', c: 'teal' }
   ];
   whyData = [
-    { t: 'Professional', d: "We don't just clean — we restore environments to their best state. Trained professionals follow strict quality protocols for consistent results every time.", c: 'teal' },
-    { t: 'Eco-friendly', d: "We prioritise health — yours and the planet's. Advanced eco-friendly products deep-clean without leaving toxins, residues or environmental impact.", c: 'ochre' },
-    { t: 'Quick & punctual', d: 'We respect your time and space. Our team works with precise punctuality and discretion, delivering seamless service with minimal disruption.', c: 'pink' }
-  ];
+  { t: 'Professional',    d: "We don't just clean � we restore environments to their best state. Trained professionals follow strict quality protocols for consistent results every time.",      c: 'pink',   icon: 'fa-award' },
+  { t: 'Eco-friendly',    d: "We prioritise health � yours and the planet's. Advanced eco-friendly products deep-clean without leaving toxins, residues or environmental impact.",             c: 'ochre',  icon: 'fa-leaf' },
+  { t: 'Quick & punctual',d: 'We respect your time and space, working with precise punctuality and discretion to deliver seamless service with minimal disruption.',                           c: 'teal',   icon: 'fa-clock' }
+];
   statsData = [
-    { v: 3000, dec: 0, suf: '+', display: '3,000+', label: 'Happy customers across the region', color: '#ff4d8b' },
-    { v: 35, dec: 0, suf: '+', display: '35+', label: 'Trained cleaning & support staff', color: '#1a3a3a' },
-    { v: 1200, dec: 0, suf: '+', display: '1,200+', label: 'Buildings & homes cleaned', color: '#e8b94a' },
-    { v: 4.9, dec: 1, suf: '★', display: '4.9★', label: 'Average customer rating', color: '#ff6b5a' }
+    { v: 3000, dec: 0, suf: '+', display: '3,000+', label: 'Happy customers across the region', color: '#150F38' },
+    { v: 35, dec: 0, suf: '+', display: '35+', label: 'Trained cleaning & support staff', color: '#150F38' },
+    { v: 1200, dec: 0, suf: '+', display: '1,200+', label: 'Buildings & homes cleaned', color: '#150F38' },
+    { v: 4.9, dec: 1, suf: '★', display: '4.9★', label: 'Average customer rating', color: '#150F38' }
   ];
   caseData = [
     { tag: 'Commercial Cleaning', title: 'Multi-tenant building', line: 'Nightly resets across common areas and amenities — zero complaints in 12 months.', c: 'pink' },
@@ -1112,12 +1299,11 @@ class Component extends DCLogic {
     this._carousel = setInterval(() => { if (this._mounted) this.setState(s => ({ tIndex: (s.tIndex + 1) % this.testimonialData.length })); }, 6000);
   }
   componentWillUnmount() { this._mounted = false; if (this._carousel) clearInterval(this._carousel); }
-  _waitGsap(t) { if (window.gsap && window.ScrollTrigger) { this.initFX(); return; } if (t > 40) { ['apollo-intro','apollo-curtain'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; }); return; } setTimeout(() => this._waitGsap(t + 1), 100); }
+  _waitGsap(t) { if (window.gsap && window.ScrollTrigger) { this.initFX(); return; } if (t > 40) return; setTimeout(() => this._waitGsap(t + 1), 100); }
   initFX() {
     const g = window.gsap, ST = window.ScrollTrigger; g.registerPlugin(ST);
     const hero = document.querySelectorAll('[data-hero]');
-    const introHandlesHero = this.introPlay(hero);
-    if (!introHandlesHero && hero.length) g.from(hero, { y: 30, opacity: 0, duration: 0.85, stagger: 0.12, ease: 'power3.out', delay: 0.1 });
+    if (hero.length) g.from(hero, { y: 30, opacity: 0, duration: 0.85, stagger: 0.12, ease: 'power3.out', delay: 0.1 });
     document.querySelectorAll('[data-reveal]').forEach(el => {
       g.fromTo(el, { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
     });
@@ -1135,7 +1321,6 @@ class Component extends DCLogic {
     };
     const obs = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { animate(e.target); obs.unobserve(e.target); } }); }, { threshold: 0.5 });
     document.querySelectorAll('[data-count]').forEach(el => obs.observe(el));
-
     const hexA = (h, a) => { const n = parseInt(h.slice(1), 16); return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; };
     const svcGrid = document.querySelector('[data-svc-grid]');
     if (svcGrid) {
@@ -1144,47 +1329,19 @@ class Component extends DCLogic {
     document.querySelectorAll('[data-svc-card]').forEach(card => {
       const img = card.querySelector('[data-svc-img]');
       const arrow = card.querySelector('[data-svc-arrow]');
-      const ac = card.getAttribute('data-accent') || '#1a3a3a';
+      const ac = card.getAttribute('data-accent') || '#1a1a1a';
       card.addEventListener('mouseenter', () => {
         g.to(card, { y: -10, boxShadow: '0 26px 54px ' + hexA(ac, 0.3), borderColor: hexA(ac, 0.55), duration: 0.4, ease: 'power3.out' });
         if (img) g.to(img, { scale: 1.09, duration: 0.6, ease: 'power3.out' });
         if (arrow) g.to(arrow, { x: 5, duration: 0.35, ease: 'power2.out' });
       });
       card.addEventListener('mouseleave', () => {
-        g.to(card, { y: 0, boxShadow: '0 0px 0px rgba(0,0,0,0)', borderColor: '#ece6d6', duration: 0.4, ease: 'power3.out' });
+        g.to(card, { y: 0, boxShadow: '0 2px 8px rgba(26,26,26,0.08)', borderColor: '#e8e8e8', duration: 0.4, ease: 'power3.out' });
         if (img) g.to(img, { scale: 1, duration: 0.6, ease: 'power3.out' });
         if (arrow) g.to(arrow, { x: 0, duration: 0.35 });
       });
     });
     ST.refresh();
-  }
-
-  introPlay(heroEls) {
-    const g = window.gsap;
-    const ov = document.getElementById('apollo-intro');
-    const curtain = document.getElementById('apollo-curtain');
-    const panels = curtain ? curtain.querySelectorAll('[data-curtain]') : [];
-    if (!ov) { if (curtain) curtain.style.display = 'none'; return false; }
-    const logo = ov.firstElementChild;
-    const txt = document.getElementById('apollo-intro-text');
-    if (heroEls && heroEls.length) g.set(heroEls, { opacity: 0, y: 42 });
-    const tl = g.timeline({ onComplete: () => { ov.style.display = 'none'; if (curtain) curtain.style.display = 'none'; if (heroEls) g.set(heroEls, { opacity: 1, y: 0 }); window.ScrollTrigger && window.ScrollTrigger.refresh(); } });
-    // 1 — the multicolour line traces out the word, then fills it in
-    if (txt) {
-      tl.to(txt, { strokeDashoffset: 0, duration: 1.25, ease: 'power2.inOut' });
-      tl.to(txt, { fillOpacity: 1, duration: 0.45, ease: 'power2.out' }, '-=0.25');
-    }
-    tl.to({}, { duration: 0.55 });
-    // 2 — logo exits, cream overlay lifts to reveal colour panels
-    tl.to(logo, { scale: 0.9, opacity: 0, duration: 0.4, ease: 'power2.in' });
-    tl.to(ov, { yPercent: -100, duration: 0.66, ease: 'power4.inOut' }, '-=0.12');
-    tl.set(ov, { display: 'none' });
-    // 3 — panels sweep up one by one, unveiling the hero
-    if (panels.length) tl.to(panels, { yPercent: -100, duration: 0.72, ease: 'power4.inOut', stagger: 0.085 }, '-=0.32');
-    tl.set(curtain, { display: 'none' });
-    // 4 — hero content staggers in behind the lifting panels
-    if (heroEls && heroEls.length) tl.to(heroEls, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', stagger: 0.1 }, '-=0.5');
-    return true;
   }
 
   fmt(n) { return '$' + Math.round(n).toLocaleString(); }
@@ -1195,6 +1352,7 @@ class Component extends DCLogic {
   }
 
   renderVals() {
+    const icons={shield:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',leaf:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22V12M12 12C12 7 7 4 3 5c0 5 3 9 9 7M12 12c0-5 5-8 9-7-1 5-4 9-9 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>',clock:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#fff" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>',book:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#fff" stroke-width="2"/></svg>',map:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#fff" stroke-width="2"/><circle cx="12" cy="9" r="2.5" stroke="#fff" stroke-width="2"/></svg>',chart:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><line x1="18" y1="20" x2="18" y2="10" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="20" x2="12" y2="4" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="6" y1="20" x2="6" y2="14" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>',star:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>',users:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#fff" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="#fff" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>'};
     const s = this.state, C = this.colors;
     const cur = this.calcServices.find(d => d.id === s.svc) || this.calcServices[0];
     const addonRate = this.addonData.reduce((t, a) => t + (s.addons[a.key] ? a.rate : 0), 0);
@@ -1202,15 +1360,28 @@ class Component extends DCLogic {
     if (s.emergency) visit *= 1.25;
     const fobj = this.freqData.find(f => f.id === s.freq) || this.freqData[1];
     const monthly = visit * fobj.visits;
-    const darkCard = (c) => c === 'pink' || c === 'teal';
-
-    const accentDark = { pink: true, teal: true, coral: true, lavender: false, peach: false, ochre: false, mint: false };
-    const imgKw = { office: 'office', residential: 'house', carpet: 'carpet', commercial: 'office', window: 'window', building: 'building', self: 'caregiver', lawn: 'lawn', outings: 'friends', transport: 'wheelchair', endlease: 'cleaning', personal: 'elderly', pressure: 'washing', facility: 'maintenance' };
+    const accentDark = { pink: true, teal: true, lavender: true, peach: true, ochre: true, mint: true, coral: true };
+    const imgKw = {
+  office:      'https://images.unsplash.com/photo-1497366216548-37526070297c?w=640&q=80',
+  residential: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=640&q=80',
+  carpet:      'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=640&q=80',
+  commercial:  'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=640&q=80',
+  window:      'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=640&q=80',
+  building:    'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=640&q=80',
+  self:        'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=640&q=80',
+  lawn:        'https://images.unsplash.com/photo-1558904541-efa843a96f01?w=640&q=80',
+  outings:     'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=640&q=80',
+  transport:   'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=640&q=80',
+  endlease:    'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=640&q=80',
+  personal:    'https://images.unsplash.com/photo-1559839734-2b71ea197ec5?w=640&q=80',
+  pressure:    'https://images.unsplash.com/photo-1627875764093-315831ac12f7?w=640&q=80',
+  facility:    'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=640&q=80'
+};
     let imgSeed = 10;
     const services = this.featuredServices.slice(0, 4).map(d => {
       const ac = C[d.accent], dark = accentDark[d.accent];
       imgSeed += 1;
-      const url = 'https://loremflickr.com/640/420/' + imgKw[d.id] + '?lock=' + imgSeed;
+      const url = imgKw[d.id] || 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=640&q=80';
       return {
         ...d,
         slotId: 'svc-' + d.id,
@@ -1219,54 +1390,42 @@ class Component extends DCLogic {
         imgStyle: "width:100%;height:100%;background-image:url('" + url + "');background-size:cover;background-position:center;background-color:" + ac + ";will-change:transform;",
         accentHex: ac,
         descShort: d.desc.length > 92 ? d.desc.slice(0, 89).replace(/[ ,.]+$/, '') + '…' : d.desc,
-        checkStyle: 'width:16px;height:16px;border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;background:' + ac + ';color:' + (dark ? '#fff' : '#0a0a0a') + ';',
-        learnStyle: 'margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:10px;background:#fffaf0;border:1px solid #e0d9c6;color:#0a0a0a;font-weight:600;font-size:12.5px;cursor:pointer;',
+        checkStyle: 'width:16px;height:16px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;background:' + ac + ';color:' + (dark ? '#fff' : '#1a1a1a') + ';',
+        learnStyle: 'margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:4px;background:#ffffff;border:1px solid #e8e8e8;color:#1a1a1a;font-weight:600;font-size:12.5px;cursor:pointer;',
         onOpen: () => this.setState({ openService: d.id })
       };
     });
 
-    const chipBase = "font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;font-weight:500;padding:9px 15px;border-radius:9999px;cursor:pointer;transition:all 0.18s;";
-    const calcChips = this.calcServices.map(d => ({ ...d, onSelect: () => this.setState({ svc: d.id }), chipStyle: chipBase + (s.svc === d.id ? 'background:#0a0a0a;color:#fff;border:1px solid #0a0a0a;' : 'background:#fffaf0;color:#3a3a3a;border:1px solid #e0d9c6;') }));
+    const chipBase = "font-family:'Manrope',Arial,sans-serif;font-size:13.5px;font-weight:500;padding:9px 15px;border-radius:9999px;cursor:pointer;transition:all 0.18s;";
+    const calcChips = this.calcServices.map(d => ({ ...d, onSelect: () => this.setState({ svc: d.id }), chipStyle: chipBase + (s.svc === d.id ? 'background:#1a1a1a;color:#fff;border:1px solid #1a1a1a;' : 'background:#ffffff;color:#3d3d3d;border:1px solid #e8e8e8;') }));
 
-    const freqBtn = "font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;padding:11px 4px;border-radius:12px;cursor:pointer;transition:all 0.18s;text-align:center;";
-    const freqOptions = this.freqData.map(f => ({ ...f, onSelect: () => this.setState({ freq: f.id }), style: freqBtn + (s.freq === f.id ? 'background:#0a0a0a;color:#fff;border:1px solid #0a0a0a;' : 'background:#fffaf0;color:#3a3a3a;border:1px solid #e0d9c6;') }));
+    const freqBtn = "font-family:'Manrope',Arial,sans-serif;font-size:13px;font-weight:600;padding:11px 4px;border-radius:4px;cursor:pointer;transition:all 0.18s;text-align:center;";
+    const freqOptions = this.freqData.map(f => ({ ...f, onSelect: () => this.setState({ freq: f.id }), style: freqBtn + (s.freq === f.id ? 'background:#1a1a1a;color:#fff;border:1px solid #1a1a1a;' : 'background:#ffffff;color:#3d3d3d;border:1px solid #e8e8e8;') }));
 
-    const addonBtn = "display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;font-weight:500;padding:13px 14px;border-radius:12px;cursor:pointer;transition:all 0.18s;text-align:left;";
+    const addonBtn = "display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:'Manrope',Arial,sans-serif;font-size:13.5px;font-weight:500;padding:13px 14px;border-radius:4px;cursor:pointer;transition:all 0.18s;text-align:left;";
     const addonItems = this.addonData.map(a => {
       const on = s.addons[a.key];
       return { ...a, priceLabel: '+$' + a.rate.toFixed(2), mark: on ? '✓' : '',
-        boxStyle: 'width:18px;height:18px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;color:#fff;' + (on ? 'background:#0a0a0a;border:1px solid #0a0a0a;' : 'background:#fffaf0;border:1px solid #ccc3ac;'),
+        boxStyle: 'width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;color:#fff;' + (on ? 'background:#1a1a1a;border:1px solid #1a1a1a;' : 'background:#ffffff;border:1px solid #c2c2c2;'),
         onToggle: () => this.setState(st => ({ addons: { ...st.addons, [a.key]: !st.addons[a.key] } })),
-        style: addonBtn + (on ? 'background:#f5f0e0;border:1px solid #0a0a0a;color:#0a0a0a;' : 'background:#fffaf0;border:1px solid #e0d9c6;color:#3a3a3a;') };
+        style: addonBtn + (on ? 'background:#f7f7f7;border:1px solid #1a1a1a;color:#1a1a1a;' : 'background:#ffffff;border:1px solid #e8e8e8;color:#3d3d3d;') };
     });
 
-    const emergencyStyle = 'width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:12px;cursor:pointer;transition:all 0.18s;color:#0a0a0a;' + (s.emergency ? 'background:#ffeae6;border:1px solid #ff6b5a;' : 'background:#fffaf0;border:1px solid #e0d9c6;');
+    const emergencyStyle = 'width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:4px;cursor:pointer;transition:all 0.18s;color:#1a1a1a;font-family:\'Manrope\',Arial,sans-serif;border:none;' + (s.emergency ? 'background:#e8f0fe;border:1px solid #150F38 !important;' : 'background:#ffffff;border:1px solid #e8e8e8;');
 
-    const faqs = this.faqData.map((f, i) => ({ ...f, open: s.faqOpen === i, onToggle: () => this.setState(st => ({ faqOpen: st.faqOpen === i ? -1 : i })), iconStyle: 'font-size:22px;font-weight:400;color:#ff4d8b;flex-shrink:0;transition:transform 0.25s;display:inline-block;transform:rotate(' + (s.faqOpen === i ? '45deg' : '0deg') + ');' }));
+    const faqs = this.faqData.map((f, i) => ({ ...f, open: s.faqOpen === i, onToggle: () => this.setState(st => ({ faqOpen: st.faqOpen === i ? -1 : i })), iconStyle: 'font-size:22px;font-weight:400;color:#150F38;flex-shrink:0;transition:transform 0.25s;display:inline-block;transform:rotate(' + (s.faqOpen === i ? '45deg' : '0deg') + ');' }));
 
-    const dots = this.testimonialData.map((t, i) => ({ onClick: () => this.setState({ tIndex: i }), style: 'width:' + (s.tIndex === i ? '26px' : '9px') + ';height:9px;border-radius:9999px;border:none;cursor:pointer;transition:all 0.3s;background:' + (s.tIndex === i ? '#0a0a0a' : '#d8cfb8') + ';' }));
+    const dots = this.testimonialData.map((t, i) => ({ onClick: () => this.setState({ tIndex: i }), style: 'width:' + (s.tIndex === i ? '26px' : '9px') + ';height:9px;border-radius:9999px;border:none;cursor:pointer;transition:all 0.3s;background:' + (s.tIndex === i ? '#ffffff' : 'rgba(255,255,255,0.3)') + ';' }));
 
-    const chat = s.chat.map(m => ({ text: m.text,
-      rowStyle: 'display:flex;justify-content:' + (m.role === 'user' ? 'flex-end' : 'flex-start') + ';',
-      bubbleStyle: m.role === 'user'
-        ? 'max-width:80%;padding:13px 17px;border-radius:16px;border-bottom-right-radius:5px;background:#0a0a0a;color:#fff;font-size:14.5px;line-height:1.5;'
-        : 'max-width:84%;padding:13px 17px;border-radius:16px;border-bottom-left-radius:5px;background:#f5f0e0;color:#1a1a1a;font-size:14.5px;line-height:1.55;' }));
+    const chat = s.chat.map(m => ({ text: m.text, rowStyle: 'display:flex;justify-content:' + (m.role === 'user' ? 'flex-end' : 'flex-start') + ';' }));
 
-    const steps = this.stepsData.map(p => ({ ...p, numStyle: "font-family:'Fredoka',sans-serif;font-weight:600;font-size:18px;width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;color:" + (darkCard(p.c) ? '#fff' : '#0a0a0a') + ";background:" + C[p.c] + ";" }));
+    const whyIcons = { teal: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" stroke="#fff" stroke-width="2"/></svg>', ochre: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22V12M12 12C12 7 7 4 3 5c0 5 3 9 9 7M12 12c0-5 5-8 9-7-1 5-4 9-9 7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>', pink: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#fff" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>', lavender: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#fff" stroke-width="2"/><path d="M16 2v4M8 2v4M3 10h18" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>', coral: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>', mint: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#fff" stroke-width="2"/><circle cx="12" cy="9" r="2.5" stroke="#fff" stroke-width="2"/></svg>', peach: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#fff" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="#fff" stroke-width="2"/></svg>' };
+     const why = this.whyData.map(w=>({...w, dotStyle:'width:48px;height:48px;border-radius:10px;margin-bottom:20px;background:'+C[w.c]+';display:flex;align-items:center;justify-content:center;flex-shrink:0;', icon:w.icon}));
+    const stats = this.statsData.map(st => ({ ...st, numStyle: 'font-family:\'Manrope\',Arial,sans-serif;font-weight:500;font-size:46px;letter-spacing:-2px;line-height:1;color:#1B3E6B;' }));
+    const steps = this.stepsData.map(p => ({ ...p, numStyle: 'font-family:\'Manrope\',Arial,sans-serif;font-weight:500;font-size:36px;letter-spacing:-1px;line-height:1;color:#1B3E6B;margin-bottom:14px;' }));
+    const caseImgMap = { commercial: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=640&q=80", office: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=640&q=80", endlease: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=640&q=80", residential: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=640&q=80", exterior: "https://images.unsplash.com/photo-1627875764093-315831ac12f7?w=640&q=80", support: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=640&q=80" }; const cases = this.caseData.map(cs => ({ ...cs, phStyle: "width:100%;height:100%;background-image:url(" + JSON.stringify(caseImgMap[cs.cat] || caseImgMap.office) + ");background-size:cover;background-position:center;" }));
 
-    const why = this.whyData.map(w => ({ ...w, dotStyle: 'width:44px;height:44px;border-radius:13px;margin-bottom:20px;background:' + C[w.c] + ';' }));
-
-    const stats = this.statsData.map(st => ({ ...st, numStyle: "font-family:'Fredoka',sans-serif;font-weight:500;font-size:52px;letter-spacing:-2px;line-height:1;color:" + st.color + ";" }));
-
-    const caseKw = { 'Commercial Cleaning': 'office,building', 'Office Cleaning': 'office', 'End of Lease': 'apartment', 'Carpet Cleaning': 'carpet', 'Pressure Cleaning': 'driveway', 'Facility Management': 'building' };
-    let caseSeed = 40;
-    const cases = this.caseData.map(cs => {
-      caseSeed += 1;
-      const kw = caseKw[cs.tag] || 'cleaning';
-      return { ...cs, phStyle: "width:100%;height:100%;background-size:cover;background-position:center;background-color:" + C[cs.c] + ";background-image:url('https://loremflickr.com/600/360/" + kw + "?lock=" + caseSeed + "');" };
-    });
-
-    const accentDarkM = { pink: true, teal: true, coral: true, lavender: false, peach: false, ochre: false, mint: false };
+    const accentDarkM = { pink: true, teal: true, lavender: true, peach: true, ochre: true, mint: true, coral: true };
     const md = s.openService ? this.featuredServices.find(d => d.id === s.openService) : null;
     let modalOpen = false, modalTitle = '', modalLong = '', modalFeatures = [], modalSections = [], modalBannerStyle = '', modalTitleStyle = '', modalCloseStyle = '', modalCheckStyle = '';
     if (md) {
@@ -1274,9 +1433,9 @@ class Component extends DCLogic {
       const ac = C[md.accent], dark = accentDarkM[md.accent];
       modalTitle = md.label; modalLong = md.long; modalFeatures = md.features; modalSections = md.sections;
       modalBannerStyle = 'background:' + ac + ';padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;';
-      modalTitleStyle = "font-family:'Fredoka',sans-serif;font-weight:500;font-size:28px;letter-spacing:-1px;margin:0;line-height:1.05;color:" + (dark ? '#fff' : '#0a0a0a') + ";";
-      modalCloseStyle = 'width:38px;height:38px;border-radius:11px;border:none;cursor:pointer;font-size:16px;flex-shrink:0;background:' + (dark ? 'rgba(255,255,255,0.2)' : 'rgba(10,10,10,0.08)') + ';color:' + (dark ? '#fff' : '#0a0a0a') + ';';
-      modalCheckStyle = 'width:18px;height:18px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;background:' + ac + ';color:' + (dark ? '#fff' : '#0a0a0a') + ';';
+      modalTitleStyle = "font-family:'Manrope',Arial,sans-serif;font-weight:600;font-size:28px;letter-spacing:-1px;margin:0;line-height:1.0;color:" + (dark ? '#fff' : '#1a1a1a') + ";";
+      modalCloseStyle = 'width:38px;height:38px;border-radius:4px;border:none;cursor:pointer;font-size:16px;flex-shrink:0;background:' + (dark ? 'rgba(255,255,255,0.2)' : 'rgba(26,26,26,0.08)') + ';color:' + (dark ? '#fff' : '#1a1a1a') + ';';
+      modalCheckStyle = 'width:18px;height:18px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;background:' + ac + ';color:' + (dark ? '#fff' : '#1a1a1a') + ';';
     }
     return {
       toggleMenu: () => this.setState(st => ({ menuOpen: !st.menuOpen })),
@@ -1285,7 +1444,8 @@ class Component extends DCLogic {
       menuLine3Transform: s.menuOpen ? 'rotate(-45deg) translateY(-5px)' : 'none',
       mobileMenuOpen: s.menuOpen,
       services, catalog: this.catalog, calcChips, steps, why, stats, cases, freqOptions, addonItems, emergencyStyle,
-      modalOpen, modalTitle, modalLong, modalFeatures, modalSections, modalBannerStyle, modalTitleStyle, modalCloseStyle, modalCheckStyle, closeModal: () => this.setState({ openService: null }), stop: (e) => e.stopPropagation(),
+      modalOpen, modalTitle, modalLong, modalFeatures, modalSections, modalBannerStyle, modalTitleStyle, modalCloseStyle, modalCheckStyle,
+      closeModal: () => this.setState({ openService: null }), stop: (e) => e.stopPropagation(),
       toggleEmergency: () => this.setState(st => ({ emergency: !st.emergency })),
       sqft: s.sqft, areaLabel: s.sqft.toLocaleString() + ' m²',
       onSqft: (e) => this.setState({ sqft: parseInt(e.target.value, 10) }),
@@ -1300,7 +1460,82 @@ class Component extends DCLogic {
       chat, prompts: this.promptData.map(p => ({ label: p.label, onAsk: () => this.askAI(p) })), thinking: s.thinking,
       bookingSubmitted: s.bookingSubmitted,
       notBookingSubmitted: !s.bookingSubmitted,
-      submitBooking: () => this.setState({ bookingSubmitted: true })
+      formName: s.formName,
+      formEmail: s.formEmail,
+      formPhone: s.formPhone,
+      formService: s.formService,
+      formDate: s.formDate,
+      formTime: s.formTime,
+      formError: s.formError,
+      onNameChange: (e) => this.setState({ formName: e.target.value }),
+      onEmailChange: (e) => this.setState({ formEmail: e.target.value }),
+      onPhoneChange: (e) => this.setState({ formPhone: e.target.value }),
+      onServiceChange: (e) => this.setState({ formService: e.target.value }),
+      onDateChange: (e) => this.setState({ formDate: e.target.value }),
+      onTimeChange: (e) => this.setState({ formTime: e.target.value }),
+      servicesOptions: [
+        { id: 'office', label: 'Office Cleaning ($150.00 base)' },
+        { id: 'carpet', label: 'Carpet Cleaning ($120.00 base)' },
+        { id: 'window', label: 'Window Cleaning ($80.00 base)' },
+        { id: 'lawn', label: 'Cleaning & Lawn Mowing ($140.00 base)' },
+        { id: 'outings', label: 'Outings - Day & Night ($60.00 base)' },
+        { id: 'transport', label: 'Transport Services ($45.00 base)' },
+        { id: 'endlease', label: 'End of Lease Cleaning ($280.00 base)' },
+        { id: 'personal', label: 'Personal Care ($55.00 base)' },
+        { id: 'pressure', label: 'Pressure Cleaning ($110.00 base)' },
+        { id: 'facility', label: 'Facility Management ($350.00 base)' }
+      ],
+      submitBooking: () => {
+        if (!s.formName || !s.formEmail || !s.formPhone || !s.formService || !s.formDate || !s.formTime) {
+          this.setState({ formError: 'Please fill in all the fields before requesting a booking.' });
+          return;
+        }
+        this.setState({ formError: '' });
+        
+        const basePrices = {
+          office: 150.00,
+          carpet: 120.00,
+          window: 80.00,
+          lawn: 140.00,
+          outings: 60.00,
+          transport: 45.00,
+          endlease: 280.00,
+          personal: 55.00,
+          pressure: 110.00,
+          facility: 350.00
+        };
+        const price = basePrices[s.formService] || 0.00;
+
+        fetch('api/book.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: s.formName,
+            email: s.formEmail,
+            phone: s.formPhone,
+            service: s.formService,
+            date: s.formDate,
+            time: s.formTime,
+            price: price,
+            notes: 'Quick booking from home page'
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === 'success') {
+            this.setState({ bookingSubmitted: true });
+            setTimeout(() => {
+              window.location.href = data.redirect_url;
+            }, 1500);
+          } else {
+            this.setState({ formError: data.message || 'An error occurred.' });
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          this.setState({ formError: 'Failed to connect to the booking API.' });
+        });
+      }
     };
   }
 }

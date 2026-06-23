@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+  if(!sessionStorage.getItem('apollo_intro_seen')){
+    sessionStorage.setItem('apollo_intro_seen','1');
+    window.location.replace('intro.html');
+  }
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
@@ -8,144 +14,177 @@
 <body>
 <x-dc>
 <helmet>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <title>Services | Apollo Cleaning &amp; Support — Albury NSW</title>
 <meta name="description" content="Apollo Services offers 14+ specialised cleaning &amp; support programs — commercial cleaning, residential, end-of-lease, carpet, window, NDIS and more. Serving Albury-Wodonga.">
 <style>
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{margin:0;background:#fffaf0;}
-  ::selection{background:#ffb084;color:#0a0a0a;}
-  
-  /* Mobile-first responsive styles */
-  @media (max-width: 1024px) {
-    /* Navigation */
-    nav > div:nth-child(2) {
-      display: none !important;
-    }
-    
-    nav {
-      padding: 0 20px !important;
-    }
+  body{margin:0;background:#ffffff;}
+  ::selection{background:#c9e0fc;color:#1a1a1a;}
+        /* Button hover states */
+        a[style*="background:#1B3E6B"]:hover,
+        button[style*="background:#1B3E6B"]:hover { background:#000000 !important; border-color:#000000 !important; }
+        a[style*="border:2px solid #1B3E6B"]:hover { color:#000000 !important; border-color:#000000 !important; }
+        a[style*="background:#150F38"]:hover { background:#000000 !important; }
+  @keyframes slideDown{from{transform:translateY(-15px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+  .hamburger-btn{display:none !important;}
+  .hamburger-btn:hover{background:rgba(26,26,26,0.08) !important;}
+  @media(max-width:1024px){
+    *{box-sizing:border-box !important;}
+    html,body{overflow-x:hidden !important;}
+    nav>div:nth-child(2){display:none !important;}
+    nav>div:nth-child(3)>a:first-child{display:none !important;}
+    .hamburger-btn{display:flex !important;}
+    nav{padding:0 20px !important;}
+    [style*="display:flex"]{flex-wrap:wrap !important;}
+    a[style],button[style]{max-width:100% !important;word-wrap:break-word !important;overflow-wrap:break-word !important;padding-inline:16px !important;}
+  }
+  @media(max-width:768px){
+    nav>div:nth-child(3){display:none !important;}
+    [data-float]{display:none !important;}
+    [data-svc-grid]{grid-template-columns:repeat(2,1fr) !important;gap:12px !important;padding-inline:16px !important;}
+    [data-cols="3"]{grid-template-columns:1fr !important;padding-inline:16px !important;}
+    [data-grid="footer-main"]{grid-template-columns:1fr !important;}
+    .mobile-fab{display:flex !important;}
+    h1{font-size:36px !important;line-height:1.1 !important;}
+    h2{font-size:28px !important;line-height:1.1 !important;}
+    p{font-size:16px !important;line-height:1.5 !important;}
+    [data-svc-card]{overflow:hidden !important;}
+    [data-svc-card] *{word-wrap:break-word !important;overflow-wrap:break-word !important;}
+    div[style*="position:fixed"][style*="z-index:1500"]{padding:10px !important;}
+    div[style*="max-width:720px"]{margin-top:20px !important;max-height:90vh !important;overflow-y:auto !important;}
+    [data-cols="2"]{grid-template-columns:1fr !important;}
+  }
+  @media(max-width:480px){
+    [data-svc-grid],[data-cols="2"]{grid-template-columns:1fr !important;gap:12px !important;padding-inline:16px !important;}
+    [data-cols="3"],[data-cols="4"]{grid-template-columns:1fr !important;gap:12px !important;padding-inline:16px !important;}
+    [data-grid="footer-main"]{grid-template-columns:1fr !important;padding-inline:16px !important;}
+    h1{font-size:28px !important;line-height:1.1 !important;}
+    h2{font-size:24px !important;line-height:1.1 !important;}
+    p{font-size:15px !important;line-height:1.5 !important;}
+    *{max-width:100vw !important;}
+    [data-svc-card]{width:100% !important;overflow:hidden !important;}
+    [data-svc-card] *{word-wrap:break-word !important;overflow-wrap:break-word !important;hyphens:auto !important;}
+  }
+  /* Interactive Cards & Icons */
+  .interactive-card {
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease;
+  }
+  .interactive-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(26, 26, 26, 0.12) !important;
+    border-color: #1B3E6B !important;
   }
 
-  @media (max-width: 768px) {
-    /* Services grid */
-    [data-svc-grid] {
-      grid-template-columns: repeat(2, 1fr) !important;
-    }
-    
-    /* Why choose us */
-    [data-stagger][style*="grid-template-columns:repeat(3"] {
-      grid-template-columns: 1fr !important;
-    }
-    
-    h1 {
-      font-size: 36px !important;
-    }
-  }
-
-  @media (max-width: 480px) {
-    /* Services grid */
-    [data-svc-grid] {
-      grid-template-columns: 1fr !important;
-    }
-    
-    h1 {
-      font-size: 28px !important;
-    }
-    
-    /* Top contact strip */
-    [style*="background:#0a0a0a"] > div {
-      justify-content: center !important;
-      text-align: center !important;
-    }
-  }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="page-transition.js"></script>
 </helmet>
 
-<div data-screen-label="Services" style="background:#fffaf0;color:#3a3a3a;font-family:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;">
+<div data-screen-label="Services" style="background:#ffffff;color:#3d3d3d;font-family:'Manrope',Arial,sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;">
 
-  <div style="background:#0a0a0a;color:#f5f0e0;font-size:12.5px;">
-    <div style="max-width:1280px;margin:0 auto;padding:8px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
-      <span style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;"><a href="tel:0421602524" style="color:#f5f0e0;text-decoration:none;">Call 0421 602 524</a><a href="mailto:Apollo.au@outlook.com" style="color:#f5f0e0;text-decoration:none;">Apollo.au@outlook.com</a></span>
-      <span style="color:#cdbf9e;">Mon–Sat 6am–10:30pm · Sun 7:30am–7pm · Albury NSW</span>
-    </div>
-  </div>
-
-  <nav style="position:sticky;top:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:rgba(255,250,240,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #ece6d6;">
-    <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#0a0a0a;">
-      <span style="width:26px;height:26px;border-radius:9px;background:#0a0a0a;display:flex;align-items:center;justify-content:center;"><span style="width:11px;height:11px;border-radius:50%;background:#ffb084;display:block;"></span></span>
-      <span style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:21px;letter-spacing:-0.5px;color:#0a0a0a;">Apollo Services</span>
-    </a>
-    <div style="display:flex;align-items:center;gap:28px;">
-      <a href="index.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">Home</a>
-      <a href="about.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">About</a>
-      <a href="services.html" style="text-decoration:none;color:#0a0a0a;font-size:14px;font-weight:600;">Services</a>
-      <a href="portfolio.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">Portfolio</a>
-      <a href="career.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">Career</a>
-      <a href="contact.html" style="text-decoration:none;color:#3a3a3a;font-size:14px;font-weight:500;" style-hover="color:#0a0a0a;">Contact</a>
-    </div>
-    <div style="display:flex;align-items:center;gap:14px;">
-      <a href="contact.html" style="text-decoration:none;color:#0a0a0a;font-size:14px;font-weight:600;white-space:nowrap;">Request quote</a>
-      <a href="contact.html" style="text-decoration:none;display:inline-flex;align-items:center;height:42px;padding:0 18px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:14px;font-weight:600;white-space:nowrap;" style-hover="background:#262626;">Book service</a>
-    </div>
-    <!-- Hamburger Button -->
-    <button onClick="{{ toggleMenu }}" class="hamburger-btn" style="background:rgba(10,10,10,0.04);border:1px solid rgba(10,10,10,0.06);cursor:pointer;display:none;flex-direction:column;gap:5px;width:38px;height:38px;border-radius:11px;justify-content:center;align-items:center;z-index:110;padding:0;transition:all 0.3s;">
-      <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;transform:{{ menuLine1Transform }};transform-origin:center;"></span>
-      <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;opacity:{{ menuLine2Opacity }};"></span>
-      <span style="width:18px;height:2px;background:#0a0a0a;transition:transform 0.3s, opacity 0.3s;transform:{{ menuLine3Transform }};transform-origin:center;"></span>
-    </button>
-  </nav>
-
-  <!-- MOBILE DRAWER -->
-  <sc-if value="{{ mobileMenuOpen }}">
-    <div style="position:fixed;top:64px;left:0;right:0;bottom:0;background:rgba(255,250,240,0.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:99;display:flex;flex-direction:column;padding:40px 28px;gap:20px;border-top:1px solid #ece6d6;animation:slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
-      <a href="index.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Home</a>
-      <a href="about.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">About</a>
-      <a href="services.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#0a0a0a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Services</a>
-      <a href="portfolio.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Portfolio</a>
-      <a href="career.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Career</a>
-      <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#3a3a3a;font-size:24px;font-weight:500;font-family:'Fredoka',sans-serif;">Contact</a>
-      <div style="height:1px;background:#ece6d6;margin:15px 0 5px 0;"></div>
-      <div style="display:flex;flex-direction:column;gap:12px;margin-top:10px;">
-        <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:46px;border-radius:12px;border:1px solid #e0d9c6;color:#0a0a0a;font-size:15px;font-weight:600;background:#fffaf0;">Request quote</a>
-        <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;height:46px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:15px;font-weight:600;">Book service</a>
+              <!-- TOP UTILITY STRIP -->
+      <div style="background:#1a1a1a;color:#ffffff;font-size:12px;height:36px;display:flex;align-items:center;">
+        <div style="max-width:1366px;margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+          <span style="display:flex;align-items:center;gap:20px;">
+            <a href="tel:0421602524" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:12px;">Call 0421 602 524</a>
+            <a href="mailto:Apollo.au@outlook.com" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:12px;">Apollo.au@outlook.com</a>
+          </span>
+          <span style="color:rgba(255,255,255,0.6);font-size:12px;">Mon-Sat 6am-10:30pm � Sun 7:30am-7pm � Albury NSW</span>
+        </div>
       </div>
-    </div>
-  </sc-if>
+
+      <!-- NAV -->
+      <nav style="position:sticky;top:0;z-index:200;height:56px;background:#ffffff;border-bottom:1px solid #e8e8e8;display:flex;align-items:center;">
+        <div style="max-width:1366px;margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:0;">
+          <a href="index.html" style="text-decoration:none;flex-shrink:0;display:flex;align-items:center;">
+            <span style="font-family:'Manrope',Arial,sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.5px;color:#1B3E6B;">Apollo</span><span style="font-family:'Manrope',Arial,sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.5px;color:#111111;">&nbsp;Services</span>
+          </a>
+          <div style="display:flex;align-items:center;gap:0;flex:1;justify-content:center;">
+            <a href="index.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">Home</a>
+            <a href="about.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">About</a>
+            <a href="services.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid #1B3E6B;white-space:nowrap;">Services</a>
+            <a href="portfolio.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">Portfolio</a>
+            <a href="blog.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">Blog</a>
+            <a href="career.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">Career</a>
+            <a href="contact.html" style="text-decoration:none;color:#1a1a1a;font-size:14px;font-weight:400;padding:0 16px;height:56px;display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;">Contact</a>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;flex-shrink:0;">
+            <div style="position:relative;margin-right:8px;">
+              <input type="text" placeholder="What can we help you with?" style="height:34px;width:220px;border:1px solid #c2c2c2;border-radius:0;padding:0 36px 0 12px;font-family:'Manrope',Arial,sans-serif;font-size:13px;color:#1a1a1a;background:#ffffff;outline:none;">
+              <svg style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="#636363" stroke-width="1.5"/><path d="M10 10l3 3" stroke="#636363" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <button style="width:40px;height:40px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Quote cart">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M2 2h2l2.4 10.4a1 1 0 0 0 1 .6h9.2a1 1 0 0 0 .96-.72l1.84-6.28H5.5" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="18" r="1.2" fill="#1a1a1a"/><circle cx="16" cy="18" r="1.2" fill="#1a1a1a"/></svg>
+            </button>
+            <button style="width:40px;height:40px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Sign in">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="7" r="3.5" stroke="#1a1a1a" stroke-width="1.5"/><path d="M3 19c0-4 3.6-7 8-7s8 3 8 7" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <button onClick="{{ toggleMenu }}" class="hamburger-btn" style="background:none;border:none;cursor:pointer;display:none;flex-direction:column;gap:5px;width:40px;height:40px;justify-content:center;align-items:center;padding:0;flex-shrink:0;">
+            <span style="width:20px;height:2px;background:#1a1a1a;transition:transform 0.3s,opacity 0.3s;transform:{{ menuLine1Transform }};transform-origin:center;display:block;"></span>
+            <span style="width:20px;height:2px;background:#1a1a1a;transition:opacity 0.3s;opacity:{{ menuLine2Opacity }};display:block;"></span>
+            <span style="width:20px;height:2px;background:#1a1a1a;transition:transform 0.3s,opacity 0.3s;transform:{{ menuLine3Transform }};transform-origin:center;display:block;"></span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- MOBILE DRAWER -->
+      <sc-if value="{{ mobileMenuOpen }}">
+        <div style="position:fixed;top:92px;left:0;right:0;bottom:0;background:#ffffff;z-index:199;display:flex;flex-direction:column;padding:32px 24px;gap:0;border-top:1px solid #e8e8e8;animation:slideDown 0.35s cubic-bezier(0.16,1,0.3,1);overflow-y:auto;">
+          <a href="index.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:500;padding:16px 0;border-bottom:1px solid #e8e8e8;">Home</a>
+          <a href="about.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">About</a>
+          <a href="services.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">Services</a>
+          <a href="portfolio.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">Portfolio</a>
+          <a href="blog.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">Blog</a>
+          <a href="career.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">Career</a>
+          <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#1a1a1a;font-size:18px;font-weight:400;padding:16px 0;border-bottom:1px solid #e8e8e8;">Contact</a>
+          <div style="margin-top:24px;display:flex;flex-direction:column;gap:12px;">
+            <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;display:flex;align-items:center;justify-content:center;height:44px;border-radius:4px;border:2px solid #1B3E6B;color:#1B3E6B;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;">Get a quote</a>
+            <a href="contact.html" onClick="{{ toggleMenu }}" style="text-decoration:none;display:flex;align-items:center;justify-content:center;height:44px;border-radius:4px;background:#1B3E6B;color:#ffffff;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;transition:background 0.2s;">Book service</a>
+          </div>
+        </div>
+      </sc-if>
+      </sc-if>
 
   <!-- PAGE HEADER -->
-  <header style="position:relative;overflow:hidden;background:#faf5e8;border-bottom:1px solid #ece6d6;">
-    <div data-float="0.4" style="position:absolute;top:30px;right:60px;width:90px;height:90px;border-radius:50%;background:#e8b94a;opacity:0.85;"></div>
-    <div data-float="0.7" style="position:absolute;bottom:-40px;left:8%;width:130px;height:110px;border-radius:50% 50% 0 0;background:#b8a4ed;opacity:0.7;"></div>
+  <header style="position:relative;overflow:hidden;background:#f7f7f7;border-bottom:1px solid #e8e8e8;">
+<script>
+  if(!sessionStorage.getItem('apollo_intro_seen')){
+    sessionStorage.setItem('apollo_intro_seen','1');
+    window.location.replace('intro.html');
+  }
+</script>
     <div style="max-width:1280px;margin:0 auto;padding:64px 28px 70px;position:relative;z-index:1;">
-      <div style="font-size:13px;color:#6a6a6a;margin-bottom:16px;"><a href="index.html" style="color:#6a6a6a;text-decoration:none;">Home</a> &nbsp;/&nbsp; <span style="color:#0a0a0a;font-weight:600;">Services</span></div>
-      <h1 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:54px;line-height:1.02;letter-spacing:-2px;color:#0a0a0a;margin:0 0 16px;max-width:760px;">Our premium cleaning & support services.</h1>
-      <p style="font-size:19px;line-height:1.55;color:#3a3a3a;max-width:580px;margin:0;">Fourteen specialised programs covering every commercial space, home, and personal-support need across the Albury region — all delivered by trained, eco-conscious professionals.</p>
+      <div style="font-size:13px;color:#636363;margin-bottom:16px;"><a href="index.html" style="color:#636363;text-decoration:none;">Home</a> &nbsp;/&nbsp; <span style="color:#1a1a1a;font-weight:600;">Services</span></div>
+      <h1 style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:54px;line-height:1.0;letter-spacing:-2px;color:#1a1a1a;margin:0 0 16px;max-width:760px;">Our premium cleaning &amp; support services.</h1>
+      <p style="font-size:19px;line-height:1.38;color:#3d3d3d;max-width:580px;margin:0;">Fourteen specialised programs covering every commercial space, home, and personal-support need across the Albury region — all delivered by trained, eco-conscious professionals.</p>
     </div>
   </header>
 
   <!-- ALL SERVICES -->
-  <section style="max-width:1280px;margin:0 auto;padding:72px 28px 40px;">
+  <section style="background:#ffffff;max-width:1280px;margin:0 auto;padding:72px 28px 40px;">
     <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:28px;">
-      <sc-for list="{{ filterChips }}" as="fc" hint-placeholder-count="5"><button onClick="{{ fc.onSelect }}" style="{{ fc.style }}">{{ fc.label }}</button></sc-for>
+      <sc-for list="{{ filterChips }}" as="fc" hint-placeholder-count="5">
+        <button onClick="{{ fc.onSelect }}" style="{{ fc.style }}">{{ fc.label }}</button>
+      </sc-for>
     </div>
     <div data-svc-grid style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
       <sc-for list="{{ filteredServices }}" as="s" hint-placeholder-count="8">
-        <div data-svc-card data-accent="{{ s.accentHex }}" style="border-radius:14px;background:#fffaf0;border:1px solid #ece6d6;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;will-change:transform;" onClick="{{ s.onOpen }}">
-          <div style="height:4px;background:{{ s.accentHex }};flex-shrink:0;"></div>
+        <div data-svc-card data-accent="{{ s.accentHex }}" style="border-radius:16px;background:#ffffff;border:1px solid #e8e8e8;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;will-change:transform;box-shadow:0 2px 8px rgba(26,26,26,0.08);" onClick="{{ s.onOpen }}">
           <div style="height:130px;overflow:hidden;flex-shrink:0;"><div data-svc-img style="{{ s.imgStyle }}"></div></div>
           <div style="padding:18px;display:flex;flex-direction:column;flex:1;">
-            <h3 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:17px;letter-spacing:-0.3px;color:#0a0a0a;margin:0 0 6px;line-height:1.15;">{{ s.label }}</h3>
-            <p style="font-size:13px;line-height:1.45;color:#6a6a6a;margin:0 0 14px;">{{ s.descShort }}</p>
+            <h3 style="font-family:'Manrope',Arial,sans-serif;font-weight:600;font-size:17px;letter-spacing:-0.3px;color:#1a1a1a;margin:0 0 6px;line-height:1.15;">{{ s.label }}</h3>
+            <p style="font-size:13px;line-height:1.38;color:#636363;margin:0 0 14px;">{{ s.descShort }}</p>
             <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;">
-              <sc-for list="{{ s.bullets }}" as="b" hint-placeholder-count="3"><span style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#3a3a3a;"><span style="{{ s.checkStyle }}">✓</span>{{ b }}</span></sc-for>
+              <sc-for list="{{ s.bullets }}" as="b" hint-placeholder-count="3"><span style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#3d3d3d;"><span style="{{ s.checkStyle }}">✓</span>{{ b }}</span></sc-for>
             </div>
             <button onClick="{{ s.onOpen }}" style="{{ s.learnStyle }}"><span>Learn more</span><span data-svc-arrow style="display:inline-block;margin-left:6px;">→</span></button>
           </div>
@@ -154,19 +193,20 @@
     </div>
   </section>
 
+
   <!-- WHY CHOOSE -->
-  <section style="background:#ebe6d6;margin-top:50px;">
+  <section style="background:#f7f7f7;border-top:1px solid #e8e8e8;margin-top:50px;">
     <div style="max-width:1280px;margin:0 auto;padding:80px 28px;">
       <div data-reveal style="margin-bottom:40px;max-width:560px;">
-        <div style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#6a6a6a;margin-bottom:12px;">Why choose Apollo</div>
-        <h2 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:40px;line-height:1.08;letter-spacing:-1px;color:#0a0a0a;margin:0;">A standard you can see and measure.</h2>
+        <div style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#636363;margin-bottom:12px;">Why choose Apollo</div>
+        <h2 style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:40px;line-height:1.0;letter-spacing:-1px;color:#1a1a1a;margin:0;">A standard you can see and measure.</h2>
       </div>
       <div data-stagger data-cols="3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
         <sc-for list="{{ why }}" as="w" hint-placeholder-count="3">
-          <div style="border-radius:16px;background:#fffaf0;border:1px solid #e0d9c6;padding:28px;">
-            <div style="{{ w.dotStyle }}"></div>
-            <h3 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:22px;letter-spacing:-0.5px;color:#0a0a0a;margin:0 0 10px;">{{ w.t }}</h3>
-            <p style="font-size:14.5px;line-height:1.55;color:#6a6a6a;margin:0;">{{ w.d }}</p>
+          <div class="interactive-card" style="border-radius:16px;background:#ffffff;border:1px solid #e8e8e8;padding:32px;box-shadow:0 2px 8px rgba(26,26,26,0.08);">
+            <div class="interactive-icon-block" style="{{ w.dotStyle }}"><i class="fa-solid {{ w.icon }}" style="font-size:22px;color:#ffffff;"></i></div>
+            <h3 style="font-family:'Manrope',Arial,sans-serif;font-weight:600;font-size:22px;letter-spacing:-0.5px;color:#1a1a1a;margin:0 0 10px;">{{ w.t }}</h3>
+            <p style="font-size:14.5px;line-height:1.38;color:#636363;margin:0;">{{ w.d }}</p>
           </div>
         </sc-for>
       </div>
@@ -175,214 +215,72 @@
 
   <!-- CTA -->
   <section style="max-width:1280px;margin:0 auto;padding:80px 28px;">
-    <div data-reveal style="position:relative;border-radius:24px;background:#faf5e8;border:1px solid #ece6d6;overflow:hidden;padding:64px 48px;text-align:center;">
-      <div data-float="0.3" style="position:absolute;left:-30px;bottom:-60px;width:200px;height:160px;border-radius:50% 50% 0 0;background:#ffb084;opacity:0.85;"></div>
-      <div data-float="0.5" style="position:absolute;right:-20px;bottom:-70px;width:190px;height:150px;border-radius:50% 50% 0 0;background:#b8a4ed;opacity:0.85;"></div>
+    <div data-reveal style="position:relative;border-radius:16px;background:#1a1a1a;overflow:hidden;padding:64px 48px;text-align:center;">
       <div style="position:relative;">
-        <h2 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:42px;line-height:1.05;letter-spacing:-1.5px;color:#0a0a0a;margin:0 0 14px;">Not sure which service you need?</h2>
-        <p style="font-size:18px;color:#3a3a3a;max-width:480px;margin:0 auto 30px;line-height:1.5;">Tell us about your space and we'll recommend the right program with a free, no-obligation quote.</p>
+        <h2 style="font-family:'Manrope',Arial,sans-serif;font-weight:500;font-size:42px;line-height:1.0;letter-spacing:-1.5px;color:#ffffff;margin:0 0 14px;">Not sure which service you need?</h2>
+        <p style="font-size:18px;color:rgba(255,255,255,0.8);max-width:480px;margin:0 auto 30px;line-height:1.38;">Tell us about your space and we'll recommend the right program with a free, no-obligation quote.</p>
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-          <a href="contact.html" style="text-decoration:none;display:inline-flex;align-items:center;height:50px;padding:0 26px;border-radius:12px;background:#0a0a0a;color:#fff;font-size:15px;font-weight:600;" style-hover="background:#262626;">Book a service</a>
-          <a href="contact.html" style="text-decoration:none;display:inline-flex;align-items:center;height:50px;padding:0 26px;border-radius:12px;background:#fffaf0;color:#0a0a0a;font-size:15px;font-weight:600;border:1px solid #e0d9c6;" style-hover="background:#f5f0e0;">Request a quote</a>
+          <a href="contact.html" style="text-decoration:none;display:inline-flex;align-items:center;height:44px;padding:0 24px;border-radius:4px;background:#1B3E6B;color:#ffffff;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;">Book a service</a>
+          <a href="contact.html" style="text-decoration:none;display:inline-flex;align-items:center;height:44px;padding:0 24px;border-radius:4px;background:transparent;color:#ffffff;font-size:14px;font-weight:600;letter-spacing:0.7px;text-transform:uppercase;border:1px solid rgba(255,255,255,0.4);">Request a quote</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer style="background:#faf5e8;position:relative;overflow:hidden;border-top:1px solid #ece6d6;">
-    <div style="max-width:1280px;margin:0 auto;padding:64px 28px 40px;position:relative;z-index:1;">
+  <footer style="background:#1a1a1a;color:#ffffff;border-top:1px solid #000000;">
+    <div style="max-width:1280px;margin:0 auto;padding:64px 28px 40px;">
       <div data-grid="footer-main" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:56px;">
         <div>
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><span style="width:24px;height:24px;border-radius:9px;background:#0a0a0a;display:flex;align-items:center;justify-content:center;"><span style="width:10px;height:10px;border-radius:50%;background:#ffb084;display:block;"></span></span><span style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;letter-spacing:-0.5px;color:#0a0a0a;">Apollo Services</span></div>
-          <p style="font-size:14px;line-height:1.55;color:#6a6a6a;max-width:300px;margin:0;">A locally owned cleaning & support company transforming homes and businesses across the Albury region — 35+ trained professionals, 3,000+ satisfied clients, eco-friendly methods.</p>
+          <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;margin-bottom:14px;"><span style="font-family:'Manrope',Arial,sans-serif;font-weight:700;font-size:20px;color:#ffffff;letter-spacing:-0.5px;">Apollo Services</span></a>
+          <p style="font-size:14px;line-height:1.38;color:rgba(255,255,255,0.7);max-width:300px;margin:0;">A locally owned cleaning &amp; support company transforming homes and businesses across the Albury region — 35+ trained professionals, 3,000+ satisfied clients, eco-friendly methods.</p>
         </div>
-        <div><div style="font-size:13px;font-weight:600;color:#0a0a0a;margin-bottom:14px;">Explore</div><div style="display:flex;flex-direction:column;gap:10px;font-size:14px;"><a href="index.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Home</a><a href="about.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">About</a><a href="services.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Services</a><a href="contact.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Get a quote</a></div></div>
-        <div><div style="font-size:13px;font-weight:600;color:#0a0a0a;margin-bottom:14px;">Company</div><div style="display:flex;flex-direction:column;gap:10px;font-size:14px;"><a href="portfolio.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Portfolio</a><a href="career.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Career</a><a href="contact.html" style="color:#6a6a6a;text-decoration:none;" style-hover="color:#0a0a0a;">Contact</a></div></div>
-        <div><div style="font-size:13px;font-weight:600;color:#0a0a0a;margin-bottom:14px;">Contact</div><div style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:#6a6a6a;"><span>0421 602 524</span><span>Apollo.au@outlook.com</span><span>Dean St, Albury NSW 2640</span><span>Mon–Sat 6am–10:30pm</span></div></div>
+        <div><div style="font-size:13px;font-weight:600;color:#ffffff;margin-bottom:14px;">Explore</div><div style="display:flex;flex-direction:column;gap:10px;font-size:14px;"><a href="index.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Home</a><a href="about.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">About</a><a href="services.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Services</a><a href="contact.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Get a quote</a></div></div>
+        <div><div style="font-size:13px;font-weight:600;color:#ffffff;margin-bottom:14px;">Company</div><div style="display:flex;flex-direction:column;gap:10px;font-size:14px;"><a href="portfolio.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Portfolio</a><a href="career.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Career</a><a href="contact.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Contact</a></div></div>
+        <div><div style="font-size:13px;font-weight:600;color:#ffffff;margin-bottom:14px;">Contact</div><div style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);"><span>0421 602 524</span><span>Apollo.au@outlook.com</span><span>Dean St, Albury NSW 2640</span><span>Mon–Sat 6am–10:30pm</span></div></div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-top:24px;border-top:1px solid #ece6d6;"><span style="font-size:13px;color:#9a9a9a;">© 2026 Apollo Services · Albury NSW</span><span style="font-size:13px;color:#9a9a9a;display:flex;align-items:center;gap:7px;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:block;"></span>Now taking bookings</span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.12);">
+        <span style="font-size:13px;color:rgba(255,255,255,0.5);">© 2026 Apollo Services · Albury NSW</span>
+        <span style="font-size:13px;color:rgba(255,255,255,0.5);display:flex;align-items:center;gap:7px;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:block;"></span>Now taking bookings</span>
+      </div>
     </div>
-    <div data-float="0.3" style="position:absolute;left:-60px;bottom:-90px;width:380px;height:240px;border-radius:50% 50% 0 0;background:#b8a4ed;opacity:0.5;"></div>
-    <div data-float="0.45" style="position:absolute;right:-40px;bottom:-110px;width:420px;height:260px;border-radius:50% 50% 0 0;background:#ffb084;opacity:0.5;"></div>
-    <div data-float="0.2" style="position:absolute;left:42%;bottom:-130px;width:340px;height:240px;border-radius:50% 50% 0 0;background:#e8b94a;opacity:0.45;"></div>
   </footer>
 
   <!-- SERVICE DETAIL MODAL -->
   <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:1500;background:rgba(10,10,10,0.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;">
-      <div onClick="{{ stop }}" style="max-width:720px;width:100%;background:#fffaf0;border-radius:20px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,0.35);">
+    <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:1500;background:rgba(26,26,26,0.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;">
+      <div onClick="{{ stop }}" style="max-width:720px;width:100%;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,0.35);">
         <div style="{{ modalBannerStyle }}">
           <h3 style="{{ modalTitleStyle }}">{{ modalTitle }}</h3>
           <button onClick="{{ closeModal }}" style="{{ modalCloseStyle }}">✕</button>
         </div>
         <div style="padding:30px 32px;">
-          <p style="font-size:16px;line-height:1.6;color:#3a3a3a;margin:0 0 24px;">{{ modalLong }}</p>
-          <div style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#9a9a9a;margin-bottom:14px;">Key features</div>
+          <p style="font-size:16px;line-height:1.38;color:#3d3d3d;margin:0 0 24px;">{{ modalLong }}</p>
+          <div style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#636363;margin-bottom:14px;">Key features</div>
           <div data-cols="2" style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:28px;">
-            <sc-for list="{{ modalFeatures }}" as="f" hint-placeholder-count="6"><span style="display:flex;align-items:center;gap:9px;font-size:14px;color:#3a3a3a;"><span style="{{ modalCheckStyle }}">✓</span>{{ f }}</span></sc-for>
+            <sc-for list="{{ modalFeatures }}" as="f" hint-placeholder-count="6"><span style="display:flex;align-items:center;gap:9px;font-size:14px;color:#3d3d3d;"><span style="{{ modalCheckStyle }}">✓</span>{{ f }}</span></sc-for>
           </div>
           <sc-for list="{{ modalSections }}" as="sec" hint-placeholder-count="1">
             <div style="margin-bottom:22px;">
-              <h4 style="font-family:'Fredoka',sans-serif;font-weight:500;font-size:18px;letter-spacing:-0.3px;color:#0a0a0a;margin:0 0 12px;">{{ sec.h }}</h4>
+              <h4 style="font-family:'Manrope',Arial,sans-serif;font-weight:600;font-size:18px;letter-spacing:-0.3px;color:#1a1a1a;margin:0 0 12px;">{{ sec.h }}</h4>
               <div style="display:flex;flex-direction:column;gap:9px;">
-                <sc-for list="{{ sec.items }}" as="it" hint-placeholder-count="4"><span style="display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.45;color:#3a3a3a;"><span style="color:#1a3a3a;font-weight:800;flex-shrink:0;line-height:1.45;">•</span>{{ it }}</span></sc-for>
+                <sc-for list="{{ sec.items }}" as="it" hint-placeholder-count="4"><span style="display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.38;color:#3d3d3d;"><span style="color:#1a1a1a;font-weight:800;flex-shrink:0;line-height:1.38;">•</span>{{ it }}</span></sc-for>
               </div>
             </div>
           </sc-for>
-          <a href="contact.html" style="display:inline-flex;align-items:center;justify-content:center;height:46px;padding:0 22px;border-radius:12px;background:#0a0a0a;color:#fff;font-weight:600;font-size:15px;text-decoration:none;margin-top:4px;">Book this service →</a>
+          <a href="contact.html" style="display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 22px;border-radius:4px;background:#1B3E6B;color:#ffffff;font-weight:600;font-size:14px;letter-spacing:0.7px;text-transform:uppercase;text-decoration:none;margin-top:4px;">Book this service →</a>
         </div>
       </div>
     </div>
   </sc-if>
 
-  <a href="tel:0421602524" class="mobile-fab" style="position:fixed;bottom:20px;right:16px;z-index:500;display:none;align-items:center;gap:8px;height:50px;padding:0 18px;border-radius:9999px;background:#0a0a0a;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:14px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,0.25);">📞 Call Now</a>
+  <a href="tel:0421602524" class="mobile-fab" style="position:fixed;bottom:20px;right:16px;z-index:500;display:none;align-items:center;gap:8px;height:50px;padding:0 18px;border-radius:9999px;background:#150F38;color:#ffffff;font-family:'Manrope',Arial,sans-serif;font-weight:600;font-size:14px;text-decoration:none;box-shadow:0 4px 20px rgba(2,74,216,0.35);">📞 Call Now</a>
 </div>
 </x-dc>
-<style>
-  /* STRONG SPECIFICITY RESPONSIVE STYLES - OVERRIDES INLINE STYLES */
-  @keyframes slideDown {
-    from { transform: translateY(-15px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-
-  .hamburger-btn {
-    display: none !important;
-  }
-  .hamburger-btn:hover {
-    background: rgba(10,10,10,0.08) !important;
-  }
-
-  @media (max-width: 1024px) {
-    * {
-      box-sizing: border-box !important;
-    }
-    html, body {
-      overflow-x: hidden !important;
-    }
-    nav > div:nth-child(2) {
-      display: none !important;
-    }
-    nav > div:nth-child(3) > a:first-child {
-      display: none !important;
-    }
-    .hamburger-btn {
-      display: flex !important;
-    }
-    nav {
-      padding: 0 20px !important;
-    }
-    [style*="display:flex"] {
-      flex-wrap: wrap !important;
-    }
-    a[style], button[style] {
-      max-width: 100% !important;
-      word-wrap: break-word !important;
-      overflow-wrap: break-word !important;
-      padding-inline: 16px !important;
-    }
-  }
-
-  @media (max-width: 768px) {
-    nav > div:nth-child(3) {
-      display: none !important;
-    }
-    [data-float] {
-      display: none !important;
-    }
-    [data-svc-grid] {
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 12px !important;
-      padding-inline: 16px !important;
-    }
-    [data-cols="3"] {
-      grid-template-columns: 1fr !important;
-      padding-inline: 16px !important;
-    }
-    .mobile-fab { display: flex !important; }
-    h1 {
-      font-size: 36px !important;
-      line-height: 1.1 !important;
-    }
-    h2 {
-      font-size: 28px !important;
-      line-height: 1.1 !important;
-    }
-    p {
-      font-size: 16px !important;
-      line-height: 1.5 !important;
-    }
-    [data-svc-card] {
-      overflow: hidden !important;
-    }
-    [data-svc-card] * {
-      word-wrap: break-word !important;
-      overflow-wrap: break-word !important;
-    }
-    div[style*="position:fixed"][style*="z-index:1500"] {
-      padding: 10px !important;
-    }
-    div[style*="max-width:720px"] {
-      margin-top: 20px !important;
-      max-height: 90vh !important;
-      overflow-y: auto !important;
-    }
-    [data-cols="2"] {
-      grid-template-columns: 1fr !important;
-    }
-  }
-
-  @media (max-width: 480px) {
-    [data-svc-grid],
-    [data-cols="2"] {
-      grid-template-columns: 1fr !important;
-      gap: 12px !important;
-      padding-inline: 16px !important;
-    }
-    [data-cols="3"],
-    [data-cols="4"] {
-      grid-template-columns: 1fr !important;
-      gap: 12px !important;
-      padding-inline: 16px !important;
-    }
-    [data-grid="footer-main"] {
-      grid-template-columns: 1fr !important;
-      padding-inline: 16px !important;
-    }
-    h1 {
-      font-size: 28px !important;
-      line-height: 1.1 !important;
-    }
-    h2 {
-      font-size: 24px !important;
-      line-height: 1.1 !important;
-    }
-    p {
-      font-size: 15px !important;
-      line-height: 1.5 !important;
-    }
-    [style*="background:#0a0a0a"] > div {
-      justify-content: center !important;
-      text-align: center !important;
-    }
-    * {
-      max-width: 100vw !important;
-    }
-    [data-svc-card] {
-      width: 100% !important;
-      overflow: hidden !important;
-    }
-    [data-svc-card] * {
-      word-wrap: break-word !important;
-      overflow-wrap: break-word !important;
-      hyphens: auto !important;
-    }
-  }
-</style>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = { openService: null, menuOpen: false, filter: 'all' };
-  colors = { pink: '#ff4d8b', teal: '#1a3a3a', lavender: '#b8a4ed', peach: '#ffb084', ochre: '#e8b94a', mint: '#a4d4c5', coral: '#ff6b5a' };
+  colors = { pink: '#1B3E6B', teal: '#1B3E6B', lavender: '#2A5A8C', peach: '#1B3E6B', ochre: '#2A5A8C', cream: '#f7f7f7', mint: '#2A5A8C', coral: '#1B3E6B' };
 
   featuredServices = [
     { id: 'office', cat: 'commercial', label: 'Office Cleaning', accent: 'pink', desc: 'Professional cleaning that creates hygienic, productive workspaces with minimal business disruption.', bullets: ['Daily / weekly plans', 'Eco-friendly products', 'After-hours service'], long: 'Our comprehensive office cleaning keeps your workspace spotless and hygienic — impressing clients and lifting employee morale. Every plan is customisable to your business.', features: ['Daily / weekly / monthly plans', 'Eco-friendly, non-toxic products', 'After-hours service available', '100% satisfaction guarantee', 'Fully insured & bonded', 'Background-checked staff'], sections: [{ h: 'Our 150-point process covers', items: ['Dusting of desks, shelves & electronics', 'Disinfection of high-touch areas', 'Vacuuming & mopping all floors', 'Restroom sanitation & restocking', 'Kitchen / break-room cleaning', 'Window & glass surfaces', 'Waste removal & recycling'] }] },
@@ -401,10 +299,10 @@ class Component extends DCLogic {
     { id: 'facility', cat: 'commercial', label: 'Facility Management', accent: 'coral', desc: 'Comprehensive facility solutions to ensure smooth operations, safety and cleanliness of your property.', bullets: ['Routine maintenance', 'Trained staff', 'Safety compliance'], long: 'Our facility-management services cover all aspects of building upkeep and safety to provide a clean, functional, efficient environment, tailored to your property.', features: ['Preventive & routine maintenance', 'Janitorial & cleaning services', 'Security & surveillance', 'HVAC & electrical maintenance', 'Waste management', 'Trained & certified personnel'], sections: [{ h: 'Includes', items: ['Electrical & plumbing maintenance', 'Lift & generator monitoring', 'Landscaping & pest control', 'Fire-safety system checks', 'Energy & utilities monitoring'] }] }
   ];
   whyData = [
-    { t: 'Professional', d: "We don't just clean — we restore environments to their best state. Trained professionals follow strict quality protocols for consistent results every time.", c: 'teal' },
-    { t: 'Eco-friendly', d: "We prioritise health — yours and the planet's. Advanced eco-friendly products deep-clean without leaving toxins, residues or environmental impact.", c: 'ochre' },
-    { t: 'Quick & punctual', d: 'We respect your time and space, working with precise punctuality and discretion to deliver seamless service with minimal disruption.', c: 'pink' }
-  ];
+  { t: 'Fully insured',       d: 'Every job is backed by full public liability insurance so you can book with complete peace of mind.', c: 'pink',    icon: 'fa-shield-halved' },
+  { t: 'Eco-friendly',        d: 'We use only non-toxic, biodegradable products that are safe for families, pets and the environment.',  c: 'ochre',   icon: 'fa-leaf' },
+  { t: 'Satisfaction guarantee', d: '100% satisfaction or we come back and fix it � no questions asked, no extra charge.',              c: 'lavender',icon: 'fa-star' }
+];
 
   componentDidMount() { this._mounted = true; this._waitGsap(0); }
   componentWillUnmount() { this._mounted = false; }
@@ -418,48 +316,56 @@ class Component extends DCLogic {
     const svcGrid = document.querySelector('[data-svc-grid]');
     if (svcGrid) g.from(svcGrid.children, { y: 64, opacity: 0, scale: 0.9, rotate: (i) => (i % 2 ? 2.5 : -2.5), duration: 0.7, ease: 'back.out(1.5)', stagger: { each: 0.06 }, scrollTrigger: { trigger: svcGrid, start: 'top 85%' } });
     document.querySelectorAll('[data-svc-card]').forEach(card => {
-      const img = card.querySelector('[data-svc-img]'), arrow = card.querySelector('[data-svc-arrow]'), ac = card.getAttribute('data-accent') || '#1a3a3a';
+      const img = card.querySelector('[data-svc-img]'), arrow = card.querySelector('[data-svc-arrow]'), ac = card.getAttribute('data-accent') || '#1a1a1a';
       card.addEventListener('mouseenter', () => { g.to(card, { y: -10, boxShadow: '0 26px 54px ' + hexA(ac, 0.3), borderColor: hexA(ac, 0.55), duration: 0.4, ease: 'power3.out' }); if (img) g.to(img, { scale: 1.09, duration: 0.6, ease: 'power3.out' }); if (arrow) g.to(arrow, { x: 5, duration: 0.35 }); });
-      card.addEventListener('mouseleave', () => { g.to(card, { y: 0, boxShadow: '0 0px 0px rgba(0,0,0,0)', borderColor: '#ece6d6', duration: 0.4, ease: 'power3.out' }); if (img) g.to(img, { scale: 1, duration: 0.6, ease: 'power3.out' }); if (arrow) g.to(arrow, { x: 0, duration: 0.35 }); });
+      card.addEventListener('mouseleave', () => { g.to(card, { y: 0, boxShadow: '0 2px 8px rgba(26,26,26,0.08)', borderColor: '#e8e8e8', duration: 0.4, ease: 'power3.out' }); if (img) g.to(img, { scale: 1, duration: 0.6, ease: 'power3.out' }); if (arrow) g.to(arrow, { x: 0, duration: 0.35 }); });
     });
     ST.refresh();
   }
 
   renderVals() {
+    const icons={shield:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',leaf:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22V12M12 12C12 7 7 4 3 5c0 5 3 9 9 7M12 12c0-5 5-8 9-7-1 5-4 9-9 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>',clock:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#fff" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>',book:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#fff" stroke-width="2"/></svg>',map:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#fff" stroke-width="2"/><circle cx="12" cy="9" r="2.5" stroke="#fff" stroke-width="2"/></svg>',chart:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><line x1="18" y1="20" x2="18" y2="10" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="20" x2="12" y2="4" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="6" y1="20" x2="6" y2="14" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>',star:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>',users:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#fff" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="#fff" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>'};
     const s = this.state, C = this.colors;
-    const accentDark = { pink: true, teal: true, coral: true, lavender: false, peach: false, ochre: false, mint: false };
-    const imgKw = { office: 'office', residential: 'house', carpet: 'carpet', commercial: 'office', window: 'window', building: 'building', self: 'caregiver', lawn: 'lawn', outings: 'friends', transport: 'wheelchair', endlease: 'cleaning', personal: 'elderly', pressure: 'washing', facility: 'maintenance' };
+    const accentDark = { pink: true, teal: true, lavender: true, peach: true, ochre: true, mint: true, coral: true };
+    const imgKw = {
+  office:      'https://images.unsplash.com/photo-1497366216548-37526070297c?w=640&q=80',
+  residential: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=640&q=80',
+  carpet:      'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=640&q=80',
+  commercial:  'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=640&q=80',
+  window:      'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=640&q=80',
+  building:    'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=640&q=80',
+  self:        'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=640&q=80',
+  lawn:        'https://images.unsplash.com/photo-1558904541-efa843a96f01?w=640&q=80',
+  outings:     'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=640&q=80',
+  transport:   'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=640&q=80',
+  endlease:    'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=640&q=80',
+  personal:    'https://images.unsplash.com/photo-1559839734-2b71ea197ec5?w=640&q=80',
+  pressure:    'https://images.unsplash.com/photo-1627875764093-315831ac12f7?w=640&q=80',
+  facility:    'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=640&q=80'
+};
     const filterDefs = [
-      { id: 'all', label: 'All services' },
-      { id: 'commercial', label: 'Commercial' },
-      { id: 'residential', label: 'Residential' },
-      { id: 'ndis', label: 'NDIS & Support' },
-      { id: 'exterior', label: 'Exterior' }
+      { id: 'all', label: 'All services' }, { id: 'commercial', label: 'Commercial' }, { id: 'residential', label: 'Residential' }, { id: 'ndis', label: 'NDIS & Support' }, { id: 'exterior', label: 'Exterior' }
     ];
-    const chipBase = "font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;font-weight:600;padding:10px 18px;border-radius:9999px;cursor:pointer;border:none;transition:all 0.18s;";
-    const filterChips = filterDefs.map(f => ({
-      ...f,
-      onSelect: () => this.setState({ filter: f.id }),
-      style: chipBase + (s.filter === f.id ? 'background:#0a0a0a;color:#fff;' : 'background:#fffaf0;color:#3a3a3a;border:1px solid #e0d9c6;')
-    }));
+    const chipBase = "font-family:'Manrope',Arial,sans-serif;font-size:13.5px;font-weight:600;padding:10px 18px;border-radius:9999px;cursor:pointer;transition:all 0.18s;";
+    const filterChips = filterDefs.map(f => ({ ...f, onSelect: () => this.setState({ filter: f.id }), style: chipBase + (s.filter === f.id ? 'background:#1a1a1a;color:#fff;border:1px solid #1a1a1a;' : 'background:#ffffff;color:#3d3d3d;border:1px solid #e8e8e8;') }));
     let imgSeed = 10;
     const allServices = this.featuredServices.map(d => {
       const ac = C[d.accent], dark = accentDark[d.accent];
       imgSeed += 1;
-      const url = 'https://loremflickr.com/640/420/' + imgKw[d.id] + '?lock=' + imgSeed;
+      const url = imgKw[d.id] || 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=640&q=80';
       return {
-        ...d,
-        accentHex: ac,
+        ...d, accentHex: ac,
         descShort: d.desc.length > 92 ? d.desc.slice(0, 89).replace(/[ ,.]+$/, '') + '…' : d.desc,
         imgStyle: "width:100%;height:100%;background-image:url('" + url + "');background-size:cover;background-position:center;background-color:" + ac + ";will-change:transform;",
-        checkStyle: 'width:16px;height:16px;border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;background:' + ac + ';color:' + (dark ? '#fff' : '#0a0a0a') + ';',
-        learnStyle: 'margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:10px;background:#fffaf0;border:1px solid #e0d9c6;color:#0a0a0a;font-weight:600;font-size:12.5px;cursor:pointer;',
+        checkStyle: 'width:16px;height:16px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;background:' + ac + ';color:' + (dark ? '#fff' : '#1a1a1a') + ';',
+        learnStyle: 'margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:4px;background:#ffffff;border:1px solid #e8e8e8;color:#1a1a1a;font-weight:600;font-size:12.5px;cursor:pointer;',
         onOpen: () => this.setState({ openService: d.id })
       };
     });
     const filteredServices = s.filter === 'all' ? allServices : allServices.filter(sv => sv.cat === s.filter);
-    const why = this.whyData.map(w => ({ ...w, dotStyle: 'width:44px;height:44px;border-radius:13px;margin-bottom:20px;background:' + C[w.c] + ';' }));
-
+    const whyIcons = { teal: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" stroke="#fff" stroke-width="2"/></svg>', ochre: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22V12M12 12C12 7 7 4 3 5c0 5 3 9 9 7M12 12c0-5 5-8 9-7-1 5-4 9-9 7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>', pink: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#fff" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>', lavender: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#fff" stroke-width="2"/><path d="M16 2v4M8 2v4M3 10h18" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>', coral: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>', mint: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#fff" stroke-width="2"/><circle cx="12" cy="9" r="2.5" stroke="#fff" stroke-width="2"/></svg>', peach: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#fff" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="#fff" stroke-width="2"/></svg>' };
+     const iconPaths={shield:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',leaf:'M12 22V12M12 12C12 7 7 4 3 5c0 5 3 9 9 7M12 12c0-5 5-8 9-7-1 5-4 9-9 7',clock:'M12 6v6l4 2',book:'M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z',map:'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z',chart:'M18 20V10M12 20V4M6 20v-6',star:'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',users:'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2',check:'M9 12l2 2 4-4M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z'};
+    const why = this.whyData.map(w=>({...w, dotStyle:'width:48px;height:48px;border-radius:10px;margin-bottom:20px;background:'+C[w.c]+';display:flex;align-items:center;justify-content:center;flex-shrink:0;', icon:w.icon}));
     const md = s.openService ? this.featuredServices.find(d => d.id === s.openService) : null;
     let modalOpen = false, modalTitle = '', modalLong = '', modalFeatures = [], modalSections = [], modalBannerStyle = '', modalTitleStyle = '', modalCloseStyle = '', modalCheckStyle = '';
     if (md) {
@@ -467,9 +373,9 @@ class Component extends DCLogic {
       const ac = C[md.accent], dark = accentDark[md.accent];
       modalTitle = md.label; modalLong = md.long; modalFeatures = md.features; modalSections = md.sections;
       modalBannerStyle = 'background:' + ac + ';padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;';
-      modalTitleStyle = "font-family:'Fredoka',sans-serif;font-weight:500;font-size:28px;letter-spacing:-1px;margin:0;line-height:1.05;color:" + (dark ? '#fff' : '#0a0a0a') + ";";
-      modalCloseStyle = 'width:38px;height:38px;border-radius:11px;border:none;cursor:pointer;font-size:16px;flex-shrink:0;background:' + (dark ? 'rgba(255,255,255,0.2)' : 'rgba(10,10,10,0.08)') + ';color:' + (dark ? '#fff' : '#0a0a0a') + ';';
-      modalCheckStyle = 'width:18px;height:18px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;background:' + ac + ';color:' + (dark ? '#fff' : '#0a0a0a') + ';';
+      modalTitleStyle = "font-family:'Manrope',Arial,sans-serif;font-weight:600;font-size:28px;letter-spacing:-1px;margin:0;line-height:1.0;color:" + (dark ? '#fff' : '#1a1a1a') + ";";
+      modalCloseStyle = 'width:38px;height:38px;border-radius:4px;border:none;cursor:pointer;font-size:16px;flex-shrink:0;background:' + (dark ? 'rgba(255,255,255,0.2)' : 'rgba(26,26,26,0.08)') + ';color:' + (dark ? '#fff' : '#1a1a1a') + ';';
+      modalCheckStyle = 'width:18px;height:18px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;background:' + ac + ';color:' + (dark ? '#fff' : '#1a1a1a') + ';';
     }
     return {
       toggleMenu: () => this.setState(st => ({ menuOpen: !st.menuOpen })),
@@ -477,20 +383,9 @@ class Component extends DCLogic {
       menuLine2Opacity: s.menuOpen ? '0' : '1',
       menuLine3Transform: s.menuOpen ? 'rotate(-45deg) translateY(-5px)' : 'none',
       mobileMenuOpen: s.menuOpen,
-      filterChips,
-      filteredServices,
-      why,
-      modalOpen,
-      modalTitle,
-      modalLong,
-      modalFeatures,
-      modalSections,
-      modalBannerStyle,
-      modalTitleStyle,
-      modalCloseStyle,
-      modalCheckStyle,
-      closeModal: () => this.setState({ openService: null }),
-      stop: (e) => e.stopPropagation()
+      filterChips, filteredServices, why,
+      modalOpen, modalTitle, modalLong, modalFeatures, modalSections, modalBannerStyle, modalTitleStyle, modalCloseStyle, modalCheckStyle,
+      closeModal: () => this.setState({ openService: null }), stop: (e) => e.stopPropagation()
     };
   }
 }

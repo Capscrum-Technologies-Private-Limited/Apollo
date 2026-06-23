@@ -1,5 +1,18 @@
 // GENERATED from dc-runtime/src/*.ts — do not edit. Rebuild with `cd dc-runtime && bun run build`.
 "use strict";
+
+// Global API Base URL configuration for deployment
+window.API_BASE_URL = ""; // SET YOUR BACKEND URL HERE (e.g., "https://your-backend.infinityfreeapp.com/")
+(function() {
+  const originalFetch = window.fetch;
+  window.fetch = function(input, init) {
+    if (typeof input === 'string' && input.startsWith('api/')) {
+      input = (window.API_BASE_URL || '') + input;
+    }
+    return originalFetch(input, init);
+  };
+})();
+
 (() => {
   var __defProp = Object.defineProperty;
   var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
