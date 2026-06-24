@@ -1,0 +1,5 @@
+# Custom Error Page Routing
+ErrorDocument 404 /404.html
+
+# Prevent Directory Listing for security
+Options -Indexes

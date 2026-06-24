@@ -5,9 +5,8 @@ require_once __DIR__ . '/api/db.php';
 $invoiceId = intval($_GET['invoice_id'] ?? 0);
 
 if ($invoiceId <= 0) {
-    http_response_code(400);
-    echo '<!DOCTYPE html><html><head><title>Error</title></head><body><h1>Invalid invoice ID.</h1></body></html>';
-    exit;
+    require_once __DIR__ . '/api/error_helper.php';
+    render_premium_error(400, 'Invalid Invoice Reference', 'The invoice reference ID provided is invalid or empty. Please check the link and try again.', './index.html');
 }
 
 // Fetch invoice + booking
@@ -22,9 +21,8 @@ $stmt->execute([':id' => $invoiceId]);
 $data = $stmt->fetch();
 
 if (!$data) {
-    http_response_code(404);
-    echo '<!DOCTYPE html><html><head><title>Not Found</title></head><body><h1>Invoice not found.</h1></body></html>';
-    exit;
+    require_once __DIR__ . '/api/error_helper.php';
+    render_premium_error(404, 'Invoice Not Found', 'No invoice matches the provided reference ID. It may have been archived or deleted from the server registries.', './index.html');
 }
 
 // If already paid, redirect to receipt

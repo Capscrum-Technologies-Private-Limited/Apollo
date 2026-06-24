@@ -27,9 +27,21 @@ try {
     ];
     $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
 } catch (PDOException $e) {
-    die(json_encode([
-        'status' => 'error',
-        'message' => 'Database connection failed: ' . $e->getMessage()
-    ]));
+    require_once __DIR__ . '/error_helper.php';
+    
+    // Determine if calling request is expecting JSON
+    $isApi = (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) || 
+             (isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false);
+             
+    if ($isApi) {
+        http_response_code(500);
+        die(json_encode([
+            'status' => 'error',
+            'message' => 'Database connection failed: ' . $e->getMessage()
+        ]));
+    } else {
+        $backLink = (strpos($_SERVER['REQUEST_URI'], '/admin/') !== false) ? '../index.html' : './index.html';
+        render_premium_error(500, 'Database Connection Failed', 'We were unable to establish a secure database connection. Please check your MySQL setup or run the installation portal.', $backLink);
+    }
 }
 ?>

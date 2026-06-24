@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found — Apollo Services</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: 'Manrope', Arial, sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+    ::selection { background: #c9e0fc; color: #1a1a1a; }
+
+    /* ── Top utility strip ── */
+    .util-strip {
+      background: #1a1a1a; color: #ffffff; font-size: 12px; height: 36px;
+      display: flex; align-items: center; flex-shrink: 0;
+      position: relative; z-index: 201;
+    }
+    .util-strip-inner {
+      max-width: 1366px; margin: 0 auto; padding: 0 24px; width: 100%;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .util-strip a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 12px; }
+    .util-strip .hours { color: rgba(255,255,255,0.6); font-size: 12px; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 200; height: 56px;
+      background: #ffffff; border-bottom: 1px solid #e8e8e8;
+      display: flex; align-items: center; flex-shrink: 0;
+    }
+    .nav-inner {
+      max-width: 1366px; margin: 0 auto; padding: 0 24px; width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { text-decoration: none; display: flex; align-items: center; }
+    .nav-logo .blue { font-weight: 800; font-size: 22px; letter-spacing: -0.5px; color: #1B3E6B; }
+    .nav-logo .dark { font-weight: 800; font-size: 22px; letter-spacing: -0.5px; color: #111111; }
+    .nav-links { display: flex; align-items: center; gap: 0; }
+    .nav-links a {
+      text-decoration: none; color: #1a1a1a; font-size: 14px; font-weight: 400;
+      padding: 0 16px; height: 56px; display: flex; align-items: center;
+      border-bottom: 2px solid transparent; white-space: nowrap;
+    }
+    .nav-links a:hover { color: #1B3E6B; }
+    .nav-book {
+      text-decoration: none; display: inline-flex; align-items: center;
+      height: 36px; padding: 0 18px; background: #1B3E6B; color: #ffffff;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+      text-transform: uppercase; border-radius: 0; transition: background 0.2s;
+    }
+    .nav-book:hover { background: #000000; }
+
+    /* ── 404 Main Container ── */
+    .main-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: #ffffff;
+      z-index: 10;
+    }
+
+    /* ── Content Layout ── */
+    .content-box {
+      margin: auto;
+      max-width: 800px;
+      padding: 40px 24px 60px;
+      text-align: center;
+      position: relative;
+      z-index: 12;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Reference Vector Image style */
+    .illustration-wrapper {
+      width: 100%;
+      max-width: 650px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeInUp 0.8s ease-out;
+    }
+    .illustration-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Screen Reader H1 */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      height: 46px;
+      padding: 0 28px;
+      background: #1B3E6B;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      border-radius: 0;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 4px 12px rgba(27, 62, 107, 0.15);
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+    .action-btn:hover {
+      background: #000000;
+      transform: translateY(-1px);
+    }
+    .action-btn i {
+      font-size: 12px;
+      transition: transform 0.2s;
+    }
+    .action-btn:hover i {
+      transform: translateX(-3px);
+    }
+
+    /* ── Squeegee Wipe Effect ── */
+    .squeegee-wipe {
+      position: fixed;
+      top: -110%; left: 0; width: 100%; height: 110%;
+      background: #1B3E6B;
+      z-index: 1000;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .squeegee-blade {
+      width: 100%;
+      height: 20px;
+      background: #111111;
+      border-top: 4px solid #f39c12;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .util-strip .hours { display: none; }
+      .nav-links { display: none; }
+      .illustration-wrapper { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Utility Strip -->
+  <div class="util-strip">
+    <div class="util-strip-inner">
+      <span style="display:flex;align-items:center;gap:20px;">
+        <a href="tel:0421602524">Call 0421 602 524</a>
+        <a href="mailto:Apollo.au@outlook.com">Apollo.au@outlook.com</a>
+      </span>
+      <span class="hours">Mon–Sat 6am–10:30pm · Sun 7:30am–7pm · Albury NSW</span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="blue">Apollo</span><span class="dark">&nbsp;Services</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="career.html">Career</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <a href="contact.html" class="nav-book">Book now</a>
+    </div>
+  </nav>
+
+  <!-- 404 Main Container -->
+  <div class="main-container">
+    <div class="content-box">
+      <!-- Screen Reader SEO Header -->
+      <h1 class="sr-only">404 Error: Page Not Found</h1>
+
+      <!-- Reference Vector Illustration -->
+      <div class="illustration-wrapper">
+        <img src="404-error.png" alt="404 Error: Looks like this page got messy and can't be found.">
+      </div>
+
+      <!-- Action Button with transition wipe -->
+      <a href="#" class="action-btn" id="goHomeBtn">
+        <i class="fa-solid fa-arrow-left"></i> Go Back Home
+      </a>
+    </div>
+  </div>
+
+  <!-- Squeegee Wipe Overlay -->
+  <div class="squeegee-wipe" id="squeegeeWipe">
+    <div class="squeegee-blade"></div>
+  </div>
+
+  <script>
+    // ── Go Home Squeegee Transition ──
+    const goHomeBtn = document.getElementById('goHomeBtn');
+    const squeegeeWipe = document.getElementById('squeegeeWipe');
+
+    goHomeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // Pull down squeegee wipe overlay
+      gsap.to(squeegeeWipe, {
+        top: 0,
+        duration: 1.1,
+        ease: 'power3.inOut',
+        onComplete: () => {
+          window.location.href = 'index.html';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
