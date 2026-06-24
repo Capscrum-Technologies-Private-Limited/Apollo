@@ -77,7 +77,7 @@
     /* ── Content Layout ── */
     .content-box {
       margin: auto;
-      max-width: 800px;
+      max-width: 960px;
       padding: 40px 24px 60px;
       text-align: center;
       position: relative;
@@ -91,7 +91,7 @@
     /* Reference Vector Image style */
     .illustration-wrapper {
       width: 100%;
-      max-width: 650px;
+      max-width: 680px;
       margin-bottom: 20px;
       display: flex;
       justify-content: center;
@@ -118,6 +118,74 @@
       border: 0;
     }
 
+    /* Services Section Header */
+    .services-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #636363;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      animation: fadeInUp 0.8s ease-out 0.1s both;
+    }
+
+    /* Services Bar Layout */
+    .services-bar {
+      display: flex;
+      background: #f8fafd;
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 30px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(27, 62, 107, 0.04);
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+    .service-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 14px;
+      text-decoration: none;
+      color: #1a1a1a;
+      transition: all 0.2s ease;
+      border-right: 1px solid #e8e8e8;
+    }
+    .service-item:last-child {
+      border-right: none;
+    }
+    .service-item:hover {
+      background: #ffffff;
+      color: #1B3E6B;
+      box-shadow: inset 0 -3px 0 #1B3E6B;
+    }
+    .service-icon {
+      font-size: 16px;
+      color: #1B3E6B;
+      transition: transform 0.2s ease;
+    }
+    .service-item:hover .service-icon {
+      transform: scale(1.1);
+    }
+    .service-name {
+      font-size: 12.5px;
+      font-weight: 600;
+      text-align: left;
+      line-height: 1.25;
+    }
+
+    /* Actions Layout */
+    .buttons-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      width: 100%;
+      animation: fadeInUp 0.8s ease-out 0.3s both;
+    }
     .action-btn {
       display: inline-flex;
       align-items: center;
@@ -133,7 +201,6 @@
       border-radius: 0;
       transition: background 0.2s, transform 0.2s;
       box-shadow: 0 4px 12px rgba(27, 62, 107, 0.15);
-      animation: fadeInUp 0.8s ease-out 0.2s both;
     }
     .action-btn:hover {
       background: #000000;
@@ -145,6 +212,28 @@
     }
     .action-btn:hover i {
       transform: translateX(-3px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      height: 46px;
+      padding: 0 28px;
+      background: #ffffff;
+      color: #1B3E6B;
+      border: 2px solid #1B3E6B;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      border-radius: 0;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover {
+      background: #c9e0fc;
+      border-color: #1B3E6B;
+      color: #1B3E6B;
     }
 
     /* ── Squeegee Wipe Effect ── */
@@ -178,10 +267,46 @@
     }
 
     /* ── Responsive ── */
+    @media (max-width: 991px) {
+      .services-bar {
+        flex-wrap: wrap;
+      }
+      .service-item {
+        flex: 0 0 50%;
+        border-bottom: 1px solid #e8e8e8;
+      }
+      .service-item:nth-child(even) {
+        border-right: none;
+      }
+      .service-item:nth-last-child(-n+2) {
+        border-bottom: none;
+      }
+    }
     @media (max-width: 768px) {
       .util-strip .hours { display: none; }
       .nav-links { display: none; }
       .illustration-wrapper { max-width: 100%; }
+    }
+    @media (max-width: 576px) {
+      .services-bar {
+        flex-direction: column;
+      }
+      .service-item {
+        flex: 0 0 100%;
+        border-right: none !important;
+        border-bottom: 1px solid #e8e8e8;
+      }
+      .service-item:last-child {
+        border-bottom: none;
+      }
+      .buttons-group {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .action-btn, .btn-secondary {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -227,10 +352,44 @@
         <img src="404-error.png" alt="404 Error: Looks like this page got messy and can't be found.">
       </div>
 
-      <!-- Action Button with transition wipe -->
-      <a href="#" class="action-btn" id="goHomeBtn">
-        <i class="fa-solid fa-arrow-left"></i> Go Back Home
-      </a>
+      <!-- Explore services bar -->
+      <h2 class="services-title">Explore Our Services</h2>
+      <div class="services-bar">
+        <a href="services.html#office" class="service-item">
+          <i class="fa-solid fa-building service-icon"></i>
+          <span class="service-name">Office Cleaning</span>
+        </a>
+        <a href="services.html#residential" class="service-item">
+          <i class="fa-solid fa-house service-icon"></i>
+          <span class="service-name">Residential Cleaning</span>
+        </a>
+        <a href="services.html#deep" class="service-item">
+          <i class="fa-solid fa-spray-can service-icon"></i>
+          <span class="service-name">Deep Cleaning</span>
+        </a>
+        <a href="services.html#glass" class="service-item">
+          <i class="fa-solid fa-hands-bubbles service-icon"></i>
+          <span class="service-name">Glass Cleaning</span>
+        </a>
+        <a href="services.html#housekeeping" class="service-item">
+          <i class="fa-solid fa-broom service-icon"></i>
+          <span class="service-name">Housekeeping</span>
+        </a>
+        <a href="services.html#facility" class="service-item">
+          <i class="fa-solid fa-gears service-icon"></i>
+          <span class="service-name">Facility Management</span>
+        </a>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="buttons-group">
+        <a href="#" class="action-btn" id="goHomeBtn">
+          <i class="fa-solid fa-arrow-left"></i> Go Back Home
+        </a>
+        <a href="contact.html" class="btn-secondary">
+          Book a Service <i class="fa-solid fa-calendar-days"></i>
+        </a>
+      </div>
     </div>
   </div>
 
