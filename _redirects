@@ -1,1 +1,7 @@
-# No redirects needed - just serve all static files
+/portfolio/index.html /portfolio/ 301
+/portfolio/about.html /portfolio/about 301
+/portfolio/services.html /portfolio/services 301
+/portfolio/portfolio.html /portfolio/portfolio 301
+/portfolio/career.html /portfolio/career 301
+/portfolio/contact.html /portfolio/contact 301
+/portfolio/blog.html /portfolio/blog 301
