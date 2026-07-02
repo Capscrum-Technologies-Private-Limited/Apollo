@@ -359,7 +359,12 @@
 
       <!-- Reference Vector Illustration -->
       <div class="illustration-wrapper">
-        <img src="/404-error.png" alt="404 Error: Looks like this page got messy and can't be found.">
+        <img src="./404-error.png" alt="404 Error: Looks like this page got messy and can't be found." onerror="this.style.display='none';document.getElementById('fa-404').style.display='flex';">
+        <div id="fa-404" style="display:none;flex-direction:column;align-items:center;gap:16px;padding:40px 0;">
+          <i class="fa-solid fa-broom" style="font-size:80px;color:#1B3E6B;opacity:0.25;"></i>
+          <p style="font-size:22px;font-weight:600;color:#1a1a1a;">404 — Page not found</p>
+          <p style="font-size:15px;color:#636363;">Looks like this page got messy and can't be found.</p>
+        </div>
       </div>
 
       <!-- Explore services bar -->
